@@ -9,15 +9,11 @@
 import Foundation
 import WebKit
 
-struct Action: Codable {
-    var id: Float
-    var plugin: String
-    var command: String?
-    //var args: Array<String>?
-}
+typealias Action = [String: Any]
+
 
 struct Response: Codable {
-    var id: Float
+    var id: Double
     var command: String
     //var args: Array<String>?
     var msg: String?
@@ -25,9 +21,9 @@ struct Response: Codable {
 
 class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
 
-    private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
     private var webview: WKWebView
+    private let backend = LocalForageMemoryBackend()
 
     init(webview: WKWebView) {
         self.webview = webview
@@ -35,18 +31,55 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
     
     private func getItem(_ action: Action) {
-        
+        let args = action["args"] as! [String]
+        let value = backend.getItem(key: args[0], action: action)
+        // FIXME: handle {
+        postResponseToWebview([value], action)
     }
 
-    private func postErrorToWebview(msg: String, _ action: Action) {
-        let response: Response = Response(id: action.id, command: "error", msg: msg)
-        postResponseToWebview(response)
+    func setItem(_ action: Action42) {
+        let args = action["args"] as! [String]
+        let key = args[0]
+        let value = args[1]
+        backend.setItem(key: key, base64: value, action: action)
     }
     
-    private func postResponseToWebview(_ response: Response) {
-        let text = try? encoder.encode(response)
-        let escaped = text // FIXME escape
-        let js = "window.iosWrapper.receiveFromIos(\(escaped!));"
+    func removeItem(_ action: Action42) {
+        let args = action["args"] as! [String]
+        backend.removeItem(key: args[0], action: action)
+    }
+    
+    func clear(_ action: Action42) {
+        backend.clear(action: action)
+    }
+    
+    func config(_ action: Action42) {
+        backend.config(action: action)
+    }
+
+    private func postResponseToWebview(args: String, _ action: Action) {
+        let id = action["id"] as! Double
+        let response: Response = Response(id: id, command: "error", msg: msg)
+        let data = try! encoder.encode(response)
+        postDataToWebview(data)
+    }
+    
+    private func postErrorToWebview(msg: String, _ action: Action) {
+        let id = action["id"] as! Double
+        let response: Response = Response(id: id, command: "error", msg: msg)
+        let data = try! encoder.encode(response)
+        postDataToWebview(data)
+    }
+    
+    private func postDataToWebview(_ data: Data) {
+        let textString = String(data: data, encoding: .utf8)
+        // JSON serializer is used to escape the string
+        let escapedData = try! JSONSerialization.data(withJSONObject: [textString] as Any)
+        let escapedStringArray = String(data: escapedData, encoding: .utf8)!
+        let start = escapedStringArray.index(escapedStringArray.startIndex, offsetBy: 2)
+        let end = escapedStringArray.index(escapedStringArray.endIndex, offsetBy: -2)
+        let substr = escapedStringArray[start..<end]
+        let js = "window.iosWrapper.receiveFromIos('\(substr)');"
         print("Posting response \(js)")
         webview.evaluateJavaScript(js)
     }
@@ -55,18 +88,26 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         if message.name == "ios" {
             let bodyString = message.body as! String
             let data = bodyString.data(using: .utf8)!
-            let action = try? decoder.decode(Action.self, from: data)
-            if action == nil || action!.plugin != "localforage" {
+            let json = try! JSONSerialization.jsonObject(with: data) as! [String : Any]
+            let plugin = json["plugin"] as! String
+            if plugin != "localforage" {
                 return
             }
                 
-            let command = action!.command!
+            let command = json["command"] as! String
             switch command {
                 case "getItem":
-                    getItem(action!)
+                    getItem(json)
+                case "setItem":
+                    setItem(json)
+                case "removeItem":
+                    removeItem(json)
+                case "clear":
+                    clear(json)
+                case "config":
+                    config(json)
                 default:
-                    postErrorToWebview(msg: "Unhandled command \(command)", action!)
-                }
+                    postErrorToWebview(msg: "Unhandled command \(command)", json)
             }
         }
     }
