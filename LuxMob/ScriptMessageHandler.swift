@@ -23,7 +23,7 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
 
     private let encoder = JSONEncoder()
     private var webview: WKWebView
-    private let backend = LocalForageMemoryBackend()
+    private let backend = LocalForageSqliteBackend()
 
     init(webview: WKWebView) {
         self.webview = webview
@@ -91,6 +91,7 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "ios" {
             let bodyString = message.body as! String
+            print("received from js \(bodyString)"	)
             let data = bodyString.data(using: .utf8)!
             let json = try! JSONSerialization.jsonObject(with: data) as! [String : Any]
             let plugin = json["plugin"] as! String

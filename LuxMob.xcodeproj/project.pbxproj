@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		F5346E09221AF06500BF8E29 /* IBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E08221AF06500BF8E29 /* IBackend.swift */; };
 		F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */; };
+		F5346E0E221EB88F00BF8E29 /* LocalforageSQliteBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */; };
+		F5346E0F221EB88F00BF8E29 /* SQliteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0D221EB88F00BF8E29 /* SQliteWrapper.swift */; };
+		F5346E12221EB95100BF8E29 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F5346E11221EB95100BF8E29 /* libsqlite3.tbd */; };
 		F5E0B7652215C8EA00D28D25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */; };
 		F5E0B7672215C8EA00D28D25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E0B7662215C8EA00D28D25 /* ViewController.swift */; };
 		F5E0B76A2215C8EA00D28D25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5E0B7682215C8EA00D28D25 /* Main.storyboard */; };
@@ -20,6 +23,9 @@
 /* Begin PBXFileReference section */
 		F5346E08221AF06500BF8E29 /* IBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBackend.swift; sourceTree = "<group>"; };
 		F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalforageMemoryBackend.swift; sourceTree = "<group>"; };
+		F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalforageSQliteBackend.swift; sourceTree = "<group>"; };
+		F5346E0D221EB88F00BF8E29 /* SQliteWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQliteWrapper.swift; sourceTree = "<group>"; };
+		F5346E11221EB95100BF8E29 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F5E0B7612215C8EA00D28D25 /* LuxMob.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LuxMob.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5E0B7662215C8EA00D28D25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5346E12221EB95100BF8E29 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,10 +51,20 @@
 		F5346E07221AF02E00BF8E29 /* backends */ = {
 			isa = PBXGroup;
 			children = (
+				F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */,
+				F5346E0D221EB88F00BF8E29 /* SQliteWrapper.swift */,
 				F5346E08221AF06500BF8E29 /* IBackend.swift */,
 				F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */,
 			);
 			path = backends;
+			sourceTree = "<group>";
+		};
+		F5346E10221EB95100BF8E29 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5346E11221EB95100BF8E29 /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F5E0B7582215C8EA00D28D25 = {
@@ -55,6 +72,7 @@
 			children = (
 				F5E0B7632215C8EA00D28D25 /* LuxMob */,
 				F5E0B7622215C8EA00D28D25 /* Products */,
+				F5346E10221EB95100BF8E29 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,7 +170,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5346E0E221EB88F00BF8E29 /* LocalforageSQliteBackend.swift in Sources */,
 				F5E7A6F62216CDCA00A1EE98 /* ScriptMessageHandler.swift in Sources */,
+				F5346E0F221EB88F00BF8E29 /* SQliteWrapper.swift in Sources */,
 				F5E0B7672215C8EA00D28D25 /* ViewController.swift in Sources */,
 				F5346E09221AF06500BF8E29 /* IBackend.swift in Sources */,
 				F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */,
