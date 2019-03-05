@@ -31,7 +31,9 @@ class SQLiteDatabase {
     static func open(path: String) throws -> SQLiteDatabase {
       var db: OpaquePointer? = nil
         var dbWrapper: SQLiteDatabase? = nil
-      if sqlite3_open(path, &db) == SQLITE_OK {
+        print(sqlite3_threadsafe())
+        if sqlite3_open_v2(path, &db, SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, nil) == SQLITE_OK {
+            print("success")
         let db = SQLiteDatabase(dbPointer: db)
         try? db.createTable()
         try! db.prepareStatements()

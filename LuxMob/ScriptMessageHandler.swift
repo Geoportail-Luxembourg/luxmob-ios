@@ -24,6 +24,7 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     private let encoder = JSONEncoder()
     private var webview: WKWebView
     private let backend = LocalForageSqliteBackend()
+    private let backendQueue = DispatchQueue(label: "myBackendQueue", qos: .userInitiated, attributes: [])
 
     init(webview: WKWebView) {
         self.webview = webview
@@ -32,32 +33,58 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     
     private func getItem(_ action: Action) {
         let args = action["args"] as! [String]
-        let value = backend.getItem(key: args[0], action: action)
-        postResponseToWebview(args: [value], action)
+        
+        backendQueue.async {
+            print(Thread.current)
+            let value = self.backend.getItem(key: args[0], action: action)
+            DispatchQueue.main.async {
+                self.postResponseToWebview(args: [value], action)
+            }
+        }
     }
 
     func setItem(_ action: Action42) {
         let args = action["args"] as! [Any]
         let key = args[0] as! String
         let value = args[1] as! String
-        backend.setItem(key: key, base64: value, action: action)
-        postResponseToWebview(args: [], action)
+        backendQueue.async {
+            print(Thread.current)
+            self.backend.setItem(key: key, base64: value, action: action)
+            DispatchQueue.main.async {
+                self.postResponseToWebview(args: [], action)
+            }
+        }
     }
     
     func removeItem(_ action: Action42) {
         let args = action["args"] as! [String]
-        backend.removeItem(key: args[0], action: action)
-        postResponseToWebview(args: [], action)
+        backendQueue.async {
+            print(Thread.current)
+            self.backend.removeItem(key: args[0], action: action)
+            DispatchQueue.main.async {
+                self.postResponseToWebview(args: [], action)
+            }
+        }
     }
     
     func clear(_ action: Action42) {
-        backend.clear(action: action)
-        postResponseToWebview(args: [], action)
+        backendQueue.async {
+            print(Thread.current)
+            self.backend.clear(action: action)
+            DispatchQueue.main.async {
+                self.postResponseToWebview(args: [], action)
+            }
+        }
     }
     
     func config(_ action: Action42) {
-        backend.config(action: action)
-        postResponseToWebview(args: [], action)
+        backendQueue.async {
+            print(Thread.current)
+            self.backend.config(action: action)
+            DispatchQueue.main.async {
+                self.postResponseToWebview(args: [], action)
+            }
+        }
     }
 
     private func postResponseToWebview(args: [String?], _ action: Action) {
@@ -84,14 +111,12 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         let end = escapedStringArray.index(escapedStringArray.endIndex, offsetBy: -2)
         let substr = escapedStringArray[start..<end]
         let js = "window.iosWrapper.receiveFromIos('\(substr)');"
-        print("Posting response \(js)")
         webview.evaluateJavaScript(js)
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "ios" {
             let bodyString = message.body as! String
-            print("received from js \(bodyString)"	)
             let data = bodyString.data(using: .utf8)!
             let json = try! JSONSerialization.jsonObject(with: data) as! [String : Any]
             let plugin = json["plugin"] as! String
