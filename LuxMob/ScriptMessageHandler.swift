@@ -19,27 +19,72 @@ struct Response: Codable {
     var msg: String?
 }
 
+class SynchronizedStringStore {
+    private var strings: [String] = []
+    private var mutex = pthread_mutex_t()
+    
+    init() {
+        pthread_mutex_init(&mutex, nil)
+    }
+
+    func removeFirst() -> String {
+        pthread_mutex_lock(&mutex)
+        defer {
+            pthread_mutex_unlock(&mutex)
+        }
+        return strings.removeFirst()
+    }
+
+    func append(_ str: String) {
+        pthread_mutex_lock(&mutex)
+        defer {
+            pthread_mutex_unlock(&mutex)
+        }
+        strings.append(str)
+    }
+}
+
 class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
 
     private let encoder = JSONEncoder()
     private var webview: WKWebView
-    private let backend = LocalForageSqliteBackend()
+    private var backend: LocalForageSqliteBackend?
     private let backendQueue = DispatchQueue(label: "myBackendQueue", qos: .userInitiated, attributes: [])
+    private let semaphore = DispatchSemaphore(value: 0)
+    private var backendThread: Thread?
+    private var webviewMesages = SynchronizedStringStore()
 
     init(webview: WKWebView) {
         self.webview = webview
         super.init()
+        backendThread = Thread { [unowned semaphore, unowned self] in
+            while true {
+                semaphore.wait()
+                if Thread.current.isCancelled {
+                    return
+                }
+                let msg = self.webviewMesages.removeFirst()
+                self.handleMessage(msg: msg)
+            }
+        }
+        backendThread!.start()
     }
     
+    deinit {
+        backendThread!.cancel()
+        semaphore.signal()
+    }
+
+    private func printThread() {
+        print(Thread.current)
+    }
+
     private func getItem(_ action: Action) {
         let args = action["args"] as! [String]
-        
-        backendQueue.async {
-            print(Thread.current)
-            let value = self.backend.getItem(key: args[0], action: action)
-            DispatchQueue.main.async {
-                self.postResponseToWebview(args: [value], action)
-            }
+        self.printThread()
+        let value = self.backend!.getItem(key: args[0], action: action)
+        DispatchQueue.main.async {
+            self.postResponseToWebview(args: [value], action)
         }
     }
 
@@ -47,45 +92,38 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         let args = action["args"] as! [Any]
         let key = args[0] as! String
         let value = args[1] as! String
-        backendQueue.async {
-            print(Thread.current)
-            self.backend.setItem(key: key, base64: value, action: action)
-            DispatchQueue.main.async {
-                self.postResponseToWebview(args: [], action)
-            }
+        self.printThread()
+        self.backend!.setItem(key: key, base64: value, action: action)
+        DispatchQueue.main.async {
+            self.postResponseToWebview(args: [], action)
         }
     }
     
     func removeItem(_ action: Action42) {
         let args = action["args"] as! [String]
-        backendQueue.async {
-            print(Thread.current)
-            self.backend.removeItem(key: args[0], action: action)
-            DispatchQueue.main.async {
-                self.postResponseToWebview(args: [], action)
-            }
+        self.printThread()
+        self.backend!.removeItem(key: args[0], action: action)
+        DispatchQueue.main.async {
+            self.postResponseToWebview(args: [], action)
         }
     }
     
     func clear(_ action: Action42) {
-        backendQueue.async {
-            print(Thread.current)
-            self.backend.clear(action: action)
-            DispatchQueue.main.async {
-                self.postResponseToWebview(args: [], action)
-            }
+        self.printThread()
+        self.backend!.clear(action: action)
+        DispatchQueue.main.async {
+            self.postResponseToWebview(args: [], action)
         }
     }
     
     func config(_ action: Action42) {
-        backendQueue.async {
-            print(Thread.current)
-            self.backend.config(action: action)
-            DispatchQueue.main.async {
-                self.postResponseToWebview(args: [], action)
-            }
+        self.printThread()
+        self.backend = LocalForageSqliteBackend()
+        self.backend!.config(action: action)
+        DispatchQueue.main.async {
+            self.postResponseToWebview(args: [], action)
         }
-    }
+}
 
     private func postResponseToWebview(args: [String?], _ action: Action) {
         let id = action["id"] as! Double
@@ -114,31 +152,36 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         webview.evaluateJavaScript(js)
     }
     
+    private func handleMessage(msg: String) {
+        let data = msg.data(using: .utf8)!
+        let json = try! JSONSerialization.jsonObject(with: data) as! [String : Any]
+        let plugin = json["plugin"] as! String
+        if plugin != "localforage" {
+            return
+        }
+        
+        let command = json["command"] as! String
+        switch command {
+        case "getItem":
+            getItem(json)
+        case "setItem":
+            setItem(json)
+        case "removeItem":
+            removeItem(json)
+        case "clear":
+            clear(json)
+        case "config":
+            config(json)
+        default:
+            postErrorToWebview(msg: "Unhandled command \(command)", json)
+        }
+    }
+
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "ios" {
-            let bodyString = message.body as! String
-            let data = bodyString.data(using: .utf8)!
-            let json = try! JSONSerialization.jsonObject(with: data) as! [String : Any]
-            let plugin = json["plugin"] as! String
-            if plugin != "localforage" {
-                return
-            }
-                
-            let command = json["command"] as! String
-            switch command {
-                case "getItem":
-                    getItem(json)
-                case "setItem":
-                    setItem(json)
-                case "removeItem":
-                    removeItem(json)
-                case "clear":
-                    clear(json)
-                case "config":
-                    config(json)
-                default:
-                    postErrorToWebview(msg: "Unhandled command \(command)", json)
-            }
+            let msg = message.body as! String
+            webviewMesages.append(msg)
+            semaphore.signal()
         }
     }
 }

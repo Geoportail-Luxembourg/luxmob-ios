@@ -126,25 +126,34 @@ class SQLiteDatabase {
   }
 
 func insertItem(key: String, value: String) throws {
-    sqlite3_reset(self.insertStatement)
-    guard sqlite3_bind_text(self.insertStatement, 1, key, -1, nil) == SQLITE_OK  &&
-        sqlite3_bind_text(self.insertStatement, 2, value, -1, nil) == SQLITE_OK else {
+    let insertSql = "INSERT INTO Offline (key, value) VALUES (?, ?);"
+    let insertStatement = try prepareStatement(sql: insertSql)
+    
+    defer {
+        sqlite3_finalize(insertStatement)
+    }
+    guard sqlite3_bind_text(insertStatement, 1, key, -1, nil) == SQLITE_OK  &&
+        sqlite3_bind_text(insertStatement, 2, value, -1, nil) == SQLITE_OK else {
             throw SQLiteError.Bind(message: errorMessage)
     }
     
-    guard sqlite3_step(self.insertStatement) == SQLITE_DONE else {
+    guard sqlite3_step(insertStatement) == SQLITE_DONE else {
         throw SQLiteError.Step(message: errorMessage)
     }
 }
     
     func updateItem(key: String, value: String) throws {
-        sqlite3_reset(self.updateStatement)
-        guard sqlite3_bind_text(self.updateStatement, 2, key, -1, nil) == SQLITE_OK  &&
-            sqlite3_bind_text(self.updateStatement, 1, value, -1, nil) == SQLITE_OK else {
+        let updateSql = "UPDATE Offline SET value=? WHERE key = ?;"
+        let updateStatement = try prepareStatement(sql: updateSql)
+        defer {
+            sqlite3_finalize(updateStatement)
+        }
+        guard sqlite3_bind_text(updateStatement, 2, key, -1, nil) == SQLITE_OK  &&
+            sqlite3_bind_text(updateStatement, 1, value, -1, nil) == SQLITE_OK else {
                 throw SQLiteError.Bind(message: errorMessage)
         }
         
-        guard sqlite3_step(self.updateStatement) == SQLITE_DONE else {
+        guard sqlite3_step(updateStatement) == SQLITE_DONE else {
             throw SQLiteError.Step(message: errorMessage)
         }
     }
