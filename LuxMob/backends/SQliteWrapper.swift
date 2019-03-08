@@ -179,7 +179,7 @@ func setItem(key: String, value: String) throws {
       return nil
     }
 
-    let queryResultCol1 = sqlite3_column_text(self.selectStatement, 1)
+    let queryResultCol1 = sqlite3_column_text(self.selectStatement, 0)
     if queryResultCol1 != nil {
         return String(cString: queryResultCol1!)
     }
