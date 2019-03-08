@@ -48,7 +48,7 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
 
     private let encoder = JSONEncoder()
     private var webview: WKWebView
-    private var backend: LocalForageSqliteBackend?
+    private var backend: IBackend?
     private let backendQueue = DispatchQueue(label: "myBackendQueue", qos: .userInitiated, attributes: [])
     private let semaphore = DispatchSemaphore(value: 0)
     private var backendThread: Thread?
