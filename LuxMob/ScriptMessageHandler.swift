@@ -19,111 +19,49 @@ struct Response: Codable {
     var msg: String?
 }
 
-class SynchronizedStringStore {
-    private var strings: [String] = []
-    private var mutex = pthread_mutex_t()
-    
-    init() {
-        pthread_mutex_init(&mutex, nil)
-    }
-
-    func removeFirst() -> String {
-        pthread_mutex_lock(&mutex)
-        defer {
-            pthread_mutex_unlock(&mutex)
-        }
-        return strings.removeFirst()
-    }
-
-    func append(_ str: String) {
-        pthread_mutex_lock(&mutex)
-        defer {
-            pthread_mutex_unlock(&mutex)
-        }
-        strings.append(str)
-    }
-}
-
 class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
 
     private let encoder = JSONEncoder()
     private var webview: WKWebView
     private var backend: IBackend?
     private let backendQueue = DispatchQueue(label: "myBackendQueue", qos: .userInitiated, attributes: [])
-    private let semaphore = DispatchSemaphore(value: 0)
-    private var backendThread: Thread?
-    private var webviewMesages = SynchronizedStringStore()
+
 
     init(webview: WKWebView) {
         self.webview = webview
         super.init()
-        backendThread = Thread { [unowned semaphore, unowned self] in
-            while true {
-                semaphore.wait()
-                if Thread.current.isCancelled {
-                    return
-                }
-                let msg = self.webviewMesages.removeFirst()
-                self.handleMessage(msg: msg)
-            }
-        }
-        backendThread!.start()
-    }
-    
-    deinit {
-        backendThread!.cancel()
-        semaphore.signal()
-    }
-
-    private func printThread() {
-        print(Thread.current)
     }
 
     private func getItem(_ action: Action) {
         let args = action["args"] as! [String]
-        self.printThread()
-        let value = self.backend!.getItem(key: args[0], action: action)
-        DispatchQueue.main.async {
-            self.postResponseToWebview(args: [value], action)
-        }
+        let value = backend!.getItem(key: args[0], action: action)
+        postResponseToWebview(args: [value], action)
     }
 
-    func setItem(_ action: Action42) {
+    func setItem(_ action: Action) {
         let args = action["args"] as! [String]
         let key = args[0]
         let value = args[1]
-        self.printThread()
-        self.backend!.setItem(key: key, base64: value, action: action)
-        DispatchQueue.main.async {
-            self.postResponseToWebview(args: [], action)
-        }
+        backend!.setItem(key: key, base64: value, action: action)
+        postResponseToWebview(args: [], action)
     }
     
-    func removeItem(_ action: Action42) {
+    func removeItem(_ action: Action) {
         let args = action["args"] as! [String]
-        self.printThread()
-        self.backend!.removeItem(key: args[0], action: action)
-        DispatchQueue.main.async {
-            self.postResponseToWebview(args: [], action)
-        }
+        backend!.removeItem(key: args[0], action: action)
+        postResponseToWebview(args: [], action)
     }
     
-    func clear(_ action: Action42) {
-        self.printThread()
-        self.backend!.clear(action: action)
-        DispatchQueue.main.async {
-            self.postResponseToWebview(args: [], action)
-        }
+    func clear(_ action: Action) {
+        backend!.clear(action: action)
+        postResponseToWebview(args: [], action)
     }
     
-    func config(_ action: Action42) {
-        self.printThread()
-        self.backend = LocalForageSqliteBackend()
-        self.backend!.config(action: action)
-        DispatchQueue.main.async {
-            self.postResponseToWebview(args: [], action)
-        }
-}
+    func config(_ action: Action) {
+        backend = LocalForageSqliteBackend()
+        backend!.config(action: action)
+        postResponseToWebview(args: [], action)
+    }
 
     private func postResponseToWebview(args: [String?], _ action: Action) {
         let id = (action["id"] as! NSNumber).intValue
@@ -149,7 +87,9 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         let end = escapedStringArray.index(escapedStringArray.endIndex, offsetBy: -2)
         let substr = escapedStringArray[start..<end]
         let js = "window.iosWrapper.receiveFromIos('\(substr)');"
-        webview.evaluateJavaScript(js)
+        DispatchQueue.main.async {
+            self.webview.evaluateJavaScript(js)
+        }
     }
     
     private func handleMessage(msg: String) {
@@ -173,15 +113,18 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
         case "config":
             config(json)
         default:
-            postErrorToWebview(msg: "Unhandled command \(command)", json)
+            DispatchQueue.main.async {
+                self.postErrorToWebview(msg: "Unhandled command \(command)", json)
+            }
         }
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "ios" {
             let msg = message.body as! String
-            webviewMesages.append(msg)
-            semaphore.signal()
+            backendQueue.async {
+                self.handleMessage(msg: msg)
+            }
         }
     }
 }
