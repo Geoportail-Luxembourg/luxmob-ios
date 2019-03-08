@@ -126,7 +126,7 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
 }
 
     private func postResponseToWebview(args: [String?], _ action: Action) {
-        let id = action["id"] as! Int
+        let id = (action["id"] as! NSNumber).intValue
         let command = "response"
         let response: Response = Response(id: id, command: command, args: args, msg: "")
         let data = try! encoder.encode(response)
@@ -134,7 +134,7 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
     
     private func postErrorToWebview(msg: String, _ action: Action) {
-        let id = action["id"] as! Int
+        let id = (action["id"] as! NSNumber).intValue
         let response: Response = Response(id: id, command: "error", args: [], msg: msg)
         let data = try! encoder.encode(response)
         postDataToWebview(data)

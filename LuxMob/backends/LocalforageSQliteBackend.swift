@@ -6,32 +6,47 @@
 //  Copyright © 2019 Camptocamp. All rights reserved.
 //
 
+import GRDB
 import Foundation
 
 class LocalForageSqliteBackend: IBackend {
     
-    var db: SQLiteDatabase? = nil
+    var dbQueue: DatabaseQueue? = nil
 
     func getItem(key: String, action: Action42) -> String? {
-        return db!.getItem(key: key)
+        var value: String?
+        try? dbQueue?.read { db in
+            value = try String.fetchOne(db, "SELECT value FROM Offline WHERE key = ?", arguments: [key])
+        }
+        return value
     }
     
     func setItem(key: String, base64: String, action: Action42) {
-        // FIXME: what to do in case of
-        try? db!.setItem(key: key, value: base64)
+        try? dbQueue?.write { db in
+            try db.execute(
+                "INSERT INTO Offline (key, value) VALUES (?, ?)",
+                arguments: [key, base64])
+        }
     }
     
     func removeItem(key: String, action: Action42) {
-        db!.removeItem(key: key)
+        try? dbQueue?.write { db in
+            try db.execute("DELETE FROM Offline WHERE key = ?", arguments: [key])
+        }
     }
     
     func clear(action: Action42) {
-        db!.clear()
+        try? dbQueue?.write { db in
+            try db.execute("DELETE FROM Offline")
+        }
     }
     
     func config(action: Action42) {
         var fileUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         fileUrl.appendPathComponent("my_super_lux.db")
-        try? db = SQLiteDatabase.open(path: fileUrl.path)
+        try? dbQueue = DatabaseQueue(path: fileUrl.path)
+        try? dbQueue?.write { db in
+            try db.execute("CREATE TABLE offline (key TEXT PRIMARY KEY, value TEXT)")
+        }
     }
 }
