@@ -89,9 +89,9 @@ class ScriptMessageHandler: NSObject, WKScriptMessageHandler {
     }
 
     func setItem(_ action: Action42) {
-        let args = action["args"] as! [Any]
-        let key = args[0] as! String
-        let value = args[1] as! String
+        let args = action["args"] as! [String]
+        let key = args[0]
+        let value = args[1]
         self.printThread()
         self.backend!.setItem(key: key, base64: value, action: action)
         DispatchQueue.main.async {
