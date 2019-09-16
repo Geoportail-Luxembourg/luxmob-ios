@@ -17,7 +17,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // let url = URL(string: "http://wrk29.wrk.lsn.camptocamp.com:5000?localforage=ios&localhost")
-        let url = URL(string: "https://offline-demo.geoportail.lu?localforage=ios")
+        let url = URL(string: "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes") //new map link
         // let url = URL(string: "https://offline-demo.geoportail.lu") // 100% functional, without native backend
         webView!.load(URLRequest(url: url!))
         webView!.allowsBackForwardNavigationGestures = true
