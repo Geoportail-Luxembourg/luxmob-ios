@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DADF97362334B34A0062ABFF /* Assets.xcassets */; };
 		F5346E09221AF06500BF8E29 /* IBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E08221AF06500BF8E29 /* IBackend.swift */; };
 		F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */; };
 		F5346E0E221EB88F00BF8E29 /* LocalforageSQliteBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */; };
@@ -15,7 +16,6 @@
 		F5E0B7652215C8EA00D28D25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */; };
 		F5E0B7672215C8EA00D28D25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E0B7662215C8EA00D28D25 /* ViewController.swift */; };
 		F5E0B76A2215C8EA00D28D25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5E0B7682215C8EA00D28D25 /* Main.storyboard */; };
-		F5E0B76C2215C8EC00D28D25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5E0B76B2215C8EC00D28D25 /* Assets.xcassets */; };
 		F5E0B76F2215C8EC00D28D25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5E0B76D2215C8EC00D28D25 /* LaunchScreen.storyboard */; };
 		F5E7A6F62216CDCA00A1EE98 /* ScriptMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E7A6F52216CDCA00A1EE98 /* ScriptMessageHandler.swift */; };
 /* End PBXBuildFile section */
@@ -108,6 +108,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DADF97362334B34A0062ABFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5346E08221AF06500BF8E29 /* IBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBackend.swift; sourceTree = "<group>"; };
 		F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalforageMemoryBackend.swift; sourceTree = "<group>"; };
 		F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalforageSQliteBackend.swift; sourceTree = "<group>"; };
@@ -118,7 +119,6 @@
 		F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5E0B7662215C8EA00D28D25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F5E0B7692215C8EA00D28D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F5E0B76B2215C8EC00D28D25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5E0B76E2215C8EC00D28D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5E0B7702215C8EC00D28D25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5E7A6F52216CDCA00A1EE98 /* ScriptMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptMessageHandler.swift; sourceTree = "<group>"; };
@@ -195,8 +195,8 @@
 				F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */,
 				F5E0B7662215C8EA00D28D25 /* ViewController.swift */,
 				F5E0B7682215C8EA00D28D25 /* Main.storyboard */,
-				F5E0B76B2215C8EC00D28D25 /* Assets.xcassets */,
 				F5E0B76D2215C8EC00D28D25 /* LaunchScreen.storyboard */,
+				DADF97362334B34A0062ABFF /* Assets.xcassets */,
 				F5E0B7702215C8EC00D28D25 /* Info.plist */,
 				F5E7A6F52216CDCA00A1EE98 /* ScriptMessageHandler.swift */,
 			);
@@ -330,7 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5E0B76F2215C8EC00D28D25 /* LaunchScreen.storyboard in Resources */,
-				F5E0B76C2215C8EC00D28D25 /* Assets.xcassets in Resources */,
+				DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */,
 				F5E0B76A2215C8EA00D28D25 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
