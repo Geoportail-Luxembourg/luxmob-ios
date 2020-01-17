@@ -13,7 +13,7 @@ import WebKit
 class ViewController: UIViewController, WKNavigationDelegate {
 
     var webView : WKWebView?
-    var websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes"
+    var websiteURL : String = "https://map.app.geoportail.lu?localforage=ios&ipv6=true&applogin=yes"
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +22,12 @@ class ViewController: UIViewController, WKNavigationDelegate {
         // let url = URL(string: "https://offline-demo.geoportail.lu") // 100% functional, without native backend
         webView!.load(URLRequest(url: url!))
         webView!.allowsBackForwardNavigationGestures = true
+        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     override func loadView() {
