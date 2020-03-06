@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  LuxMob
+//  geoportail.lu
 //
 //  Created by Camptocamp on 14.02.19.
 //  Copyright © 2019 Camptocamp. All rights reserved.

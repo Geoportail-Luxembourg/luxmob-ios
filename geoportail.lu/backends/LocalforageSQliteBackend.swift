@@ -1,6 +1,6 @@
 //
 //  LocalforageSQliteBackend.swift
-//  LuxMob
+//  geoportail.lu
 //
 //  Created by Camptocamp on 18.02.20.
 //  Copyright © 2019 Camptocamp. All rights reserved.

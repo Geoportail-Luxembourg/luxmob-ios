@@ -108,6 +108,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA8F36C123A7EFFD000C5B36 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADF97362334B34A0062ABFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5346E08221AF06500BF8E29 /* IBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBackend.swift; sourceTree = "<group>"; };
 		F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalforageMemoryBackend.swift; sourceTree = "<group>"; };
@@ -120,7 +121,6 @@
 		F5E0B7662215C8EA00D28D25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F5E0B7692215C8EA00D28D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F5E0B76E2215C8EC00D28D25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		F5E0B7702215C8EC00D28D25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5E7A6F52216CDCA00A1EE98 /* ScriptMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptMessageHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,7 +174,7 @@
 		F5E0B7582215C8EA00D28D25 = {
 			isa = PBXGroup;
 			children = (
-				F5E0B7632215C8EA00D28D25 /* LuxMob */,
+				F5E0B7632215C8EA00D28D25 /* geoportail.lu */,
 				F5E0B7622215C8EA00D28D25 /* Products */,
 				F5346E10221EB95100BF8E29 /* Frameworks */,
 			);
@@ -188,7 +188,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F5E0B7632215C8EA00D28D25 /* LuxMob */ = {
+		F5E0B7632215C8EA00D28D25 /* geoportail.lu */ = {
 			isa = PBXGroup;
 			children = (
 				F5346E07221AF02E00BF8E29 /* backends */,
@@ -197,18 +197,18 @@
 				F5E0B7682215C8EA00D28D25 /* Main.storyboard */,
 				F5E0B76D2215C8EC00D28D25 /* LaunchScreen.storyboard */,
 				DADF97362334B34A0062ABFF /* Assets.xcassets */,
-				F5E0B7702215C8EC00D28D25 /* Info.plist */,
+				DA8F36C123A7EFFD000C5B36 /* Info.plist */,
 				F5E7A6F52216CDCA00A1EE98 /* ScriptMessageHandler.swift */,
 			);
-			path = LuxMob;
+			path = geoportail.lu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F5E0B7602215C8EA00D28D25 /* LuxMob */ = {
+		F5E0B7602215C8EA00D28D25 /* geoportail.lu */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F5E0B7732215C8EC00D28D25 /* Build configuration list for PBXNativeTarget "LuxMob" */;
+			buildConfigurationList = F5E0B7732215C8EC00D28D25 /* Build configuration list for PBXNativeTarget "geoportail.lu" */;
 			buildPhases = (
 				F5E0B75D2215C8EA00D28D25 /* Sources */,
 				F5E0B75E2215C8EA00D28D25 /* Frameworks */,
@@ -221,7 +221,7 @@
 				F59EE7BD2232568D005642A2 /* PBXTargetDependency */,
 				F59EE7C1223256C5005642A2 /* PBXTargetDependency */,
 			);
-			name = LuxMob;
+			name = geoportail.lu;
 			productName = LuxMob;
 			productReference = F5E0B7612215C8EA00D28D25 /* geoportail.lu.app */;
 			productType = "com.apple.product-type.application";
@@ -241,7 +241,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F5E0B75C2215C8EA00D28D25 /* Build configuration list for PBXProject "LuxMob" */;
+			buildConfigurationList = F5E0B75C2215C8EA00D28D25 /* Build configuration list for PBXProject "geoportail.lu" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -260,7 +260,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				F5E0B7602215C8EA00D28D25 /* LuxMob */,
+				F5E0B7602215C8EA00D28D25 /* geoportail.lu */,
 			);
 		};
 /* End PBXProject section */
@@ -440,6 +440,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -495,6 +496,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				NEW_SETTING = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -509,14 +511,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N3K2N2AJJ4;
-				INFOPLIST_FILE = LuxMob/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 844R8L6S72;
+				INFOPLIST_FILE = geoportail.lu/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -532,14 +535,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N3K2N2AJJ4;
-				INFOPLIST_FILE = LuxMob/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = 844R8L6S72;
+				INFOPLIST_FILE = geoportail.lu/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0;
+				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -551,7 +555,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F5E0B75C2215C8EA00D28D25 /* Build configuration list for PBXProject "LuxMob" */ = {
+		F5E0B75C2215C8EA00D28D25 /* Build configuration list for PBXProject "geoportail.lu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F5E0B7712215C8EC00D28D25 /* Debug */,
@@ -560,7 +564,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F5E0B7732215C8EC00D28D25 /* Build configuration list for PBXNativeTarget "LuxMob" */ = {
+		F5E0B7732215C8EC00D28D25 /* Build configuration list for PBXNativeTarget "geoportail.lu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F5E0B7742215C8EC00D28D25 /* Debug */,
