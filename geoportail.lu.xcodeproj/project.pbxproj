@@ -233,11 +233,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = Camptocamp;
 				TargetAttributes = {
 					F5E0B7602215C8EA00D28D25 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1140;
 					};
 				};
 			};
@@ -512,7 +513,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 844R8L6S72;
+				DEVELOPMENT_TEAM = FQ7KF94K32;
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -523,7 +524,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -536,7 +537,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 844R8L6S72;
+				DEVELOPMENT_TEAM = FQ7KF94K32;
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -547,7 +548,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
