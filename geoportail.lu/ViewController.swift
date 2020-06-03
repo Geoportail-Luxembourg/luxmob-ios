@@ -9,7 +9,6 @@
 import UIKit
 import WebKit
 
-
 class ViewController: UIViewController, WKNavigationDelegate {
 
     var webView : WKWebView?
@@ -28,6 +27,8 @@ class ViewController: UIViewController, WKNavigationDelegate {
         } else {
             // Fallback on earlier versions
         }
+        // FIXME: only listen on localhost!
+        MbtilesServer.shared.start(port: 8765)
     }
 
     override func loadView() {

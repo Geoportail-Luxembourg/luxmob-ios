@@ -1,3 +1,6 @@
 [submodule "grdb"]
 	path = grdb
 	url = https://github.com/gberaudo/GRDB.swift
+[submodule "GCDWebServer"]
+	path = GCDWebServer
+	url = git@github.com:swisspol/GCDWebServer.git
