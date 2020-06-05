@@ -26,6 +26,7 @@ class MbtilesServer: NSObject {
         })
         do {
             try webServer?.start(options: [
+                // comment following line to listen on public interface
                 GCDWebServerOption_BindToLocalhost: true,
                 GCDWebServerOption_Port: port
             ])

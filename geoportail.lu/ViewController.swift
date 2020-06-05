@@ -27,7 +27,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
         } else {
             // Fallback on earlier versions
         }
-        // FIXME: only listen on localhost!
         MbtilesServer.shared.start(port: 8765)
     }
 
