@@ -22,6 +22,9 @@
 		F508D1472489245700286902 /* GCDWebServerDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1392489245700286902 /* GCDWebServerDataRequest.m */; };
 		F508D1482489245700286902 /* GCDWebServerFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D13A2489245700286902 /* GCDWebServerFileRequest.m */; };
 		F508D14A24892D5B00286902 /* MbtilesServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D14924892D5B00286902 /* MbtilesServer.swift */; };
+		F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D14B24893F3400286902 /* MbtilesSource.swift */; };
+		F508D14D248940C200286902 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F5346E11221EB95100BF8E29 /* libsqlite3.tbd */; };
+		F508D14F2489472E00286902 /* tiles_luxembourg.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = F508D14E2489472D00286902 /* tiles_luxembourg.mbtiles */; };
 		F5346E09221AF06500BF8E29 /* IBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E08221AF06500BF8E29 /* IBackend.swift */; };
 		F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */; };
 		F5346E0E221EB88F00BF8E29 /* LocalforageSQliteBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */; };
@@ -153,6 +156,8 @@
 		F508D13A2489245700286902 /* GCDWebServerFileRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileRequest.m; sourceTree = "<group>"; };
 		F508D13B2489245700286902 /* GCDWebServerURLEncodedFormRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerURLEncodedFormRequest.h; sourceTree = "<group>"; };
 		F508D14924892D5B00286902 /* MbtilesServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtilesServer.swift; sourceTree = "<group>"; };
+		F508D14B24893F3400286902 /* MbtilesSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtilesSource.swift; sourceTree = "<group>"; };
+		F508D14E2489472D00286902 /* tiles_luxembourg.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = tiles_luxembourg.mbtiles; sourceTree = "<group>"; };
 		F5346E08221AF06500BF8E29 /* IBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBackend.swift; sourceTree = "<group>"; };
 		F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalforageMemoryBackend.swift; sourceTree = "<group>"; };
 		F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalforageSQliteBackend.swift; sourceTree = "<group>"; };
@@ -173,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F508D14D248940C200286902 /* libsqlite3.tbd in Frameworks */,
 				F59EE7BE223256C5005642A2 /* GRDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +284,7 @@
 		F5E0B7582215C8EA00D28D25 = {
 			isa = PBXGroup;
 			children = (
+				F508D14E2489472D00286902 /* tiles_luxembourg.mbtiles */,
 				F5DF681E2487B2F60097A7C5 /* geoportail.lu-Bridging-Header.h */,
 				F508D11C2489245700286902 /* GCDWebServer */,
 				F5E0B7632215C8EA00D28D25 /* geoportail.lu */,
@@ -306,6 +313,7 @@
 				DA8F36C123A7EFFD000C5B36 /* Info.plist */,
 				F5E7A6F52216CDCA00A1EE98 /* ScriptMessageHandler.swift */,
 				F508D14924892D5B00286902 /* MbtilesServer.swift */,
+				F508D14B24893F3400286902 /* MbtilesSource.swift */,
 			);
 			path = geoportail.lu;
 			sourceTree = "<group>";
@@ -437,6 +445,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F508D14F2489472E00286902 /* tiles_luxembourg.mbtiles in Resources */,
 				F5E0B76F2215C8EC00D28D25 /* LaunchScreen.storyboard in Resources */,
 				DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */,
 				F5E0B76A2215C8EA00D28D25 /* Main.storyboard in Resources */,
@@ -464,6 +473,7 @@
 				F508D1412489245700286902 /* GCDWebServerErrorResponse.m in Sources */,
 				F508D13C2489245700286902 /* GCDWebServerResponse.m in Sources */,
 				F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */,
+				F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */,
 				F508D1452489245700286902 /* GCDWebServerURLEncodedFormRequest.m in Sources */,
 				F508D1422489245700286902 /* GCDWebServerFileResponse.m in Sources */,
 				F508D14A24892D5B00286902 /* MbtilesServer.swift in Sources */,
@@ -638,7 +648,7 @@
 				DEVELOPMENT_TEAM = FQ7KF94K32;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -666,7 +676,7 @@
 				DEVELOPMENT_TEAM = FQ7KF94K32;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
