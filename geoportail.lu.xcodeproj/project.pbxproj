@@ -3,28 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DADF97362334B34A0062ABFF /* Assets.xcassets */; };
-		F508D13C2489245700286902 /* GCDWebServerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1202489245700286902 /* GCDWebServerResponse.m */; };
-		F508D13D2489245700286902 /* GCDWebServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1232489245700286902 /* GCDWebServerRequest.m */; };
-		F508D13E2489245700286902 /* GCDWebServerFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1262489245700286902 /* GCDWebServerFunctions.m */; };
-		F508D13F2489245700286902 /* GCDWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1272489245700286902 /* GCDWebServer.m */; };
-		F508D1402489245700286902 /* GCDWebServerConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1282489245700286902 /* GCDWebServerConnection.m */; };
-		F508D1412489245700286902 /* GCDWebServerErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D12D2489245700286902 /* GCDWebServerErrorResponse.m */; };
-		F508D1422489245700286902 /* GCDWebServerFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D12F2489245700286902 /* GCDWebServerFileResponse.m */; };
-		F508D1432489245700286902 /* GCDWebServerDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1302489245700286902 /* GCDWebServerDataResponse.m */; };
-		F508D1442489245700286902 /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1322489245700286902 /* GCDWebServerStreamedResponse.m */; };
-		F508D1452489245700286902 /* GCDWebServerURLEncodedFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1372489245700286902 /* GCDWebServerURLEncodedFormRequest.m */; };
-		F508D1462489245700286902 /* GCDWebServerMultiPartFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1382489245700286902 /* GCDWebServerMultiPartFormRequest.m */; };
-		F508D1472489245700286902 /* GCDWebServerDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D1392489245700286902 /* GCDWebServerDataRequest.m */; };
-		F508D1482489245700286902 /* GCDWebServerFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F508D13A2489245700286902 /* GCDWebServerFileRequest.m */; };
-		F508D14A24892D5B00286902 /* MbtilesServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D14924892D5B00286902 /* MbtilesServer.swift */; };
 		F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D14B24893F3400286902 /* MbtilesSource.swift */; };
 		F508D14D248940C200286902 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F5346E11221EB95100BF8E29 /* libsqlite3.tbd */; };
-		F508D14F2489472E00286902 /* tiles_luxembourg.mbtiles in Resources */ = {isa = PBXBuildFile; fileRef = F508D14E2489472D00286902 /* tiles_luxembourg.mbtiles */; };
+		F508D15B24928AB200286902 /* offline in Resources */ = {isa = PBXBuildFile; fileRef = F508D15A24928AB200286902 /* offline */; };
+		F508D15E24A6394200286902 /* Telegraph in Frameworks */ = {isa = PBXBuildFile; productRef = F508D15D24A6394200286902 /* Telegraph */; };
+		F508D16124A6453E00286902 /* localhost.p12 in Resources */ = {isa = PBXBuildFile; fileRef = F508D15F24A6453D00286902 /* localhost.p12 */; };
+		F508D16224A6453E00286902 /* ca.der in Resources */ = {isa = PBXBuildFile; fileRef = F508D16024A6453D00286902 /* ca.der */; };
+		F508D16524ACCCE800286902 /* HTTPCORSHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D16424ACCCE800286902 /* HTTPCORSHandler.swift */; };
+		F508D16724ACCD2000286902 /* HTTPContentTypeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D16624ACCD2000286902 /* HTTPContentTypeHandler.swift */; };
+		F508D16924ACCD7A00286902 /* HTTPMbtileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D16824ACCD7A00286902 /* HTTPMbtileHandler.swift */; };
+		F508D16B24ACCE2100286902 /* EmbeddedServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D16A24ACCE2100286902 /* EmbeddedServer.swift */; };
 		F5346E09221AF06500BF8E29 /* IBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E08221AF06500BF8E29 /* IBackend.swift */; };
 		F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */; };
 		F5346E0E221EB88F00BF8E29 /* LocalforageSQliteBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */; };
@@ -127,44 +120,20 @@
 /* Begin PBXFileReference section */
 		DA8F36C123A7EFFD000C5B36 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADF97362334B34A0062ABFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F508D11E2489245700286902 /* GCDWebServerFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFunctions.h; sourceTree = "<group>"; };
-		F508D11F2489245700286902 /* GCDWebServerPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerPrivate.h; sourceTree = "<group>"; };
-		F508D1202489245700286902 /* GCDWebServerResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerResponse.m; sourceTree = "<group>"; };
-		F508D1212489245700286902 /* GCDWebServerConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerConnection.h; sourceTree = "<group>"; };
-		F508D1222489245700286902 /* GCDWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServer.h; sourceTree = "<group>"; };
-		F508D1232489245700286902 /* GCDWebServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerRequest.m; sourceTree = "<group>"; };
-		F508D1242489245700286902 /* GCDWebServerHTTPStatusCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerHTTPStatusCodes.h; sourceTree = "<group>"; };
-		F508D1252489245700286902 /* GCDWebServerResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerResponse.h; sourceTree = "<group>"; };
-		F508D1262489245700286902 /* GCDWebServerFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFunctions.m; sourceTree = "<group>"; };
-		F508D1272489245700286902 /* GCDWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServer.m; sourceTree = "<group>"; };
-		F508D1282489245700286902 /* GCDWebServerConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerConnection.m; sourceTree = "<group>"; };
-		F508D1292489245700286902 /* GCDWebServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerRequest.h; sourceTree = "<group>"; };
-		F508D12B2489245700286902 /* GCDWebServerFileResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFileResponse.h; sourceTree = "<group>"; };
-		F508D12C2489245700286902 /* GCDWebServerStreamedResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerStreamedResponse.h; sourceTree = "<group>"; };
-		F508D12D2489245700286902 /* GCDWebServerErrorResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerErrorResponse.m; sourceTree = "<group>"; };
-		F508D12E2489245700286902 /* GCDWebServerDataResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerDataResponse.h; sourceTree = "<group>"; };
-		F508D12F2489245700286902 /* GCDWebServerFileResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileResponse.m; sourceTree = "<group>"; };
-		F508D1302489245700286902 /* GCDWebServerDataResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerDataResponse.m; sourceTree = "<group>"; };
-		F508D1312489245700286902 /* GCDWebServerErrorResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerErrorResponse.h; sourceTree = "<group>"; };
-		F508D1322489245700286902 /* GCDWebServerStreamedResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerStreamedResponse.m; sourceTree = "<group>"; };
-		F508D1342489245700286902 /* GCDWebServerDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerDataRequest.h; sourceTree = "<group>"; };
-		F508D1352489245700286902 /* GCDWebServerMultiPartFormRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerMultiPartFormRequest.h; sourceTree = "<group>"; };
-		F508D1362489245700286902 /* GCDWebServerFileRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFileRequest.h; sourceTree = "<group>"; };
-		F508D1372489245700286902 /* GCDWebServerURLEncodedFormRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerURLEncodedFormRequest.m; sourceTree = "<group>"; };
-		F508D1382489245700286902 /* GCDWebServerMultiPartFormRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerMultiPartFormRequest.m; sourceTree = "<group>"; };
-		F508D1392489245700286902 /* GCDWebServerDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerDataRequest.m; sourceTree = "<group>"; };
-		F508D13A2489245700286902 /* GCDWebServerFileRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileRequest.m; sourceTree = "<group>"; };
-		F508D13B2489245700286902 /* GCDWebServerURLEncodedFormRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDWebServerURLEncodedFormRequest.h; sourceTree = "<group>"; };
-		F508D14924892D5B00286902 /* MbtilesServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtilesServer.swift; sourceTree = "<group>"; };
 		F508D14B24893F3400286902 /* MbtilesSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtilesSource.swift; sourceTree = "<group>"; };
-		F508D14E2489472D00286902 /* tiles_luxembourg.mbtiles */ = {isa = PBXFileReference; lastKnownFileType = file; path = tiles_luxembourg.mbtiles; sourceTree = "<group>"; };
+		F508D15A24928AB200286902 /* offline */ = {isa = PBXFileReference; lastKnownFileType = folder; path = offline; sourceTree = "<group>"; };
+		F508D15F24A6453D00286902 /* localhost.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = localhost.p12; sourceTree = "<group>"; };
+		F508D16024A6453D00286902 /* ca.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = ca.der; sourceTree = "<group>"; };
+		F508D16424ACCCE800286902 /* HTTPCORSHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCORSHandler.swift; sourceTree = "<group>"; };
+		F508D16624ACCD2000286902 /* HTTPContentTypeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPContentTypeHandler.swift; sourceTree = "<group>"; };
+		F508D16824ACCD7A00286902 /* HTTPMbtileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMbtileHandler.swift; sourceTree = "<group>"; };
+		F508D16A24ACCE2100286902 /* EmbeddedServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedServer.swift; sourceTree = "<group>"; };
 		F5346E08221AF06500BF8E29 /* IBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBackend.swift; sourceTree = "<group>"; };
 		F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalforageMemoryBackend.swift; sourceTree = "<group>"; };
 		F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalforageSQliteBackend.swift; sourceTree = "<group>"; };
 		F5346E11221EB95100BF8E29 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F59EE79E2232564F005642A2 /* GRDB */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GRDB; path = grdb/GRDB; sourceTree = "<group>"; };
 		F59EE7A02232566B005642A2 /* GRDB.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GRDB.xcodeproj; path = grdb/GRDB.xcodeproj; sourceTree = "<group>"; };
-		F5DF681E2487B2F60097A7C5 /* geoportail.lu-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "geoportail.lu-Bridging-Header.h"; sourceTree = "<group>"; };
 		F5E0B7612215C8EA00D28D25 /* geoportail.lu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geoportail.lu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5E0B7662215C8EA00D28D25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F508D15E24A6394200286902 /* Telegraph in Frameworks */,
 				F508D14D248940C200286902 /* libsqlite3.tbd in Frameworks */,
 				F59EE7BE223256C5005642A2 /* GRDB.framework in Frameworks */,
 			);
@@ -186,64 +156,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F508D11C2489245700286902 /* GCDWebServer */ = {
+		F508D16324ACCCAD00286902 /* httpserver */ = {
 			isa = PBXGroup;
 			children = (
-				F508D11D2489245700286902 /* Core */,
-				F508D12A2489245700286902 /* Responses */,
-				F508D1332489245700286902 /* Requests */,
+				F508D16424ACCCE800286902 /* HTTPCORSHandler.swift */,
+				F508D16624ACCD2000286902 /* HTTPContentTypeHandler.swift */,
+				F508D16824ACCD7A00286902 /* HTTPMbtileHandler.swift */,
+				F508D16A24ACCE2100286902 /* EmbeddedServer.swift */,
 			);
-			name = GCDWebServer;
-			path = GCDWebServer/GCDWebServer;
-			sourceTree = "<group>";
-		};
-		F508D11D2489245700286902 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				F508D11E2489245700286902 /* GCDWebServerFunctions.h */,
-				F508D11F2489245700286902 /* GCDWebServerPrivate.h */,
-				F508D1202489245700286902 /* GCDWebServerResponse.m */,
-				F508D1212489245700286902 /* GCDWebServerConnection.h */,
-				F508D1222489245700286902 /* GCDWebServer.h */,
-				F508D1232489245700286902 /* GCDWebServerRequest.m */,
-				F508D1242489245700286902 /* GCDWebServerHTTPStatusCodes.h */,
-				F508D1252489245700286902 /* GCDWebServerResponse.h */,
-				F508D1262489245700286902 /* GCDWebServerFunctions.m */,
-				F508D1272489245700286902 /* GCDWebServer.m */,
-				F508D1282489245700286902 /* GCDWebServerConnection.m */,
-				F508D1292489245700286902 /* GCDWebServerRequest.h */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		F508D12A2489245700286902 /* Responses */ = {
-			isa = PBXGroup;
-			children = (
-				F508D12B2489245700286902 /* GCDWebServerFileResponse.h */,
-				F508D12C2489245700286902 /* GCDWebServerStreamedResponse.h */,
-				F508D12D2489245700286902 /* GCDWebServerErrorResponse.m */,
-				F508D12E2489245700286902 /* GCDWebServerDataResponse.h */,
-				F508D12F2489245700286902 /* GCDWebServerFileResponse.m */,
-				F508D1302489245700286902 /* GCDWebServerDataResponse.m */,
-				F508D1312489245700286902 /* GCDWebServerErrorResponse.h */,
-				F508D1322489245700286902 /* GCDWebServerStreamedResponse.m */,
-			);
-			path = Responses;
-			sourceTree = "<group>";
-		};
-		F508D1332489245700286902 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				F508D1342489245700286902 /* GCDWebServerDataRequest.h */,
-				F508D1352489245700286902 /* GCDWebServerMultiPartFormRequest.h */,
-				F508D1362489245700286902 /* GCDWebServerFileRequest.h */,
-				F508D1372489245700286902 /* GCDWebServerURLEncodedFormRequest.m */,
-				F508D1382489245700286902 /* GCDWebServerMultiPartFormRequest.m */,
-				F508D1392489245700286902 /* GCDWebServerDataRequest.m */,
-				F508D13A2489245700286902 /* GCDWebServerFileRequest.m */,
-				F508D13B2489245700286902 /* GCDWebServerURLEncodedFormRequest.h */,
-			);
-			path = Requests;
+			path = httpserver;
 			sourceTree = "<group>";
 		};
 		F5346E07221AF02E00BF8E29 /* backends */ = {
@@ -284,9 +205,7 @@
 		F5E0B7582215C8EA00D28D25 = {
 			isa = PBXGroup;
 			children = (
-				F508D14E2489472D00286902 /* tiles_luxembourg.mbtiles */,
-				F5DF681E2487B2F60097A7C5 /* geoportail.lu-Bridging-Header.h */,
-				F508D11C2489245700286902 /* GCDWebServer */,
+				F508D15A24928AB200286902 /* offline */,
 				F5E0B7632215C8EA00D28D25 /* geoportail.lu */,
 				F5E0B7622215C8EA00D28D25 /* Products */,
 				F5346E10221EB95100BF8E29 /* Frameworks */,
@@ -304,15 +223,17 @@
 		F5E0B7632215C8EA00D28D25 /* geoportail.lu */ = {
 			isa = PBXGroup;
 			children = (
+				F508D16324ACCCAD00286902 /* httpserver */,
 				F5346E07221AF02E00BF8E29 /* backends */,
 				F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */,
 				F5E0B7662215C8EA00D28D25 /* ViewController.swift */,
+				F508D16024A6453D00286902 /* ca.der */,
+				F508D15F24A6453D00286902 /* localhost.p12 */,
 				F5E0B7682215C8EA00D28D25 /* Main.storyboard */,
 				F5E0B76D2215C8EC00D28D25 /* LaunchScreen.storyboard */,
 				DADF97362334B34A0062ABFF /* Assets.xcassets */,
 				DA8F36C123A7EFFD000C5B36 /* Info.plist */,
 				F5E7A6F52216CDCA00A1EE98 /* ScriptMessageHandler.swift */,
-				F508D14924892D5B00286902 /* MbtilesServer.swift */,
 				F508D14B24893F3400286902 /* MbtilesSource.swift */,
 			);
 			path = geoportail.lu;
@@ -337,6 +258,9 @@
 				F59EE7C1223256C5005642A2 /* PBXTargetDependency */,
 			);
 			name = geoportail.lu;
+			packageProductDependencies = (
+				F508D15D24A6394200286902 /* Telegraph */,
+			);
 			productName = LuxMob;
 			productReference = F5E0B7612215C8EA00D28D25 /* geoportail.lu.app */;
 			productType = "com.apple.product-type.application";
@@ -366,6 +290,9 @@
 				Base,
 			);
 			mainGroup = F5E0B7582215C8EA00D28D25;
+			packageReferences = (
+				F508D15C24A6394100286902 /* XCRemoteSwiftPackageReference "Telegraph" */,
+			);
 			productRefGroup = F5E0B7622215C8EA00D28D25 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -445,8 +372,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F508D14F2489472E00286902 /* tiles_luxembourg.mbtiles in Resources */,
+				F508D15B24928AB200286902 /* offline in Resources */,
+				F508D16224A6453E00286902 /* ca.der in Resources */,
 				F5E0B76F2215C8EC00D28D25 /* LaunchScreen.storyboard in Resources */,
+				F508D16124A6453E00286902 /* localhost.p12 in Resources */,
 				DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */,
 				F5E0B76A2215C8EA00D28D25 /* Main.storyboard in Resources */,
 			);
@@ -462,24 +391,14 @@
 				F5346E0E221EB88F00BF8E29 /* LocalforageSQliteBackend.swift in Sources */,
 				F5E7A6F62216CDCA00A1EE98 /* ScriptMessageHandler.swift in Sources */,
 				F5E0B7672215C8EA00D28D25 /* ViewController.swift in Sources */,
-				F508D1442489245700286902 /* GCDWebServerStreamedResponse.m in Sources */,
-				F508D1432489245700286902 /* GCDWebServerDataResponse.m in Sources */,
+				F508D16924ACCD7A00286902 /* HTTPMbtileHandler.swift in Sources */,
 				F5346E09221AF06500BF8E29 /* IBackend.swift in Sources */,
-				F508D13D2489245700286902 /* GCDWebServerRequest.m in Sources */,
-				F508D1462489245700286902 /* GCDWebServerMultiPartFormRequest.m in Sources */,
-				F508D1472489245700286902 /* GCDWebServerDataRequest.m in Sources */,
-				F508D13E2489245700286902 /* GCDWebServerFunctions.m in Sources */,
-				F508D1482489245700286902 /* GCDWebServerFileRequest.m in Sources */,
-				F508D1412489245700286902 /* GCDWebServerErrorResponse.m in Sources */,
-				F508D13C2489245700286902 /* GCDWebServerResponse.m in Sources */,
+				F508D16724ACCD2000286902 /* HTTPContentTypeHandler.swift in Sources */,
+				F508D16B24ACCE2100286902 /* EmbeddedServer.swift in Sources */,
+				F508D16524ACCCE800286902 /* HTTPCORSHandler.swift in Sources */,
 				F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */,
 				F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */,
-				F508D1452489245700286902 /* GCDWebServerURLEncodedFormRequest.m in Sources */,
-				F508D1422489245700286902 /* GCDWebServerFileResponse.m in Sources */,
-				F508D14A24892D5B00286902 /* MbtilesServer.swift in Sources */,
-				F508D13F2489245700286902 /* GCDWebServer.m in Sources */,
 				F5E0B7652215C8EA00D28D25 /* AppDelegate.swift in Sources */,
-				F508D1402489245700286902 /* GCDWebServerConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -657,7 +576,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "geoportail.lu-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -684,7 +602,6 @@
 				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "geoportail.lu-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -713,6 +630,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F508D15C24A6394100286902 /* XCRemoteSwiftPackageReference "Telegraph" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Building42/Telegraph.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.28.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F508D15D24A6394200286902 /* Telegraph */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F508D15C24A6394100286902 /* XCRemoteSwiftPackageReference "Telegraph" */;
+			productName = Telegraph;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F5E0B7592215C8EA00D28D25 /* Project object */;
 }

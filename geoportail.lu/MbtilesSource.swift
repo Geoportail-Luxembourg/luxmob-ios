@@ -13,17 +13,16 @@ import Foundation
 class MbtilesSource {
     var dbQueue: DatabaseQueue? = nil
 
-    init() {
-        let fileUrl = Bundle.main.url(forResource: "tiles_luxembourg", withExtension: "mbtiles")
-
+    init(forTileset tileset: String) {
+        let fileUrl = Bundle.main.url(forResource: tileset, withExtension: "mbtiles", subdirectory: "offline")
         do {
             if try fileUrl!.checkResourceIsReachable() {
-                print(fileUrl!.path, "found")
+                print("tileset", fileUrl!.path, "found")
             } else {
-                print(fileUrl!.path, "not found")
+                print("tileset", fileUrl!.path, "not found")
             }
         } catch{
-            print("error looking for tiles_luxembourg.mbtiles")
+            print("error looking for tileset", tileset)
         }
         var config = Configuration()
         config.trace = { print($0) }
