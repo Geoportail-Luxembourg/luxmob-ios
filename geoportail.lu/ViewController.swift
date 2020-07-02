@@ -16,30 +16,26 @@ class ViewController: UIViewController, WKNavigationDelegate {
     var server : EmbeddedServer?
     var webView : WKWebView?
     // For production
-    // var websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes"
+    // var websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
     // For testing with a server on a local machine
-    // var websiteURL : String = "http://192.168.0.10:8080/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765"
+    // var websiteURL : String = "http://192.168.0.10:8080/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&version=3"
     // For testing the c2cnextprod branch
-    var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https"
-    //var websiteURL = "http://localhost:8765/index.html"
-    //var websiteURL : String = "https://192.168.0.10:9876"
+    var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // let url = URL(string: "http://wrk29.wrk.lsn.camptocamp.com:5000?localforage=ios&localhost")
-        let url = URL(string: websiteURL) //new map link
-        // let url = URL(string: "https://offline-demo.geoportail.lu") // 100% functional, without native backend
+        // First start the embedded server
+        // it needs to be up before the website is loaded for the bg layer to display
+        server = EmbeddedServer(port:8765)
+        let webView = self.webView
+        let url = URL(string: self.websiteURL) //new map link
         webView!.load(URLRequest(url: url!))
         webView!.allowsBackForwardNavigationGestures = true
         
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
-        } else {
-            // Fallback on earlier versions
         }
-        
-        server = EmbeddedServer(port:8765)
     }
     
     override func loadView() {
@@ -54,7 +50,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         view = webView
     }
     
-    // This will override the SSL certificate verification
+    // This will override the SSL certificate verification on localhost and some local test server
+    // This is necessary since we use a self-signed certificate for the embedded HTTP server
+    // Note that we completly bypass any verification. We could instead do custom validation of the certificate
+    // by using our CA but it would not bring any additional security.
     func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         let ps = challenge.protectionSpace
         if (ps.authenticationMethod == NSURLAuthenticationMethodServerTrust &&
@@ -68,7 +67,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        //        print(navigationAction.request.url)
         if navigationAction.navigationType == .linkActivated || (navigationAction.request.url?.absoluteString.contains("printproxy"))! {
             redirectToBrowser(navigationAction: navigationAction, decisionHandler: decisionHandler)
         } else {

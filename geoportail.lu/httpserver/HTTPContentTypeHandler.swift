@@ -21,11 +21,10 @@ public class HTTPContentTypeHandler: HTTPRequestHandler {
             switch ext {
             case "json":
                 contentType = "application/json"
-                // This will make style.json and other style files reference resources on this embedded server, whatever its actual IP.
-                // It is convenient in order to test directly from linux independently of the iOS device IP.
+                // This will rewrite style.json and other json files with the IP address of this server.
                 var str = String(data: response!.body, encoding: .utf8)!
                 str = str.replacingOccurrences(of: "https://vectortiles.geoportail.lu:", with: "http://localhost:8765")
-                let listening = "https://127.0.0.1:8765/"
+                let listening = "https://127.0.0.1:8765/" // change here to test from outside (and enable listening on 0.0.0.0):
                 str = str.replacingOccurrences(of: "http://localhost:8765/", with: listening)
                 let content = str.data(using: .utf8)!
                 response!.body = content

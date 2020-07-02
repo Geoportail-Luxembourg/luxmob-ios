@@ -24,15 +24,12 @@ public class EmbeddedServer {
         server.httpConfig.requestHandlers.insert(HTTPCORSHandler(), at: 0)
         server.httpConfig.requestHandlers.insert(HTTPContentTypeHandler(), at: 0)
         server.httpConfig.requestHandlers.insert(HTTPMbtileHandler(), at: 0)
-
-        
         server.route(.GET, "ping") {
             (.ok, "pong")
         }
         let offline = Bundle.main.url(forResource: "offline", withExtension: nil)!
-        print(offline)
         server.serveDirectory(offline, "/")
-        try! server.start(port: port)
 
-        }
+        try! server.start(port: port)
     }
+}
