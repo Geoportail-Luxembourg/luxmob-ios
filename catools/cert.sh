@@ -1,6 +1,10 @@
 CA_PASSPHRASE=test
 LOCALHOST_PASSPHRASE=test
 
+# Note that these Apple restrictions should not apply to our self-signed CA.
+# See https://support.apple.com/en-us/HT211025
+CERT_DURATION=397
+
 cd ca
 
 # Clean up: remove files
@@ -36,7 +40,7 @@ cd ca
 # Step 5: Generate localhost certificate
 echo "Generating localhost certificate request"
 openssl req -config config-localhost.cnf -key private/localhost.key \
-        -new -sha256 -days 825 \
+        -new -sha256 -days $CERT_DURATION \
         -passin pass:$LOCALHOST_PASSPHRASE -out csr/localhost.csr
 
 # Step 6: Sign the localhost certificate with the CA
