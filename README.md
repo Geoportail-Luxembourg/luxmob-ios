@@ -21,3 +21,15 @@ You can set breakpoints or add print statements.
 
 You can inspect the webview using Safari: Develop -> name of the device -> LuxMob/offline-demo.geoportail.lu - main
 
+
+## SSL certificate
+
+The embedded HTTPS server uses a custom CA and locally generated certificate.
+If you need to renew the certificate (from Tools directory of the Telegraph project):
+
+See the comment at the top of the catools/cert.sh for the choice of certificate duration.
+
+cd catools
+./certs.sh
+cp p12/localhost.p12  geoportail.lu/localhost.p12
+

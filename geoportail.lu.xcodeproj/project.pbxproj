@@ -3,11 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DADF97362334B34A0062ABFF /* Assets.xcassets */; };
+		F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D14B24893F3400286902 /* MbtilesSource.swift */; };
+		F508D14D248940C200286902 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F5346E11221EB95100BF8E29 /* libsqlite3.tbd */; };
+		F508D15B24928AB200286902 /* offline in Resources */ = {isa = PBXBuildFile; fileRef = F508D15A24928AB200286902 /* offline */; };
+		F508D15E24A6394200286902 /* Telegraph in Frameworks */ = {isa = PBXBuildFile; productRef = F508D15D24A6394200286902 /* Telegraph */; };
+		F508D16124A6453E00286902 /* localhost.p12 in Resources */ = {isa = PBXBuildFile; fileRef = F508D15F24A6453D00286902 /* localhost.p12 */; };
+		F508D16224A6453E00286902 /* ca.der in Resources */ = {isa = PBXBuildFile; fileRef = F508D16024A6453D00286902 /* ca.der */; };
+		F508D16524ACCCE800286902 /* HTTPCORSHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D16424ACCCE800286902 /* HTTPCORSHandler.swift */; };
+		F508D16724ACCD2000286902 /* HTTPContentTypeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D16624ACCD2000286902 /* HTTPContentTypeHandler.swift */; };
+		F508D16924ACCD7A00286902 /* HTTPMbtileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D16824ACCD7A00286902 /* HTTPMbtileHandler.swift */; };
+		F508D16B24ACCE2100286902 /* EmbeddedServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D16A24ACCE2100286902 /* EmbeddedServer.swift */; };
 		F5346E09221AF06500BF8E29 /* IBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E08221AF06500BF8E29 /* IBackend.swift */; };
 		F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */; };
 		F5346E0E221EB88F00BF8E29 /* LocalforageSQliteBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */; };
@@ -110,6 +120,14 @@
 /* Begin PBXFileReference section */
 		DA8F36C123A7EFFD000C5B36 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADF97362334B34A0062ABFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F508D14B24893F3400286902 /* MbtilesSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtilesSource.swift; sourceTree = "<group>"; };
+		F508D15A24928AB200286902 /* offline */ = {isa = PBXFileReference; lastKnownFileType = folder; path = offline; sourceTree = "<group>"; };
+		F508D15F24A6453D00286902 /* localhost.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = localhost.p12; sourceTree = "<group>"; };
+		F508D16024A6453D00286902 /* ca.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = ca.der; sourceTree = "<group>"; };
+		F508D16424ACCCE800286902 /* HTTPCORSHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCORSHandler.swift; sourceTree = "<group>"; };
+		F508D16624ACCD2000286902 /* HTTPContentTypeHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPContentTypeHandler.swift; sourceTree = "<group>"; };
+		F508D16824ACCD7A00286902 /* HTTPMbtileHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMbtileHandler.swift; sourceTree = "<group>"; };
+		F508D16A24ACCE2100286902 /* EmbeddedServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedServer.swift; sourceTree = "<group>"; };
 		F5346E08221AF06500BF8E29 /* IBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBackend.swift; sourceTree = "<group>"; };
 		F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalforageMemoryBackend.swift; sourceTree = "<group>"; };
 		F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalforageSQliteBackend.swift; sourceTree = "<group>"; };
@@ -129,6 +147,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F508D15E24A6394200286902 /* Telegraph in Frameworks */,
+				F508D14D248940C200286902 /* libsqlite3.tbd in Frameworks */,
 				F59EE7BE223256C5005642A2 /* GRDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -136,6 +156,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F508D16324ACCCAD00286902 /* httpserver */ = {
+			isa = PBXGroup;
+			children = (
+				F508D16424ACCCE800286902 /* HTTPCORSHandler.swift */,
+				F508D16624ACCD2000286902 /* HTTPContentTypeHandler.swift */,
+				F508D16824ACCD7A00286902 /* HTTPMbtileHandler.swift */,
+				F508D16A24ACCE2100286902 /* EmbeddedServer.swift */,
+			);
+			path = httpserver;
+			sourceTree = "<group>";
+		};
 		F5346E07221AF02E00BF8E29 /* backends */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +205,7 @@
 		F5E0B7582215C8EA00D28D25 = {
 			isa = PBXGroup;
 			children = (
+				F508D15A24928AB200286902 /* offline */,
 				F5E0B7632215C8EA00D28D25 /* geoportail.lu */,
 				F5E0B7622215C8EA00D28D25 /* Products */,
 				F5346E10221EB95100BF8E29 /* Frameworks */,
@@ -191,14 +223,18 @@
 		F5E0B7632215C8EA00D28D25 /* geoportail.lu */ = {
 			isa = PBXGroup;
 			children = (
+				F508D16324ACCCAD00286902 /* httpserver */,
 				F5346E07221AF02E00BF8E29 /* backends */,
 				F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */,
 				F5E0B7662215C8EA00D28D25 /* ViewController.swift */,
+				F508D16024A6453D00286902 /* ca.der */,
+				F508D15F24A6453D00286902 /* localhost.p12 */,
 				F5E0B7682215C8EA00D28D25 /* Main.storyboard */,
 				F5E0B76D2215C8EC00D28D25 /* LaunchScreen.storyboard */,
 				DADF97362334B34A0062ABFF /* Assets.xcassets */,
 				DA8F36C123A7EFFD000C5B36 /* Info.plist */,
 				F5E7A6F52216CDCA00A1EE98 /* ScriptMessageHandler.swift */,
+				F508D14B24893F3400286902 /* MbtilesSource.swift */,
 			);
 			path = geoportail.lu;
 			sourceTree = "<group>";
@@ -222,6 +258,9 @@
 				F59EE7C1223256C5005642A2 /* PBXTargetDependency */,
 			);
 			name = geoportail.lu;
+			packageProductDependencies = (
+				F508D15D24A6394200286902 /* Telegraph */,
+			);
 			productName = LuxMob;
 			productReference = F5E0B7612215C8EA00D28D25 /* geoportail.lu.app */;
 			productType = "com.apple.product-type.application";
@@ -233,11 +272,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = Camptocamp;
 				TargetAttributes = {
 					F5E0B7602215C8EA00D28D25 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1150;
 					};
 				};
 			};
@@ -250,6 +290,9 @@
 				Base,
 			);
 			mainGroup = F5E0B7582215C8EA00D28D25;
+			packageReferences = (
+				F508D15C24A6394100286902 /* XCRemoteSwiftPackageReference "Telegraph" */,
+			);
 			productRefGroup = F5E0B7622215C8EA00D28D25 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -329,7 +372,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F508D15B24928AB200286902 /* offline in Resources */,
+				F508D16224A6453E00286902 /* ca.der in Resources */,
 				F5E0B76F2215C8EC00D28D25 /* LaunchScreen.storyboard in Resources */,
+				F508D16124A6453E00286902 /* localhost.p12 in Resources */,
 				DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */,
 				F5E0B76A2215C8EA00D28D25 /* Main.storyboard in Resources */,
 			);
@@ -345,8 +391,13 @@
 				F5346E0E221EB88F00BF8E29 /* LocalforageSQliteBackend.swift in Sources */,
 				F5E7A6F62216CDCA00A1EE98 /* ScriptMessageHandler.swift in Sources */,
 				F5E0B7672215C8EA00D28D25 /* ViewController.swift in Sources */,
+				F508D16924ACCD7A00286902 /* HTTPMbtileHandler.swift in Sources */,
 				F5346E09221AF06500BF8E29 /* IBackend.swift in Sources */,
+				F508D16724ACCD2000286902 /* HTTPContentTypeHandler.swift in Sources */,
+				F508D16B24ACCE2100286902 /* EmbeddedServer.swift in Sources */,
+				F508D16524ACCCE800286902 /* HTTPCORSHandler.swift in Sources */,
 				F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */,
+				F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */,
 				F5E0B7652215C8EA00D28D25 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -509,12 +560,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 844R8L6S72;
+				DEVELOPMENT_TEAM = FQ7KF94K32;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -523,7 +576,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -533,12 +587,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 844R8L6S72;
+				DEVELOPMENT_TEAM = FQ7KF94K32;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -546,8 +602,8 @@
 				MARKETING_VERSION = 3.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_OBJC_BRIDGING_HEADER = "geoportail.lu-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -574,6 +630,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F508D15C24A6394100286902 /* XCRemoteSwiftPackageReference "Telegraph" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Building42/Telegraph.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.28.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F508D15D24A6394200286902 /* Telegraph */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F508D15C24A6394100286902 /* XCRemoteSwiftPackageReference "Telegraph" */;
+			productName = Telegraph;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F5E0B7592215C8EA00D28D25 /* Project object */;
 }
