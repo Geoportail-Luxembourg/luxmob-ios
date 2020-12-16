@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/lsb257/Documents/luxmob/luxmob-ios/geoportail.lu.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
