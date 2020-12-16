@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA6035562588E88200516CA2 /* appicon_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6035552588E88100516CA2 /* appicon_transparent.png */; };
+		DA6035582588EA5F00516CA2 /* geoportail.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6035572588EA5F00516CA2 /* geoportail.png */; };
 		DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DADF97362334B34A0062ABFF /* Assets.xcassets */; };
 		F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D14B24893F3400286902 /* MbtilesSource.swift */; };
 		F508D14D248940C200286902 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F5346E11221EB95100BF8E29 /* libsqlite3.tbd */; };
@@ -118,6 +120,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA6035552588E88100516CA2 /* appicon_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon_transparent.png; sourceTree = "<group>"; };
+		DA6035572588EA5F00516CA2 /* geoportail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = geoportail.png; sourceTree = "<group>"; };
 		DA8F36C123A7EFFD000C5B36 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADF97362334B34A0062ABFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F508D14B24893F3400286902 /* MbtilesSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtilesSource.swift; sourceTree = "<group>"; };
@@ -235,6 +239,8 @@
 				DA8F36C123A7EFFD000C5B36 /* Info.plist */,
 				F5E7A6F52216CDCA00A1EE98 /* ScriptMessageHandler.swift */,
 				F508D14B24893F3400286902 /* MbtilesSource.swift */,
+				DA6035552588E88100516CA2 /* appicon_transparent.png */,
+				DA6035572588EA5F00516CA2 /* geoportail.png */,
 			);
 			path = geoportail.lu;
 			sourceTree = "<group>";
@@ -377,7 +383,9 @@
 				F5E0B76F2215C8EC00D28D25 /* LaunchScreen.storyboard in Resources */,
 				F508D16124A6453E00286902 /* localhost.p12 in Resources */,
 				DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */,
+				DA6035562588E88200516CA2 /* appicon_transparent.png in Resources */,
 				F5E0B76A2215C8EA00D28D25 /* Main.storyboard in Resources */,
+				DA6035582588EA5F00516CA2 /* geoportail.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,15 +572,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = FQ7KF94K32;
+				DEVELOPMENT_TEAM = 844R8L6S72;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -591,15 +599,15 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = FQ7KF94K32;
+				DEVELOPMENT_TEAM = 844R8L6S72;
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.1;
+				MARKETING_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				SWIFT_OBJC_BRIDGING_HEADER = "geoportail.lu-Bridging-Header.h";
