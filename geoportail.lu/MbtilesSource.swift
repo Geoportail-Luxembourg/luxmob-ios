@@ -24,16 +24,14 @@ class MbtilesSource {
         } catch{
             print("error looking for tileset", tileset)
         }
-        var config = Configuration()
-        config.trace = { print($0) }
-        try? dbQueue = DatabaseQueue(path: fileUrl!.path, configuration: config)
+        try? dbQueue = DatabaseQueue(path: fileUrl!.path, configuration: Configuration())
     }
 
     func getTile(x: Int, y: Int, z: Int) -> Data? {
         var value: Data?
         ((try? dbQueue?.read { db in
             value = try Data.fetchOne(db,
-              "SELECT tile_data FROM tiles WHERE zoom_level = ? AND tile_column = ? AND tile_row = ?",
+                                      sql: "SELECT tile_data FROM tiles WHERE zoom_level = ? AND tile_column = ? AND tile_row = ?",
               arguments: [z, x, y])
         }) as ()??)
         return value
