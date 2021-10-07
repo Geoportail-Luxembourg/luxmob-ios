@@ -14,13 +14,13 @@ import Telegraph
 class ViewController: UIViewController, WKNavigationDelegate {
     
     var server : EmbeddedServer?
-    var webView : WKWebView?
+    var webView : WKWebView!
     // For production
     var websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
     // For testing with a server on a local machine
     // var websiteURL : String = "http://192.168.0.10:8080/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&version=3"
     // For testing the c2cnextprod branch
-    // var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
+    //var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
     
     
     override func viewDidLoad() {
@@ -46,7 +46,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         webView = WebKit.WKWebView(frame: .zero, configuration: config)
         controller.add(ScriptMessageHandler(webview: webView!), name: "ios")
-        webView!.navigationDelegate = self
+        webView.navigationDelegate = self
         view = webView
     }
     
