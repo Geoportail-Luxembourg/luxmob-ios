@@ -9,7 +9,7 @@
   "sources": {
     "geoportail.lu_topo_layers": {
       "type": "vector",
-      "url": "http://localhost:8765/data/omt-topo-geoportail-lu.json"
+      "url": "https://localhost:8765/data/omt-topo-geoportail-lu.json"
     },
     "geoportail.lu_hillshade": {
       "type": "raster",
