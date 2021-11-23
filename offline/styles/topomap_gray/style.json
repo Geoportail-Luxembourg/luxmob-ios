@@ -9,7 +9,7 @@
   "sources": {
     "geoportail.lu_topo_layers": {
       "type": "vector",
-      "url": "https://vectortiles.geoportail.lu/data/omt-topo-geoportail-lu.json"
+      "url": "https://localhost:8765/data/omt-topo-geoportail-lu.json"
     },
     "geoportail.lu_hillshade": {
       "type": "raster",
@@ -25,8 +25,8 @@
       "url": "https://vectortiles.geoportail.lu/data/contours-lu.json"
     }
   },
-  "sprite": "https://sprites.geoportail.lu/sprites",
-  "glyphs": "https://vectortiles.geoportail.lu/fonts/{fontstack}/{range}.pbf",
+  "sprite": "https://localhost:8765/sprites/sprites",
+  "glyphs": "https://localhost:8765/fonts/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",

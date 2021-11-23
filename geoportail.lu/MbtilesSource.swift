@@ -11,25 +11,16 @@ import Foundation
 
 
 class MbtilesSource {
-    var dbQueue: DatabaseQueue? = nil
+    let dbQueue: DatabaseQueue
 
     init(forTileset tileset: String) {
         let fileUrl = Bundle.main.url(forResource: tileset, withExtension: "mbtiles", subdirectory: "offline")
-        do {
-            if try fileUrl!.checkResourceIsReachable() {
-                print("tileset", fileUrl!.path, "found")
-            } else {
-                print("tileset", fileUrl!.path, "not found")
-            }
-        } catch{
-            print("error looking for tileset", tileset)
-        }
-        try? dbQueue = DatabaseQueue(path: fileUrl!.path, configuration: Configuration())
+        dbQueue = try! DatabaseQueue(path: fileUrl!.path, configuration: Configuration())
     }
 
     func getTile(x: Int, y: Int, z: Int) -> Data? {
         var value: Data?
-        ((try? dbQueue?.read { db in
+        ((try? dbQueue.read { db in
             value = try Data.fetchOne(db,
                                       sql: "SELECT tile_data FROM tiles WHERE zoom_level = ? AND tile_column = ? AND tile_row = ?",
               arguments: [z, x, y])

@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "name": "Geoportail.lu Topo Roadmap",
+  "name": "Geoportail.lu Topomap",
   "metadata": {"maputnik:renderer": "mbgljs"},
   "center": [6.1168799999909, 49.614529999998],
   "zoom": 15,
@@ -9,7 +9,7 @@
   "sources": {
     "geoportail.lu_topo_layers": {
       "type": "vector",
-      "url": "https://vectortiles.geoportail.lu/data/omt-topo-geoportail-lu.json"
+      "url": "http://localhost:8765/data/omt-topo-geoportail-lu.json"
     },
     "geoportail.lu_hillshade": {
       "type": "raster",
@@ -25,14 +25,14 @@
       "url": "https://vectortiles.geoportail.lu/data/contours-lu.json"
     }
   },
-  "sprite": "https://sprites.geoportail.lu/sprites",
-  "glyphs": "https://vectortiles.geoportail.lu/fonts/{fontstack}/{range}.pbf",
+  "sprite": "https://localhost:8765/sprites/sprites",
+  "glyphs": "https://localhost:8765/fonts/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",
       "type": "background",
       "layout": {"visibility": "visible"},
-      "paint": {"background-color": "rgba(233, 233, 216, 1)"}
+      "paint": {"background-color": "rgba(232, 232, 226, 0.8)"}
     },
     {
       "id": "landuse-residential",
@@ -56,7 +56,7 @@
       "source": "openmaptiles_osm",
       "source-layer": "landcover",
       "filter": ["==", "class", "grass"],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {"fill-color": "rgba(215, 228, 190, 1)", "fill-opacity": 0.45}
     },
     {
@@ -210,7 +210,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "line-color": "rgba(153, 153, 153, 1)",
+        "line-color": "rgba(130, 130, 130, 0.6)",
         "line-dasharray": [4, 3],
         "line-width": {
           "base": 1.2,
@@ -354,16 +354,17 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": {"stops": [[6, [4, 4]], [15, [1, 1]]]},
+        "line-dasharray": [2, 2],
         "line-width": {"base": 1.2, "stops": [[14, 1], [20, 10]]}
       }
     },
     {
-      "id": "tunnel_track",
+      "id": "tunnel_track-dash",
       "type": "line",
       "source": "openmaptiles_osm",
       "source-layer": "transportation",
       "minzoom": 13,
+      "maxzoom": 14,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
@@ -377,8 +378,30 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": [1],
-        "line-width": {"base": 1.2, "stops": [[14, 1.5], [20, 12]]}
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]},
+        "line-dasharray": [8, 4]
+      }
+    },
+    {
+      "id": "tunnel_track",
+      "type": "line",
+      "source": "openmaptiles_osm",
+      "source-layer": "transportation",
+      "minzoom": 14,
+      "filter": [
+        "all",
+        ["==", "$type", "LineString"],
+        ["in", "class", "track"],
+        ["==", "brunnel", "tunnel"]
+      ],
+      "layout": {
+        "line-cap": "square",
+        "line-join": "bevel",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(247, 247, 247, 1)",
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]}
       }
     },
     {
@@ -412,6 +435,29 @@
       "source": "openmaptiles_osm",
       "source-layer": "transportation",
       "minzoom": 5,
+      "maxzoom": 10,
+      "filter": [
+        "all",
+        ["==", "$type", "LineString"],
+        ["==", "class", "motorway"],
+        ["==", "brunnel", "tunnel"]
+      ],
+      "layout": {"line-cap": "round", "line-join": "round"},
+      "paint": {
+        "line-color": "rgba(245, 205, 163, 1)",
+        "line-width": {
+          "base": 1.2,
+          "stops": [[5, 0], [7, 1], [9, 4], [13, 5], [20, 18]]
+        },
+        "line-opacity": {"stops": [[5, 1], [13, 0.75]]}
+      }
+    },
+    {
+      "id": "tunnel_major_motorway_dashed",
+      "type": "line",
+      "source": "openmaptiles_osm",
+      "source-layer": "transportation",
+      "minzoom": 10,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
@@ -426,7 +472,7 @@
           "stops": [[5, 0], [7, 1], [9, 4], [13, 5], [20, 18]]
         },
         "line-opacity": {"stops": [[5, 1], [13, 0.75]]},
-        "line-dasharray": {"stops": [[5, [1]], [11, [2.5, 1.5]]]}
+        "line-dasharray": [2.5, 1.5]
       }
     },
     {
@@ -605,7 +651,7 @@
         "line-color": "rgba(199, 199, 199, 1)",
         "line-width": {
           "base": 1.2,
-          "stops": [[12, 0.5], [13, 1], [14, 4], [20, 20]]
+          "stops": [[12, 0.5], [13, 3], [14, 4], [20, 20]]
         }
       }
     },
@@ -737,16 +783,17 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": {"stops": [[6, [4, 4]], [15, [1, 1]]]},
+        "line-dasharray": [2, 2],
         "line-width": {"base": 1.2, "stops": [[14, 1], [20, 10]]}
       }
     },
     {
-      "id": "road_track",
+      "id": "road_track-dash",
       "type": "line",
       "source": "openmaptiles_osm",
       "source-layer": "transportation",
       "minzoom": 13,
+      "maxzoom": 14,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
@@ -760,8 +807,30 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": [1],
-        "line-width": {"base": 1.2, "stops": [[14, 1.5], [20, 12]]}
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]},
+        "line-dasharray": [8, 4]
+      }
+    },
+    {
+      "id": "road_track",
+      "type": "line",
+      "source": "openmaptiles_osm",
+      "source-layer": "transportation",
+      "minzoom": 14,
+      "filter": [
+        "all",
+        ["==", "$type", "LineString"],
+        ["in", "class", "track"],
+        ["!in", "brunnel", "tunnel", "bridge"]
+      ],
+      "layout": {
+        "line-cap": "square",
+        "line-join": "bevel",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(247, 247, 247, 1)",
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]}
       }
     },
     {
@@ -831,7 +900,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "line-color": "rgba(250, 243, 158, 1)",
+        "line-color": "rgba(246, 242, 178, 1)",
         "line-width": {"base": 1.2, "stops": [[6.5, 0], [8, 1], [20, 16]]}
       }
     },
@@ -865,7 +934,7 @@
       "filter": [
         "all",
         ["==", "class", "transit"],
-        ["!in", "brunnel", "tunnel"]
+        ["!in", "brunnel", "tunnel", "bridge"]
       ],
       "layout": {"visibility": "visible"},
       "paint": {
@@ -883,7 +952,7 @@
       "filter": [
         "all",
         ["==", "class", "transit"],
-        ["!in", "brunnel", "tunnel"]
+        ["!in", "brunnel", "tunnel", "bridge"]
       ],
       "layout": {"visibility": "visible"},
       "paint": {
@@ -1067,7 +1136,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "line-color": "rgba(153, 153, 153, 1)",
+        "line-color": "rgba(130, 130, 130, 0.6)",
         "line-dasharray": [4, 3],
         "line-width": {
           "base": 1.2,
@@ -1098,7 +1167,7 @@
         "line-color": "rgba(199, 199, 199, 0.8)",
         "line-width": {
           "base": 1.2,
-          "stops": [[12, 0.5], [13, 1], [14, 4], [20, 20]]
+          "stops": [[12, 0.5], [13, 3], [14, 4], [20, 20]]
         }
       }
     },
@@ -1212,16 +1281,17 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": {"stops": [[6, [4, 4]], [15, [1, 1]]]},
+        "line-dasharray": [2, 2],
         "line-width": {"base": 1.2, "stops": [[14, 1], [20, 10]]}
       }
     },
     {
-      "id": "bridge_track",
+      "id": "bridge_track-dash",
       "type": "line",
       "source": "openmaptiles_osm",
       "source-layer": "transportation",
       "minzoom": 13,
+      "maxzoom": 14,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
@@ -1235,8 +1305,30 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": [1],
-        "line-width": {"base": 1.2, "stops": [[14, 1.5], [20, 12]]}
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]},
+        "line-dasharray": [8, 4]
+      }
+    },
+    {
+      "id": "bridge_track",
+      "type": "line",
+      "source": "openmaptiles_osm",
+      "source-layer": "transportation",
+      "minzoom": 14,
+      "filter": [
+        "all",
+        ["==", "$type", "LineString"],
+        ["in", "class", "track"],
+        ["==", "brunnel", "bridge"]
+      ],
+      "layout": {
+        "line-cap": "square",
+        "line-join": "bevel",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(247, 247, 247, 1)",
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]}
       }
     },
     {
@@ -1437,7 +1529,7 @@
       "type": "symbol",
       "source": "openmaptiles_osm",
       "source-layer": "place",
-      "minzoom": 9,
+      "minzoom": 11,
       "filter": [
         "all",
         ["==", "$type", "Point"],
@@ -1448,7 +1540,7 @@
         "text-field": "{name:latin}\n{name:nonlatin}",
         "text-font": ["Noto Sans Regular"],
         "text-max-width": 6,
-        "text-size": {"stops": [[6, 10], [16, 18]]},
+        "text-size": {"stops": [[11, 19], [15, 24]]},
         "visibility": "visible"
       },
       "paint": {
@@ -1464,12 +1556,33 @@
       "source": "openmaptiles_osm",
       "source-layer": "place",
       "maxzoom": 24,
-      "filter": ["all", ["==", "$type", "Point"], ["==", "class", "city"]],
+      "filter": ["all", ["==", "$type", "Point"], ["==", "class", "town"]],
       "layout": {
         "text-field": "{name:latin}\n{name:nonlatin}",
         "text-font": ["Noto Sans Regular"],
         "text-max-width": 10,
         "text-size": {"stops": [[10, 16], [12, 24]]},
+        "visibility": "visible"
+      },
+      "paint": {
+        "text-color": "rgba(153, 153, 153, 1)",
+        "text-halo-blur": 0,
+        "text-halo-color": "rgba(255, 255, 255, 0.7)",
+        "text-halo-width": 2
+      }
+    },
+    {
+      "id": "place-label_canton",
+      "type": "symbol",
+      "source": "openmaptiles_osm",
+      "source-layer": "place",
+      "minzoom": 8,
+      "filter": ["all", ["==", "$type", "Point"], ["in", "class", "city"]],
+      "layout": {
+        "text-field": "{name:latin}\n{name:nonlatin}",
+        "text-font": ["Noto Sans Regular"],
+        "text-max-width": 10,
+        "text-size": {"stops": [[10, 18], [12, 26]]},
         "visibility": "visible"
       },
       "paint": {
@@ -1581,8 +1694,8 @@
       "source": "geoportail.lu_topo_layers",
       "source-layer": "landuse_2018",
       "filter": ["==", "class", "grass"],
-      "layout": {"visibility": "visible"},
-      "paint": {"fill-color": "rgba(204, 221, 177, 1)", "fill-opacity": 0.4}
+      "layout": {"visibility": "none"},
+      "paint": {"fill-color": "rgba(204, 222, 174, 1)", "fill-opacity": 0.4}
     },
     {
       "id": "lu_landuse_park",
@@ -1591,7 +1704,7 @@
       "source-layer": "landuse_2018",
       "filter": ["==", "class", "park"],
       "layout": {"visibility": "visible"},
-      "paint": {"fill-color": "rgba(192, 216, 151, 1)", "fill-opacity": 0.4}
+      "paint": {"fill-color": "rgba(210, 220, 180, 1)", "fill-opacity": 0.5}
     },
     {
       "id": "lu_landuse_park-outline",
@@ -1646,13 +1759,76 @@
       }
     },
     {
-      "id": "lu_landuse_wood",
+      "id": "lu_landuse_wood_deciduous",
       "type": "fill",
       "source": "geoportail.lu_topo_layers",
       "source-layer": "landuse_2018",
-      "filter": ["all", ["==", "category", 3]],
+      "filter": ["all", ["==", "category", 3], ["==", "nature", "313"]],
       "layout": {"visibility": "visible"},
-      "paint": {"fill-color": "rgba(176, 200, 143, 1)", "fill-opacity": 0.6}
+      "paint": {"fill-color": "rgba(204, 222, 174, 1)", "fill-opacity": 0.6}
+    },
+    {
+      "id": "lu_landuse_wood_deciduous_pattern",
+      "type": "fill",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "landuse_2018",
+      "minzoom": 13,
+      "filter": ["all", ["==", "category", 3], ["==", "nature", "313"]],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "fill-pattern": {
+          "stops": [[12, "laub_c64"], [17, "laub_c128"], [19, "laub_c256"]]
+        },
+        "fill-opacity": 0.4
+      }
+    },
+    {
+      "id": "lu_landuse_wood_coniferous",
+      "type": "fill",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "landuse_2018",
+      "filter": ["all", ["==", "category", 3], ["==", "nature", "311"]],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(168, 192, 137, 1)", "fill-opacity": 0.6}
+    },
+    {
+      "id": "lu_landuse_wood_coniferous_pattern",
+      "type": "fill",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "landuse_2018",
+      "minzoom": 13,
+      "filter": ["all", ["==", "category", 3], ["==", "nature", "311"]],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "fill-pattern": {
+          "stops": [[12, "tanne_c64"], [17, "tanne_c128"], [19, "tanne_c256"]]
+        },
+        "fill-opacity": 0.4
+      }
+    },
+    {
+      "id": "lu_landuse_wood_mixed",
+      "type": "fill",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "landuse_2018",
+      "filter": ["any", ["==", "nature", "312"], ["==", "nature", "314"]],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(186, 207, 130, 1)", "fill-opacity": 0.6}
+    },
+    {
+      "id": "lu_landuse_wood_mixed_pattern",
+      "type": "fill",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "landuse_2018",
+      "minzoom": 13,
+      "filter": ["any", ["==", "nature", "312"], ["==", "nature", "314"]],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "fill-pattern": {
+          "stops": [[12, "mixed_c64"], [17, "mixed_c128"], [19, "mixed_c256"]]
+        },
+        "fill-opacity": 0.4
+      }
     },
     {
       "id": "lu_contour-100",
@@ -1962,7 +2138,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "line-color": "rgba(110, 110, 110, 0.6)",
+        "line-color": "rgba(130, 130, 130, 0.6)",
         "line-dasharray": [4, 3],
         "line-width": {
           "base": 1.2,
@@ -1976,7 +2152,7 @@
       "source": "geoportail.lu_topo_layers",
       "source-layer": "transportation",
       "minzoom": 9,
-      "maxzoom": 11,
+      "maxzoom": 10,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
@@ -2021,6 +2197,30 @@
         "line-dasharray": [3.5, 3.5],
         "line-opacity": {"base": 1, "stops": [[8, 0], [12, 1]]},
         "line-width": {"stops": [[6, 1], [11, 2]]}
+      }
+    },
+    {
+      "id": "lu_tunnel_railway_transit-hatching",
+      "type": "line",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "transportation",
+      "minzoom": 15,
+      "filter": [
+        "all",
+        ["==", "$type", "LineString"],
+        ["==", "brunnel", "tunnel"],
+        ["==", "class", "transit"]
+      ],
+      "layout": {
+        "line-cap": "butt",
+        "line-join": "miter",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(140, 140, 140, 1)",
+        "line-opacity": {"base": 1, "stops": [[8, 0], [12, 1]]},
+        "line-width": {"stops": [[15, 4], [17, 7], [19, 20]]},
+        "line-dasharray": [0.15, 8]
       }
     },
     {
@@ -2090,16 +2290,17 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": {"stops": [[6, [4, 4]], [15, [1, 1]]]},
+        "line-dasharray": [2, 2],
         "line-width": {"base": 1.2, "stops": [[14, 1], [20, 10]]}
       }
     },
     {
-      "id": "lu_tunnel_track",
+      "id": "lu_tunnel_track-dash",
       "type": "line",
       "source": "geoportail.lu_topo_layers",
       "source-layer": "transportation",
       "minzoom": 13,
+      "maxzoom": 14,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
@@ -2114,8 +2315,31 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": [1],
-        "line-width": {"base": 1.2, "stops": [[14, 1.5], [20, 12]]}
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]},
+        "line-dasharray": [8, 4]
+      }
+    },
+    {
+      "id": "lu_tunnel_track",
+      "type": "line",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "transportation",
+      "minzoom": 14,
+      "filter": [
+        "all",
+        ["==", "$type", "LineString"],
+        ["in", "class", "path", "track"],
+        ["==", "nb_voies", 1],
+        ["==", "brunnel", "tunnel"]
+      ],
+      "layout": {
+        "line-cap": "square",
+        "line-join": "bevel",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(247, 247, 247, 1)",
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]}
       }
     },
     {
@@ -2149,6 +2373,29 @@
       "source": "geoportail.lu_topo_layers",
       "source-layer": "transportation",
       "minzoom": 5,
+      "maxzoom": 10,
+      "filter": [
+        "all",
+        ["==", "$type", "LineString"],
+        ["==", "brunnel", "tunnel"],
+        ["in", "class", "motorway"]
+      ],
+      "layout": {"line-join": "round", "visibility": "visible"},
+      "paint": {
+        "line-color": "rgba(240, 180, 115, 1)",
+        "line-width": {
+          "base": 1.2,
+          "stops": [[5, 0], [7, 1], [9, 4], [13, 5], [20, 18]]
+        },
+        "line-opacity": {"stops": [[5, 1], [13, 0.75]]}
+      }
+    },
+    {
+      "id": "lu_tunnel_major_motorway_dashed",
+      "type": "line",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "transportation",
+      "minzoom": 10,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
@@ -2163,7 +2410,7 @@
           "stops": [[5, 0], [7, 1], [9, 4], [13, 5], [20, 18]]
         },
         "line-opacity": {"stops": [[5, 1], [13, 0.75]]},
-        "line-dasharray": {"stops": [[5, [1]], [11, [2.5, 1.5]]]}
+        "line-dasharray": [2.5, 1.5]
       }
     },
     {
@@ -2314,7 +2561,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "line-color": "rgba(110, 110, 110, 0.6)",
+        "line-color": "rgba(130, 130, 130, 0.6)",
         "line-dasharray": [4, 3],
         "line-width": {
           "base": 1.2,
@@ -2340,7 +2587,7 @@
         "line-color": "rgba(110, 110, 110, 0.6)",
         "line-width": {
           "base": 1.2,
-          "stops": [[12, 0.5], [13, 1], [14, 4], [20, 20]]
+          "stops": [[12, 0.5], [13, 3], [14, 4], [20, 20]]
         }
       }
     },
@@ -2461,7 +2708,7 @@
         ["==", "$type", "LineString"],
         ["in", "class", "path", "track"],
         ["==", "nb_voies", 0],
-        ["!=", "brunnel", "tunnel"]
+        ["!in", "brunnel", "tunnel", "bridge"]
       ],
       "layout": {
         "line-cap": "square",
@@ -2470,8 +2717,33 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": {"stops": [[6, [4, 4]], [15, [1, 1]]]},
+        "line-dasharray": [2, 2],
         "line-width": {"base": 1.2, "stops": [[14, 1], [20, 10]]}
+      }
+    },
+    {
+      "id": "lu_road_track-dash",
+      "type": "line",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "transportation",
+      "minzoom": 13,
+      "maxzoom": 14,
+      "filter": [
+        "all",
+        ["==", "$type", "LineString"],
+        ["in", "class", "path", "track"],
+        ["==", "nb_voies", 1],
+        ["!in", "brunnel", "tunnel", "bridge"]
+      ],
+      "layout": {
+        "line-cap": "square",
+        "line-join": "bevel",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(247, 247, 247, 1)",
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]},
+        "line-dasharray": [8, 4]
       }
     },
     {
@@ -2479,13 +2751,13 @@
       "type": "line",
       "source": "geoportail.lu_topo_layers",
       "source-layer": "transportation",
-      "minzoom": 13,
+      "minzoom": 14,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
         ["in", "class", "path", "track"],
         ["==", "nb_voies", 1],
-        ["!=", "brunnel", "tunnel"]
+        ["!in", "brunnel", "tunnel", "bridge"]
       ],
       "layout": {
         "line-cap": "square",
@@ -2494,8 +2766,7 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": [1],
-        "line-width": {"base": 1.2, "stops": [[14, 1.5], [20, 12]]}
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]}
       }
     },
     {
@@ -2508,7 +2779,7 @@
         "all",
         ["==", "$type", "LineString"],
         ["in", "class", "minor", "service"],
-        ["!=", "brunnel", "tunnel"]
+        ["!in", "brunnel", "tunnel", "bridge"]
       ],
       "layout": {
         "line-cap": "round",
@@ -2530,7 +2801,7 @@
         "all",
         ["==", "$type", "LineString"],
         ["==", "class", "motorway"],
-        ["!=", "brunnel", "tunnel"]
+        ["!in", "brunnel", "tunnel", "bridge"]
       ],
       "layout": {
         "line-cap": "round",
@@ -2557,7 +2828,7 @@
         "all",
         ["==", "$type", "LineString"],
         ["in", "class", "secondary", "tertiary"],
-        ["!=", "brunnel", "tunnel"]
+        ["!in", "brunnel", "tunnel", "bridge"]
       ],
       "layout": {
         "line-cap": "round",
@@ -2579,7 +2850,7 @@
         "all",
         ["==", "$type", "LineString"],
         ["in", "class", "trunk", "primary"],
-        ["!=", "brunnel", "tunnel"]
+        ["!in", "brunnel", "tunnel", "bridge"]
       ],
       "layout": {
         "line-join": "round",
@@ -2652,6 +2923,25 @@
       }
     },
     {
+      "id": "lu_railway_transit-hatching",
+      "type": "line",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "transportation",
+      "minzoom": 15,
+      "filter": [
+        "all",
+        ["==", "class", "transit"],
+        ["!in", "brunnel", "tunnel", "bridge"]
+      ],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "line-color": "rgba(140, 140, 140, 1)",
+        "line-opacity": {"base": 1, "stops": [[8, 0], [12, 1]]},
+        "line-width": {"stops": [[15, 4], [17, 7], [19, 20]]},
+        "line-dasharray": [0.17, 8]
+      }
+    },
+    {
       "id": "lu_railway",
       "type": "line",
       "source": "geoportail.lu_topo_layers",
@@ -2693,7 +2983,6 @@
       "source": "geoportail.lu_topo_layers",
       "source-layer": "building",
       "minzoom": 12,
-      "filter": ["any", ["<", "nature", 40000], [">=", "nature", 50000]],
       "layout": {"visibility": "visible"},
       "paint": {
         "fill-antialias": true,
@@ -2708,8 +2997,7 @@
       "source": "geoportail.lu_topo_layers",
       "source-layer": "building",
       "minzoom": 12,
-      "filter": ["all", [">=", "nature", 40000], ["<", "nature", 50000]],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-antialias": true,
         "fill-color": "rgba(190, 190, 190, 1)",
@@ -2727,7 +3015,6 @@
       "type": "fill-extrusion",
       "source": "geoportail.lu_topo_layers",
       "source-layer": "building",
-      "filter": ["any", ["<", "nature", 40000], [">=", "nature", 50000]],
       "layout": {"visibility": "none"},
       "paint": {
         "fill-extrusion-color": "rgba(140, 140, 140, 1)",
@@ -2862,7 +3149,7 @@
         "visibility": "visible"
       },
       "paint": {
-        "line-color": "rgba(110, 110, 110, 0.6)",
+        "line-color": "rgba(130, 130, 130, 0.6)",
         "line-dasharray": [4, 3],
         "line-width": {
           "base": 1.2,
@@ -2880,6 +3167,7 @@
         "all",
         ["==", "$type", "LineString"],
         ["in", "class", "path", "track"],
+        ["==", "nb_voies", 0],
         ["==", "brunnel", "bridge"]
       ],
       "layout": {
@@ -2912,10 +3200,10 @@
         "visibility": "visible"
       },
       "paint": {
-        "line-color": "rgba(112, 112, 112, 0.6)",
+        "line-color": "rgba(110, 110, 110, 0.6)",
         "line-width": {
           "base": 1.2,
-          "stops": [[12, 0.5], [13, 1], [14, 4], [20, 20]]
+          "stops": [[12, 0.5], [13, 3], [14, 4], [20, 20]]
         }
       }
     },
@@ -3022,6 +3310,7 @@
         "all",
         ["==", "$type", "LineString"],
         ["in", "class", "path", "track"],
+        ["==", "nb_voies", 0],
         ["==", "brunnel", "bridge"]
       ],
       "layout": {
@@ -3031,16 +3320,17 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": {"stops": [[6, [4, 4]], [15, [1, 1]]]},
+        "line-dasharray": [2, 2],
         "line-width": {"base": 1.2, "stops": [[14, 1], [20, 10]]}
       }
     },
     {
-      "id": "lu_bridge_track",
+      "id": "lu_bridge_track-dash",
       "type": "line",
       "source": "geoportail.lu_topo_layers",
       "source-layer": "transportation",
       "minzoom": 13,
+      "maxzoom": 14,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
@@ -3055,8 +3345,31 @@
       },
       "paint": {
         "line-color": "rgba(247, 247, 247, 1)",
-        "line-dasharray": [1],
-        "line-width": {"base": 1.2, "stops": [[14, 1.5], [20, 12]]}
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]},
+        "line-dasharray": [8, 4]
+      }
+    },
+    {
+      "id": "lu_bridge_track",
+      "type": "line",
+      "source": "geoportail.lu_topo_layers",
+      "source-layer": "transportation",
+      "minzoom": 14,
+      "filter": [
+        "all",
+        ["==", "$type", "LineString"],
+        ["in", "class", "path", "track"],
+        ["==", "nb_voies", 1],
+        ["==", "brunnel", "bridge"]
+      ],
+      "layout": {
+        "line-cap": "square",
+        "line-join": "bevel",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(247, 247, 247, 1)",
+        "line-width": {"base": 1.2, "stops": [[10, 0], [14, 1.5], [20, 12]]}
       }
     },
     {
@@ -3209,6 +3522,22 @@
       }
     },
     {
+      "id": "lu_altitude_point-selection",
+      "type": "circle",
+      "source": "geoportail.lu_contours",
+      "source-layer": "apex",
+      "minzoom": 14,
+      "maxzoom": 16,
+      "filter": ["any", ["==", "echelle", 1]],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "circle-color": "rgba(64, 64, 64, 1)",
+        "circle-radius": 2,
+        "circle-stroke-color": "rgba(0, 0, 0, 0)",
+        "circle-stroke-width": 0
+      }
+    },
+    {
       "id": "lu_altitude_point",
       "type": "circle",
       "source": "geoportail.lu_contours",
@@ -3336,6 +3665,36 @@
         "text-color": "rgba(161, 136, 127, 1)",
         "text-halo-color": "rgba(255, 255, 255, 0.75)",
         "text-halo-width": 1.5
+      }
+    },
+    {
+      "id": "lu_apex-label-selection",
+      "type": "symbol",
+      "source": "geoportail.lu_contours",
+      "source-layer": "apex",
+      "minzoom": 14,
+      "maxzoom": 16,
+      "filter": ["any", ["==", "echelle", 1]],
+      "layout": {
+        "text-anchor": "bottom-left",
+        "text-field": "{altitude}",
+        "text-font": ["Noto Sans Regular"],
+        "text-max-width": 6,
+        "text-size": {"stops": [[6, 10], [12, 12]]},
+        "visibility": "visible",
+        "icon-optional": true,
+        "icon-size": 2,
+        "text-ignore-placement": false,
+        "text-justify": "right",
+        "text-max-angle": 45,
+        "text-padding": 2
+      },
+      "paint": {
+        "text-color": "rgba(64, 64, 64, 1)",
+        "text-halo-blur": 0,
+        "text-halo-color": "rgba(255, 255, 255, 0.75)",
+        "text-halo-width": 2,
+        "icon-color": "rgba(0, 0, 0, 1)"
       }
     },
     {
@@ -3808,7 +4167,7 @@
       "type": "symbol",
       "source": "geoportail.lu_topo_layers",
       "source-layer": "waterway",
-      "minzoom": 12,
+      "minzoom": 6,
       "filter": [
         "all",
         ["==", "$type", "LineString"],
@@ -3823,7 +4182,8 @@
         "text-size": {"stops": [[6, 12], [15, 15]]},
         "text-transform": "none",
         "visibility": "visible",
-        "text-anchor": "center"
+        "text-anchor": "center",
+        "symbol-spacing": 250
       },
       "paint": {
         "text-color": "rgba(69, 115, 141, 1)",
@@ -3899,8 +4259,8 @@
         "text-font": ["Noto Sans Regular"],
         "text-offset": [0, 0],
         "text-rotation-alignment": "viewport",
-        "text-size": 9,
-        "icon-size": 0.7,
+        "text-size": {"stops": [[9, 11], [12, 9]]},
+        "icon-size": {"stops": [[9, 0.9], [12, 0.7]]},
         "icon-anchor": "center",
         "icon-text-fit": "none",
         "visibility": "visible"
@@ -3935,7 +4295,7 @@
       "type": "symbol",
       "source": "geoportail.lu_topo_layers",
       "source-layer": "place",
-      "minzoom": 13,
+      "minzoom": 12,
       "filter": [
         "all",
         ["==", "$type", "Point"],
@@ -3946,7 +4306,7 @@
         "text-field": "{name}",
         "text-font": ["Noto Sans Regular"],
         "text-max-width": 6,
-        "text-size": 15,
+        "text-size": 16,
         "visibility": "visible"
       },
       "paint": {
@@ -3970,7 +4330,7 @@
         "text-max-width": 6,
         "text-size": 16,
         "visibility": "visible",
-        "text-letter-spacing": {"stops": [[13, 0], [14, 0.2]]}
+        "text-letter-spacing": {"stops": [[12, 0], [13.5, 0.2]]}
       },
       "paint": {
         "text-color": "rgba(64, 64, 64, 1)",
@@ -3984,7 +4344,7 @@
       "type": "symbol",
       "source": "geoportail.lu_topo_layers",
       "source-layer": "place",
-      "minzoom": 15,
+      "minzoom": 14,
       "filter": ["all", ["==", "$type", "Point"], ["in", "class", "suburb"]],
       "layout": {
         "text-anchor": "center",
@@ -4031,9 +4391,8 @@
         "text-field": "{name}",
         "text-font": ["Noto Sans Regular"],
         "text-max-width": 6,
-        "text-size": 18,
-        "visibility": "visible",
-        "text-allow-overlap": false
+        "text-size": {"stops": [[11, 19], [15, 24]]},
+        "visibility": "visible"
       },
       "paint": {
         "text-color": "rgba(0, 0, 0, 1)",
