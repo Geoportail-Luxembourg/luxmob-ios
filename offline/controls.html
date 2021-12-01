@@ -1,1 +1,21 @@
+<a href="http://localhost:8765/check">check</a><br>
+<a href="#" onclick="check()">check js</a><br>
+<a href="#" onclick="updatePackage('omt-geoportail-lu')">update roadmap</a> | | <a href="#" onclick="deletePackage('omt-geoportail-lu')">delete roadmap</a><br>
+<a href="#" onclick="updatePackage('omt-topo-geoportail-lu')">update topomap</a> | | <a href="#" onclick="deletePackage('omt-topo-geoportail-lu')">delete topomap</a><br>
+<a href="#" onclick="updatePackage('contours-lu')">update contours</a> | | <a href="#" onclick="deletePackage('contours-lu')">delete contours</a><br>
+<a href="#" onclick="updatePackage('hillshade-lu')">update hillshade</a> | | <a href="#" onclick="deletePackage('hillshade-lu')">delete hillshade</a><br>
+<a href="#" onclick="updatePackage('resources')">update resources</a> | | <a href="#" onclick="deletePackage('resources')">delete resources</a><br>
+<a href="#" onclick="updatePackage('fonts')">update fonts</a> | | <a href="#" onclick="deletePackage('fonts')">delete fonts</a><br>
+<a href="#" onclick="updatePackage('sprites')">update sprites</a> | | <a href="#" onclick="deletePackage('sprites')">delete sprites</a><br>
 
+<script>
+  function check() {
+      fetch("http://localhost:8765/check").then(p => p);
+  }
+  function updatePackage(dataset) {
+      fetch("http://localhost:8765/map/" + dataset, {method:"PUT"}).then(p => p);
+  }
+  function deletePackage(dataset) {
+      fetch("http://localhost:8765/map/" + dataset, {method:"DELETE"}).then(p => p);
+  }
+</script>
