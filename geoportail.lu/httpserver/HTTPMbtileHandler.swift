@@ -14,7 +14,6 @@ public class HTTPMbtileHandler: HTTPRequestHandler {
     public func respond(to request: HTTPRequest, nextHandler: HTTPRequest.Handler) throws -> HTTPResponse? {
         
         let splitted = request.uri.path.components(separatedBy: "/")
-        print(splitted)
         
         me: if (splitted.count == 6
             && splitted[1] == "data"

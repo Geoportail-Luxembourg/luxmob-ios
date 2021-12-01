@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89072EA5274E9164007E37C2 /* geoportail_luTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89072EA4274E9164007E37C2 /* geoportail_luTests.swift */; };
+		89072EAC274F9CB6007E37C2 /* MbtilesCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89072EAB274F9CB6007E37C2 /* MbtilesCacheManager.swift */; };
 		897C977626F4CA3000611B41 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 897C977526F4CA3000611B41 /* GRDB */; };
 		897C977926F4CF2300611B41 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 897C977826F4CF2300611B41 /* NetworkExtension.framework */; };
 		DA6035562588E88200516CA2 /* appicon_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6035552588E88100516CA2 /* appicon_transparent.png */; };
@@ -33,6 +35,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		89072EA6274E9164007E37C2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5E0B7592215C8EA00D28D25 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5E0B7602215C8EA00D28D25;
+			remoteInfo = geoportail.lu;
+		};
 		F59EE7AC2232566C005642A2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
@@ -99,6 +108,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		89072EA2274E9164007E37C2 /* geoportail.luTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = geoportail.luTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89072EA4274E9164007E37C2 /* geoportail_luTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = geoportail_luTests.swift; sourceTree = "<group>"; };
+		89072EAB274F9CB6007E37C2 /* MbtilesCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtilesCacheManager.swift; sourceTree = "<group>"; };
 		897C977726F4CF2300611B41 /* geoportail.lu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = geoportail.lu.entitlements; sourceTree = "<group>"; };
 		897C977826F4CF2300611B41 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		DA6035552588E88100516CA2 /* appicon_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon_transparent.png; sourceTree = "<group>"; };
@@ -128,6 +140,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		89072E9F274E9164007E37C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5E0B75E2215C8EA00D28D25 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -142,6 +161,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		89072EA3274E9164007E37C2 /* geoportail.luTests */ = {
+			isa = PBXGroup;
+			children = (
+				89072EA4274E9164007E37C2 /* geoportail_luTests.swift */,
+			);
+			path = geoportail.luTests;
+			sourceTree = "<group>";
+		};
 		F508D16324ACCCAD00286902 /* httpserver */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +186,7 @@
 				F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */,
 				F5346E08221AF06500BF8E29 /* IBackend.swift */,
 				F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */,
+				89072EAB274F9CB6007E37C2 /* MbtilesCacheManager.swift */,
 			);
 			path = backends;
 			sourceTree = "<group>";
@@ -194,6 +222,7 @@
 			children = (
 				F508D15A24928AB200286902 /* offline */,
 				F5E0B7632215C8EA00D28D25 /* geoportail.lu */,
+				89072EA3274E9164007E37C2 /* geoportail.luTests */,
 				F5E0B7622215C8EA00D28D25 /* Products */,
 				F5346E10221EB95100BF8E29 /* Frameworks */,
 			);
@@ -203,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				F5E0B7612215C8EA00D28D25 /* geoportail.lu.app */,
+				89072EA2274E9164007E37C2 /* geoportail.luTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -232,6 +262,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		89072EA1274E9164007E37C2 /* geoportail.luTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89072EAA274E9164007E37C2 /* Build configuration list for PBXNativeTarget "geoportail.luTests" */;
+			buildPhases = (
+				89072E9E274E9164007E37C2 /* Sources */,
+				89072E9F274E9164007E37C2 /* Frameworks */,
+				89072EA0274E9164007E37C2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89072EA7274E9164007E37C2 /* PBXTargetDependency */,
+			);
+			name = geoportail.luTests;
+			productName = geoportail.luTests;
+			productReference = 89072EA2274E9164007E37C2 /* geoportail.luTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F5E0B7602215C8EA00D28D25 /* geoportail.lu */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5E0B7732215C8EC00D28D25 /* Build configuration list for PBXNativeTarget "geoportail.lu" */;
@@ -260,10 +308,15 @@
 		F5E0B7592215C8EA00D28D25 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				DefaultBuildSystemTypeForWorkspace = Latest;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = Camptocamp;
 				TargetAttributes = {
+					89072EA1274E9164007E37C2 = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = F5E0B7602215C8EA00D28D25;
+					};
 					F5E0B7602215C8EA00D28D25 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1150;
@@ -294,6 +347,7 @@
 			projectRoot = "";
 			targets = (
 				F5E0B7602215C8EA00D28D25 /* geoportail.lu */,
+				89072EA1274E9164007E37C2 /* geoportail.luTests */,
 			);
 		};
 /* End PBXProject section */
@@ -358,6 +412,13 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		89072EA0274E9164007E37C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5E0B75F2215C8EA00D28D25 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -376,6 +437,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		89072E9E274E9164007E37C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89072EA5274E9164007E37C2 /* geoportail_luTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5E0B75D2215C8EA00D28D25 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -391,12 +460,18 @@
 				F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */,
 				F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */,
 				F5E0B7652215C8EA00D28D25 /* AppDelegate.swift in Sources */,
+				89072EAC274F9CB6007E37C2 /* MbtilesCacheManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		89072EA7274E9164007E37C2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5E0B7602215C8EA00D28D25 /* geoportail.lu */;
+			targetProxy = 89072EA6274E9164007E37C2 /* PBXContainerItemProxy */;
+		};
 		F59EE7C1223256C5005642A2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = GRDBiOS;
@@ -424,6 +499,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		89072EA8274E9164007E37C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "lu.geoportail.geoportail-luTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/geoportail.lu.app/geoportail.lu";
+			};
+			name = Debug;
+		};
+		89072EA9274E9164007E37C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "lu.geoportail.geoportail-luTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/geoportail.lu.app/geoportail.lu";
+			};
+			name = Release;
+		};
 		F5E0B7712215C8EC00D28D25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -600,6 +723,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		89072EAA274E9164007E37C2 /* Build configuration list for PBXNativeTarget "geoportail.luTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89072EA8274E9164007E37C2 /* Debug */,
+				89072EA9274E9164007E37C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F5E0B75C2215C8EA00D28D25 /* Build configuration list for PBXProject "geoportail.lu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

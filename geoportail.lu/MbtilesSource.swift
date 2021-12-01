@@ -17,7 +17,12 @@ class MbtilesSource {
         let fileUrl = Bundle.main.url(forResource: tileset, withExtension: "mbtiles", subdirectory: "offline")
         dbQueue = try! DatabaseQueue(path: fileUrl!.path, configuration: Configuration())
     }
-
+    static func exists(tileset: String) -> Bool {
+        if (Bundle.main.path(forResource: tileset, ofType: "mbtiles", inDirectory: "offline") != nil) {
+           return true
+        }
+        return false
+    }
     func getTile(x: Int, y: Int, z: Int) -> Data? {
         var value: Data?
         ((try? dbQueue.read { db in

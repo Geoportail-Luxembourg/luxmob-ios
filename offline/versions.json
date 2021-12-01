@@ -1,0 +1,65 @@
+{
+    "omt-geoportail": {
+        "version": "2.7.3",
+        "sources": [
+            "https://vectortiles-sync.geoportail.lu/mbtiles/tiles_luxembourg.mbtiles"
+        ]
+    },
+    "omt-topo-geoportail": {
+        "version": "3.9.3",
+        "sources": [
+            "https://vectortiles-sync.geoportail.lu/mbtiles/topo_tiles_luxembourg.mbtiles"
+        ]
+    },
+    "contours": {
+        "version": "2.7.3",
+        "sources": [
+            "https://vectortiles-sync.geoportail.lu/mbtiles/contours.mbtiles"
+        ]
+    },
+    "hillshade": {
+        "version": "2.7.3",
+        "sources": [
+            "https://vectortiles-sync.geoportail.lu/mbtiles/hillshade.mbtiles"
+        ]
+    },
+    "ressources": {
+        "version": "2.7.3",
+        "sources": [
+            "https://vectortiles-sync.geoportail.lu/data/omt-geoportail-lu.json",
+            "https://vectortiles-sync.geoportail.lu/data/omt-topo-geoportail-lu.json",
+            "https://vectortiles-sync.geoportail.lu/data/contours-lu.json",
+            "https://vectortiles-sync.geoportail.lu/data/hillshade-lu.json",
+            "https://vectortiles-sync.geoportail.lu/data/omt-osm-cutout-10m.json",
+            "https://vectortiles-sync.geoportail.lu/styles/roadmap.json",
+            "https://vectortiles-sync.geoportail.lu/styles/topomap.json",
+            "https://vectortiles-sync.geoportail.lu/styles/topomap_gray.json"
+        ]
+    },
+    "fonts": {
+        "version": "1.0.0",
+        "sources": [
+            "https://vectortiles-sync.geoportail.lu/fonts/Noto Sans Regular/0-255.pbf",
+            "https://vectortiles-sync.geoportail.lu/fonts/Noto Sans Regular/256-511.pbf",
+            "https://vectortiles-sync.geoportail.lu/fonts/Noto Sans Regular/8192-8447.pbf",
+            "https://vectortiles-sync.geoportail.lu/fonts/Noto Sans Bold/0-255.pbf",
+            "https://vectortiles-sync.geoportail.lu/fonts/Noto Sans Bold/256-511.pbf",
+            "https://vectortiles-sync.geoportail.lu/fonts/Noto Sans Bold/8192-8447.pbf"
+        ]
+    },
+    "sprites": {
+        "version": "0.9.2",
+        "sources": [
+            "https://vectortiles-sync.geoportail.lu/sprites/osm-liberty.json",
+            "https://vectortiles-sync.geoportail.lu/sprites/osm-liberty.png",
+            "https://vectortiles-sync.geoportail.lu/sprites/osm-liberty@2x.json",
+            "https://vectortiles-sync.geoportail.lu/sprites/osm-liberty@2x.png",
+            "https://vectortiles-sync.geoportail.lu/sprites/sprites.json",
+            "https://vectortiles-sync.geoportail.lu/sprites/sprites.png",
+            "https://vectortiles-sync.geoportail.lu/sprites/sprites@2x.json",
+            "https://vectortiles-sync.geoportail.lu/sprites/sprites@2x.png",
+            "https://vectortiles-sync.geoportail.lu/sprites/sprites@3x.json",
+            "https://vectortiles-sync.geoportail.lu/sprites/sprites@3x.png"
+        ]
+    }
+}

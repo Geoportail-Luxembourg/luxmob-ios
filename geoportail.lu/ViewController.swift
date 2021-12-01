@@ -19,10 +19,11 @@ class ViewController: UIViewController, WKNavigationDelegate {
     // var websiteURL : String = "http://192.168.0.10:8080/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&version=3"
     #if DEBUG
     // For testing the migration branch
-    var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
+    /*var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"*/
+    let websiteURL : String = "http://10.26.44.174:8080/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
     #else
     // For production
-    var websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
+    let websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
     #endif
     
     override func viewDidLoad() {
