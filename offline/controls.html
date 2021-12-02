@@ -1,12 +1,25 @@
 <a href="http://localhost:8765/check">check</a><br>
-<a href="#" onclick="check()">check js</a><br>
-<a href="#" onclick="updatePackage('omt-geoportail-lu')">update roadmap</a> | | <a href="#" onclick="deletePackage('omt-geoportail-lu')">delete roadmap</a><br>
-<a href="#" onclick="updatePackage('omt-topo-geoportail-lu')">update topomap</a> | | <a href="#" onclick="deletePackage('omt-topo-geoportail-lu')">delete topomap</a><br>
-<a href="#" onclick="updatePackage('contours-lu')">update contours</a> | | <a href="#" onclick="deletePackage('contours-lu')">delete contours</a><br>
-<a href="#" onclick="updatePackage('hillshade-lu')">update hillshade</a> | | <a href="#" onclick="deletePackage('hillshade-lu')">delete hillshade</a><br>
-<a href="#" onclick="updatePackage('resources')">update resources</a> | | <a href="#" onclick="deletePackage('resources')">delete resources</a><br>
-<a href="#" onclick="updatePackage('fonts')">update fonts</a> | | <a href="#" onclick="deletePackage('fonts')">delete fonts</a><br>
-<a href="#" onclick="updatePackage('sprites')">update sprites</a> | | <a href="#" onclick="deletePackage('sprites')">delete sprites</a><br>
+<div onclick="check()">check js</div><br>
+<div onclick="updatePackage('omt-geoportail-lu')">update roadmap</div> <div onclick="deletePackage('omt-geoportail-lu')">delete roadmap</div><br>
+<div onclick="updatePackage('omt-topo-geoportail-lu')">update topomap</div> <div onclick="deletePackage('omt-topo-geoportail-lu')">delete topomap</div><br>
+<div onclick="updatePackage('contours-lu')">update contours</div> <div onclick="deletePackage('contours-lu')">delete contours</div><br>
+<div onclick="updatePackage('hillshade-lu')">update hillshade</div> <div onclick="deletePackage('hillshade-lu')">delete hillshade</div><br>
+<div onclick="updatePackage('resources')">update resources</div> <div onclick="deletePackage('resources')">delete resources</div><br>
+<div onclick="updatePackage('fonts')">update fonts</div> <div onclick="deletePackage('fonts')">delete fonts</div><br>
+<div onclick="updatePackage('sprites')">update sprites</div> <div onclick="deletePackage('sprites')">delete sprites</div><br>
+
+<style>
+  div {
+      background-color: gray;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+  }
+</style>
 
 <script>
   function check() {
