@@ -14,11 +14,11 @@ class MbtilesSource {
     let dbQueue: DatabaseQueue
 
     init(forTileset tileset: String) {
-        let fileUrl = Bundle.main.url(forResource: tileset, withExtension: "mbtiles", subdirectory: "offline")
+        let fileUrl = Bundle.main.url(forResource: tileset, withExtension: "mbtiles", subdirectory: "offline/mbtiles")
         dbQueue = try! DatabaseQueue(path: fileUrl!.path, configuration: Configuration())
     }
     static func exists(tileset: String) -> Bool {
-        if (Bundle.main.path(forResource: tileset, ofType: "mbtiles", inDirectory: "offline") != nil) {
+        if (Bundle.main.path(forResource: tileset, ofType: "mbtiles", inDirectory: "offline/mbtiles") != nil) {
            return true
         }
         return false
