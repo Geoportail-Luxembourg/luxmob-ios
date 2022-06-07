@@ -132,20 +132,19 @@ public class EmbeddedServer {
                 let rr = NSRange(resString.startIndex..<resString.endIndex,
                                       in: resString)
                 //resString = re.stringByReplacingMatches(in: String(data: data!, encoding: .utf8)!, range: NSRange(), withTemplate: "blou")
-                let matches = re.matches(in: resString, range: rr)//NSRange(0...resString.count))
-                matches.forEach { (res: NSTextCheckingResult) in
-                    let groupValue = (resString as NSString).substring(with: res.range(at: 1))
+                while case let res = re.firstMatch(in: resString, range: rr), res != nil {
+                    let groupValue = (resString as NSString).substring(with: res!.range(at: 1))
                     let replaceValue: String
                     if fm.fileExists(atPath: documentsUrl.appendingPathComponent("data/" + groupValue + ".json", isDirectory: false).path) {
-                        replaceValue = "http://127.0.0.1:8765/static/data/" + groupValue + ".json"
+                        replaceValue = "https://127.0.0.1:8765/static/data/" + groupValue + ".json"
                     }
                     else {
                         replaceValue = "https://vectortiles.geoportail.lu/data/" + groupValue + ".json"
 
                     }
-                    resString.replaceSubrange(Range(res.range, in: resString)!, with: replaceValue)
+                    resString.replaceSubrange(Range(res!.range, in: resString)!, with: replaceValue)
                 }
-                resString = resString.replacingOccurrences(of: "\"{fontstack}/{range}.pbf", with: "\"http://127.0.0.1:8765/static/fonts/{fontstack}/{range}.pbf")
+                resString = resString.replacingOccurrences(of: "\"{fontstack}/{range}.pbf", with: "\"https://127.0.0.1:8765/static/fonts/{fontstack}/{range}.pbf")
             }
         }
         if resourcePath.contains("data/") {
@@ -164,10 +163,9 @@ public class EmbeddedServer {
             try! fm.contentsOfDirectory(atPath: documentsUrl.appendingPathComponent("mbtiles/", isDirectory: true).path)
             if fm.fileExists(atPath: documentsUrl.appendingPathComponent("mbtiles/" + tilesName + ".mbtiles", isDirectory: false).path) {
                 let re = try! NSRegularExpression(pattern: "https://vectortiles.geoportail.lu/data/" + mapName + "/\\{z\\}/\\{x\\}/\\{y\\}.(pbf|png)")
-                re.matches(in: resString, range: NSRange(resString.startIndex..<resString.endIndex,
-                                                         in: resString)).forEach {
-                    (res: NSTextCheckingResult) in
-                    resString.replaceSubrange(Range(res.range, in: resString)!, with: "http://localhost:8765/mbtiles?layer=" + mapName + "&z={z}&x={x}&y={y}&format=" + (resString as NSString).substring(with: res.range(at: 1)))
+                let rr = NSRange(resString.startIndex..<resString.endIndex, in: resString)
+                while case let res = re.firstMatch(in: resString, range: rr), res != nil {
+                    resString.replaceSubrange(Range(res!.range, in: resString)!, with: "https://localhost:8765/mbtiles?layer=" + mapName + "&z={z}&x={x}&y={y}&format=" + (resString as NSString).substring(with: res!.range(at: 1)))
                 }
             }
         }
