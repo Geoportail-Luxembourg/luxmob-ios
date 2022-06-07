@@ -1,29 +1,29 @@
 {
-    "omt-geoportail": {
+    "omt-geoportail-lu": {
         "version": "2.7.3",
         "sources": [
             "https://vectortiles-sync.geoportail.lu/mbtiles/tiles_luxembourg.mbtiles"
         ]
     },
-    "omt-topo-geoportail": {
+    "omt-topo-geoportail-lu": {
         "version": "3.9.3",
         "sources": [
             "https://vectortiles-sync.geoportail.lu/mbtiles/topo_tiles_luxembourg.mbtiles"
         ]
     },
-    "contours": {
+    "contours-lu": {
         "version": "2.7.3",
         "sources": [
             "https://vectortiles-sync.geoportail.lu/mbtiles/contours.mbtiles"
         ]
     },
-    "hillshade": {
+    "hillshade-lu": {
         "version": "2.7.3",
         "sources": [
             "https://vectortiles-sync.geoportail.lu/mbtiles/hillshade.mbtiles"
         ]
     },
-    "ressources": {
+    "resources": {
         "version": "2.7.3",
         "sources": [
             "https://vectortiles-sync.geoportail.lu/data/omt-geoportail-lu.json",

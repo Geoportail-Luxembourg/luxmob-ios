@@ -12,10 +12,11 @@ import Foundation
 
 class MbtilesSource {
     let dbQueue: DatabaseQueue
+    let documentsUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
 
     init(forTileset tileset: String) {
-        let fileUrl = Bundle.main.url(forResource: tileset, withExtension: "mbtiles", subdirectory: "offline/mbtiles")
-        dbQueue = try! DatabaseQueue(path: fileUrl!.path, configuration: Configuration())
+        let fileUrl = documentsUrl.appendingPathComponent("mbtiles/" + tileset + ".mbtiles", isDirectory: false)
+        dbQueue = try! DatabaseQueue(path: fileUrl.path, configuration: Configuration())
     }
     static func exists(tileset: String) -> Bool {
         if (Bundle.main.path(forResource: tileset, ofType: "mbtiles", inDirectory: "offline/mbtiles") != nil) {

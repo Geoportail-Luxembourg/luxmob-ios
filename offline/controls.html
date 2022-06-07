@@ -23,7 +23,7 @@
 
 <script>
   function check() {
-      fetch("http://localhost:8765/check").then(p => p);
+      fetch("http://127.0.0.1:8765/check").then(p => p);
   }
   function updatePackage(dataset) {
       fetch("http://localhost:8765/map/" + dataset, {method:"PUT"}).then(p => p);

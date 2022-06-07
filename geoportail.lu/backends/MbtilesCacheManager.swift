@@ -70,13 +70,33 @@ struct ResourceMeta: Codable {
     }
 }
 
+enum DlState: String { case UNKNOWN, IN_PROGRESS, DONE, FAILED }
+
 class MbTilesCacheManager {
     let session = URLSession(configuration: .ephemeral)
     var resourceMeta: ResourceMeta?
-    
-    init() throws {
-        let resourcesUrl = URLRequest(url: URL(string: "https://vectortiles-sync.geoportail.lu/metadata/resources.meta")!)
-        let (data, response, error) = session.syncRequest(with: resourcesUrl)
+    let documentsUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    var dlStatus: [String: [String: DlState]] = [:]
+    var dlJobs: [String: [String: URLSessionTask]] = [:]
+    var dlVersions: [String: String] = [:]
+    var copyQueue: [String: [String: URL]] = [:]
+
+    public func downloadMeta() throws -> Void {
+        let url = URL(string: "https://vectortiles-sync.geoportail.lu/metadata/resources.meta")
+        var data: Foundation.Data?
+        var response: URLResponse?
+        var error: Error?
+        //var (data, response, error) = session.syncRequest(with: resourcesUrl)
+        let sem = DispatchSemaphore.init(value: 0)
+        let dataTask = session.dataTask(with: url!, completionHandler: { d, u, e in
+            data = d
+            response = u
+            error = e
+            sem.signal()
+        })
+
+        dataTask.resume()
+        sem.wait()
         if let error = error {
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
             print("[CLIENT]", "Request failed - status:", statusCode, "- error: \(error)")
@@ -88,17 +108,114 @@ class MbTilesCacheManager {
             }
         }
     }
+
+    public func hasData(resName: String) -> Bool {
+        return (try? resourceMeta?.asDictionary().keys.contains(resName)) ?? false
+    }
+    public func getVer(resName: String) -> String {
+        let versionStream = InputStream(url: documentsUrl.appendingPathComponent("dl/versions/" + resName + ".meta", isDirectory: false))!
+        versionStream.open()
+        let meta = try? JSONSerialization.jsonObject(with: versionStream) as? NSDictionary
+        return meta?["version"] as? String ?? "null"
+    }
+
+    public func saveMeta(resName: String, version: String, sources: [String]) {
+        let versionStream = OutputStream(url: documentsUrl.appendingPathComponent("dl/versions/" + resName + ".meta", isDirectory: false), append: false)!
+        versionStream.open()
+        var err: NSError?
+        let meta : [String: Any] = ["version": version, "sources": sources]
+        JSONSerialization.writeJSONObject(meta, to: versionStream, error: &err)
+    }
+
+    public func updateRes(resName:String) -> Bool {
+        if dlStatus[resName]?.values.contains(.IN_PROGRESS) ?? false {
+            return false
+        }
+        let meta = try! resourceMeta?.asDictionary()[resName]
+        let resSources = meta?["sources"] as? [String] ?? []
+        dlVersions[resName] = meta?["version"] as? String
+
+        // cancel old jobs
+        self.dlJobs[resName]?.values.forEach({ (task: URLSessionTask) in
+            task.cancel()
+        })
+        var jobs: [String: URLSessionTask] = [:]
+        var status: [String: DlState] = [:]
+
+        for res in resSources {
+            let job = session.downloadTask(with: URL(string: res)!, completionHandler:dlHandlerGenerator(resName: resName, dlSource: res))
+            status[res] = .IN_PROGRESS
+            jobs[res] = job
+        }
+        self.dlJobs[resName] = jobs
+        self.dlStatus[resName] = status
+        self.copyQueue[resName] = [:]
+        jobs.values.forEach { (task: URLSessionTask) in
+            task.resume()
+        }
+        return true
+    }
+
+    private func dlHandlerGenerator(resName: String, dlSource: String) -> ((URL?,  URLResponse?, Error?) -> Void) {
+        return { (url: URL?, resp: URLResponse?, err: Error?) -> Void in
+            if err != nil {
+                self.dlStatus[resName]![dlSource] = .FAILED
+                self.dlJobs[resName]?.forEach({ (key: String, task: URLSessionTask) in
+                    if self.dlStatus[resName]![key] == .IN_PROGRESS {
+                        task.cancel()
+                    }
+                })
+            }
+            else {
+                self.dlStatus[resName]![dlSource] = .DONE
+                self.copyQueue[resName]![dlSource] = url!
+                // if all download jobs for this resource package are done:
+                // copy resources to destination folder
+                if self.dlStatus[resName]?.values.allSatisfy({ (status: DlState) in
+                    status == .DONE
+                }) ?? false {
+                    self.saveMeta(resName: resName, version: self.dlVersions[resName]!, sources: Array(self.copyQueue.keys))
+                    self.copyQueue[resName]?.forEach({ (key: String, url: URL) in
+                        let fromUrl = URL(string: key)
+                        let file = fromUrl!.path
+                        let toUrl = self.documentsUrl.appendingPathComponent(file, isDirectory: false)
+                        let fm = FileManager()
+                        try! fm.createDirectory(at: toUrl.deletingLastPathComponent(), withIntermediateDirectories: true)
+                        if fm.fileExists(atPath: toUrl.path) { try! fm.removeItem(at: toUrl)}
+                        try! fm.moveItem(at: url, to: toUrl)
+                    })
+                }
+            }
+        }
+    }
+
+    public func getStatus(resName:String) -> DlState {
+        let jobs = dlJobs[resName]
+        if jobs?.values.contains(where: { (job: URLSessionTask) in
+            job.state == .running
+        }) ?? false {
+            return .IN_PROGRESS
+        }
+        else if jobs?.values.contains(where: { (job: URLSessionTask) in
+            job.state == .canceling
+        }) ?? false {
+            return .IN_PROGRESS
+        }
+        return .UNKNOWN
+    }
+
     public func getLayersStatus() throws -> [String: [String: Any]]{
         do {
-            let dictResourceMeta = try resourceMeta.asDictionary()
-            let layerStatus = dictResourceMeta.mapValues { (val: Dictionary) -> Dictionary in
-                ["status": "sdf",
-                 "filesize": "lol",
-                 "current": "x",
+            var dictResourceMeta = try resourceMeta.asDictionary()
+            for (key, val) in dictResourceMeta {
+                dictResourceMeta[key] =
+                ["status": getStatus(resName: key).rawValue,
+                 "filesize": "3",//jj[val["name"]],
+                 "current": getVer(resName: key),
                  "available": val["version"]
                 ]
             }
-            return layerStatus
+            return dictResourceMeta
         } catch {
             throw RessourceError.runtimeError("Missing ressource")
         }
