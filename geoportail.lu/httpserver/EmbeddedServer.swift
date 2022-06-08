@@ -55,7 +55,29 @@ public class EmbeddedServer {
         function upd() {
           fetch("https://127.0.0.1:8765/map/contours-lu", {method: "PUT"})
             .then(data=>console.log(data));
+          fetch("https://127.0.0.1:8765/map/fonts", {method: "PUT"})
+            .then(data=>console.log(data));
+        }
+        function get_all() {
+          fetch("https://127.0.0.1:8765/map/sprites", {method: "PUT"})
+            .then(data=>console.log(data));
+          fetch("https://127.0.0.1:8765/map/fonts", {method: "PUT"})
+            .then(data=>console.log(data));
+          fetch("https://127.0.0.1:8765/map/contours-lu", {method: "PUT"})
+            .then(data=>console.log(data));
+          fetch("https://127.0.0.1:8765/map/hillshade-lu", {method: "PUT"})
+            .then(data=>console.log(data));
+          fetch("https://127.0.0.1:8765/map/omt-topo-geoportail-lu", {method: "PUT"})
+            .then(data=>console.log(data));
+          fetch("https://127.0.0.1:8765/map/omt-geoportail-lu", {method: "PUT"})
+            .then(data=>console.log(data));
           fetch("https://127.0.0.1:8765/map/resources", {method: "PUT"})
+            .then(data=>console.log(data));
+        }
+        function get_osm() {
+          fetch("https://127.0.0.1:8765/map/omt-topo-geoportail-lu", {method: "PUT"})
+            .then(data=>console.log(data));
+          fetch("https://127.0.0.1:8765/map/omt-geoportail-lu", {method: "PUT"})
             .then(data=>console.log(data));
         }
         function tile() {
@@ -89,6 +111,10 @@ public class EmbeddedServer {
       <button type="button" onclick='static_style()'>get style</button><br>
       <button type="button" onclick='static_data0()'>get data0</button><br>
       <button type="button" onclick='static_data()'>get data</button><br>
+      <br><br>
+      <button type="button" onclick='get_osm()'>get OSM</button><br>
+      <br><br>
+      <button type="button" onclick='get_all()'>get all</button><br>
       <br><br>
       <button type="button" onclick='del_res()'>delete</button><br>
       <a href="#" onclick="gc()">check</a>

@@ -135,14 +135,18 @@ class MbTilesCacheManager {
         dlVersions[resName] = meta?["version"] as? String
 
         // cancel old jobs
-        self.dlJobs[resName]?.values.forEach({ (task: URLSessionTask) in
-            guard task.state != .running else {
-                return task.cancel()
-            }
-        })
+        if self.dlJobs[resName] != nil {
+            self.dlJobs[resName]!.values.forEach({ (task: URLSessionTask) in
+                guard task.state != .running else {
+                    return task.cancel()
+                }
+            })
+        }
         var jobs: [String: URLSessionTask] = [:]
         var status: [String: DlState] = [:]
-        for res in resSources {
+        for raw_res in resSources {
+            // percent encode string so that spaces are handled correctly
+            let res = raw_res.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             let job = session.downloadTask(with: URL(string: res)!, completionHandler:dlHandlerGenerator(resName: resName, dlSource: res))
             status[res] = .IN_PROGRESS
             jobs[res] = job
@@ -190,29 +194,65 @@ class MbTilesCacheManager {
     }
 
     public func getStatus(resName:String) -> DlState {
-        let jobs = dlJobs[resName]
-        if jobs?.values.contains(where: { (job: URLSessionTask) in
-            job.state == .running
+        // use status dictionary to check for running jobs
+        if self.dlStatus[resName]?.contains(where: { (key: String, value: DlState) in
+            value == .IN_PROGRESS
         }) ?? false {
             return .IN_PROGRESS
         }
-        else if jobs?.values.contains(where: { (job: URLSessionTask) in
-            job.state == .canceling
+        else if self.dlStatus[resName]?.contains(where: { (key: String, value: DlState) in
+            value == .FAILED
         }) ?? false {
-            return .IN_PROGRESS
+            return .FAILED
+        }
+        else if self.dlStatus[resName]?.allSatisfy({ (key: String, value: DlState) in
+            value == .DONE
+        }) ?? false {
+            return .DONE
         }
         return .UNKNOWN
+    }
+
+    public func computeSizeFromPaths(paths: [URL]) -> Int64 {
+        let fm = FileManager()
+        var totalSize: Int64 = 0
+        paths.forEach { url in
+            do {
+                totalSize += Int64(NSDictionary(dictionary: try fm.attributesOfItem(atPath: url.path)).fileSize())
+            }
+            catch {}
+        }
+        return totalSize
+    }
+
+    public func getSize(status: DlState, resName: String) -> Int64 {
+        // for not running downloads, check resource size in filesysystem
+        if status != .IN_PROGRESS {
+            let urls: [String] = getLocalMeta(resName: resName)?["sources"] as? [String] ?? []
+            let paths = urls.map({ (url: String) in
+                return downloadUrl.appendingPathComponent(URL(string: url)!.path, isDirectory: false)
+            })
+            return computeSizeFromPaths(paths: paths)
+        }
+        // for running jobs use progress meter of jobs
+        let jobs = self.dlJobs[resName]
+        var totalBytes: Int64 = 0
+        jobs?.forEach({ (key: String, value: URLSessionTask) in
+            totalBytes += value.countOfBytesReceived
+        })
+        return totalBytes
     }
 
     public func getLayersStatus() throws -> [String: [String: Any]]{
         do {
             var dictResourceMeta = try resourceMeta.asDictionary()
             for (key, val) in dictResourceMeta {
+                let status = getStatus(resName: key)
                 dictResourceMeta[key] =
-                ["status": getStatus(resName: key).rawValue,
-                 "filesize": "3",//jj[val["name"]],
+                ["status": status.rawValue,
+                 "filesize": getSize(status: status, resName:key),
                  "current": getLocalMeta(resName: key)?["version"] as? String ?? "null",
-                 "available": val["version"]
+                 "available": val["version"] ?? "null"
                 ]
             }
             return dictResourceMeta
