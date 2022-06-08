@@ -75,7 +75,7 @@ enum DlState: String { case UNKNOWN, IN_PROGRESS, DONE, FAILED }
 class MbTilesCacheManager {
     let session = URLSession(configuration: .ephemeral)
     var resourceMeta: ResourceMeta?
-    let documentsUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    let downloadUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("dl", isDirectory: true)
     var dlStatus: [String: [String: DlState]] = [:]
     var dlJobs: [String: [String: URLSessionTask]] = [:]
     var dlVersions: [String: String] = [:]
@@ -112,15 +112,14 @@ class MbTilesCacheManager {
     public func hasData(resName: String) -> Bool {
         return (try? resourceMeta?.asDictionary().keys.contains(resName)) ?? false
     }
-    public func getVer(resName: String) -> String {
-        let versionStream = InputStream(url: documentsUrl.appendingPathComponent("dl/versions/" + resName + ".meta", isDirectory: false))!
+    public func getLocalMeta(resName: String) -> NSDictionary? {
+        let versionStream = InputStream(url: downloadUrl.appendingPathComponent("versions/" + resName + ".meta", isDirectory: false))!
         versionStream.open()
-        let meta = try? JSONSerialization.jsonObject(with: versionStream) as? NSDictionary
-        return meta?["version"] as? String ?? "null"
+        return try? JSONSerialization.jsonObject(with: versionStream) as? NSDictionary
     }
 
     public func saveMeta(resName: String, version: String, sources: [String]) {
-        let versionStream = OutputStream(url: documentsUrl.appendingPathComponent("dl/versions/" + resName + ".meta", isDirectory: false), append: false)!
+        let versionStream = OutputStream(url: downloadUrl.appendingPathComponent("versions/" + resName + ".meta", isDirectory: false), append: false)!
         versionStream.open()
         var err: NSError?
         let meta : [String: Any] = ["version": version, "sources": sources]
@@ -137,11 +136,12 @@ class MbTilesCacheManager {
 
         // cancel old jobs
         self.dlJobs[resName]?.values.forEach({ (task: URLSessionTask) in
-            task.cancel()
+            guard task.state != .running else {
+                return task.cancel()
+            }
         })
         var jobs: [String: URLSessionTask] = [:]
         var status: [String: DlState] = [:]
-
         for res in resSources {
             let job = session.downloadTask(with: URL(string: res)!, completionHandler:dlHandlerGenerator(resName: resName, dlSource: res))
             status[res] = .IN_PROGRESS
@@ -174,11 +174,11 @@ class MbTilesCacheManager {
                 if self.dlStatus[resName]?.values.allSatisfy({ (status: DlState) in
                     status == .DONE
                 }) ?? false {
-                    self.saveMeta(resName: resName, version: self.dlVersions[resName]!, sources: Array(self.copyQueue.keys))
+                    self.saveMeta(resName: resName, version: self.dlVersions[resName]!, sources: Array(self.copyQueue[resName]!.keys))
                     self.copyQueue[resName]?.forEach({ (key: String, url: URL) in
                         let fromUrl = URL(string: key)
                         let file = fromUrl!.path
-                        let toUrl = self.documentsUrl.appendingPathComponent(file, isDirectory: false)
+                        let toUrl = self.downloadUrl.appendingPathComponent(file, isDirectory: false)
                         let fm = FileManager()
                         try! fm.createDirectory(at: toUrl.deletingLastPathComponent(), withIntermediateDirectories: true)
                         if fm.fileExists(atPath: toUrl.path) { try! fm.removeItem(at: toUrl)}
@@ -211,7 +211,7 @@ class MbTilesCacheManager {
                 dictResourceMeta[key] =
                 ["status": getStatus(resName: key).rawValue,
                  "filesize": "3",//jj[val["name"]],
-                 "current": getVer(resName: key),
+                 "current": getLocalMeta(resName: key)?["version"] as? String ?? "null",
                  "available": val["version"]
                 ]
             }
@@ -219,5 +219,28 @@ class MbTilesCacheManager {
         } catch {
             throw RessourceError.runtimeError("Missing ressource")
         }
+    }
+
+    public func deleteRes(resName: String) throws -> Bool {
+        enum ResourceError: Error {
+            case metaNotFound(String)
+        }
+        var errorsFound = false
+        let meta = getLocalMeta(resName: resName)
+        guard meta != nil else {throw ResourceError.metaNotFound("")}
+        let fm = FileManager()
+        for res in ((meta!["sources"] ?? []) as! [String]) {
+            let fromUrl = URL(string: res)
+            let file = fromUrl!.path
+            let toUrl = self.downloadUrl.appendingPathComponent(file, isDirectory: false)
+            do {
+                try fm.removeItem(at: toUrl)
+            }
+            catch {
+                errorsFound = true
+            }
+        }
+        try fm.removeItem(at: downloadUrl.appendingPathComponent("versions/" + resName + ".meta", isDirectory: false))
+        return errorsFound
     }
 }

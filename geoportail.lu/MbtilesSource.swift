@@ -12,10 +12,10 @@ import Foundation
 
 class MbtilesSource {
     let dbQueue: DatabaseQueue
-    let documentsUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    let downloadUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("dl", isDirectory: true)
 
     init(forTileset tileset: String) {
-        let fileUrl = documentsUrl.appendingPathComponent("mbtiles/" + tileset + ".mbtiles", isDirectory: false)
+        let fileUrl = downloadUrl.appendingPathComponent("mbtiles/" + tileset + ".mbtiles", isDirectory: false)
         dbQueue = try! DatabaseQueue(path: fileUrl.path, configuration: Configuration())
     }
     static func exists(tileset: String) -> Bool {

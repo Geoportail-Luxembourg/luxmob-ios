@@ -12,7 +12,7 @@ import Telegraph
 public class EmbeddedServer {
     let server: Server
     let mcm = MbTilesCacheManager()
-    let documentsUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    let downloadUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("dl", isDirectory: true)
 
     public init(port: Int) {
         let caCertificateURL = Bundle.main.url(forResource: "ca", withExtension: "der")!
@@ -74,6 +74,12 @@ public class EmbeddedServer {
           fetch("https://127.0.0.1:8765/static/data/contours-lu.json", {method: "GET"})
             .then(data=>console.log(data));
         }
+        function del_res() {
+          fetch("https://127.0.0.1:8765/map/contours-lu", {method: "DELETE"})
+            .then(data=>console.log(data));
+          fetch("https://127.0.0.1:8765/map/sprites", {method: "DELETE"})
+            .then(data=>console.log(data));
+        }
       </script>
       <body>
       <big><big>
@@ -83,6 +89,8 @@ public class EmbeddedServer {
       <button type="button" onclick='static_style()'>get style</button><br>
       <button type="button" onclick='static_data0()'>get data0</button><br>
       <button type="button" onclick='static_data()'>get data</button><br>
+      <br><br>
+      <button type="button" onclick='del_res()'>delete</button><br>
       <a href="#" onclick="gc()">check</a>
       </big></big>
       </body>
@@ -101,9 +109,10 @@ public class EmbeddedServer {
         response.headers.accessControlAllowOrigin = "*"
         let fm = FileManager()
         // debug info
-        let exists = fm.fileExists(atPath: documentsUrl.appendingPathComponent(resourcePath, isDirectory: false).path)
+        let exists = fm.fileExists(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path)
         do {
-            let data = fm.contents(atPath: documentsUrl.appendingPathComponent(resourcePath, isDirectory: false).path)
+            let data = fm.contents(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path)
+            guard (data != nil) else { throw RessourceError.runtimeError("")}
             var resourceBytes: Data = data ?? Data("".utf8)
             if resourcePath.contains(".json") {
                 resourceBytes = try replaceUrls(data: data, resourcePath: resourcePath)
@@ -126,7 +135,7 @@ public class EmbeddedServer {
         let fm = FileManager()
         
         if resourcePath.contains("styles/") {
-            if fm.fileExists(atPath: documentsUrl.appendingPathComponent(resourcePath, isDirectory: false).path) {
+            if fm.fileExists(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path) {
 
                 let re = try! NSRegularExpression(pattern: "mbtiles://\\{(.*)\\}")
                 let rr = NSRange(resString.startIndex..<resString.endIndex,
@@ -135,7 +144,7 @@ public class EmbeddedServer {
                 while case let res = re.firstMatch(in: resString, range: rr), res != nil {
                     let groupValue = (resString as NSString).substring(with: res!.range(at: 1))
                     let replaceValue: String
-                    if fm.fileExists(atPath: documentsUrl.appendingPathComponent("data/" + groupValue + ".json", isDirectory: false).path) {
+                    if fm.fileExists(atPath: downloadUrl.appendingPathComponent("data/" + groupValue + ".json", isDirectory: false).path) {
                         replaceValue = "https://127.0.0.1:8765/static/data/" + groupValue + ".json"
                     }
                     else {
@@ -160,8 +169,8 @@ public class EmbeddedServer {
             default:
                 tilesName = mapName
             }
-            try! fm.contentsOfDirectory(atPath: documentsUrl.appendingPathComponent("mbtiles/", isDirectory: true).path)
-            if fm.fileExists(atPath: documentsUrl.appendingPathComponent("mbtiles/" + tilesName + ".mbtiles", isDirectory: false).path) {
+            try! fm.contentsOfDirectory(atPath: downloadUrl.appendingPathComponent("mbtiles/", isDirectory: true).path)
+            if fm.fileExists(atPath: downloadUrl.appendingPathComponent("mbtiles/" + tilesName + ".mbtiles", isDirectory: false).path) {
                 let re = try! NSRegularExpression(pattern: "https://vectortiles.geoportail.lu/data/" + mapName + "/\\{z\\}/\\{x\\}/\\{y\\}.(pbf|png)")
                 let rr = NSRange(resString.startIndex..<resString.endIndex, in: resString)
                 while case let res = re.firstMatch(in: resString, range: rr), res != nil {
@@ -175,8 +184,10 @@ public class EmbeddedServer {
     public func copyFromBundle() -> Void {
         let resUrl = Bundle.main.resourceURL?.appendingPathComponent("offline", isDirectory: true)
         let fm = FileManager()
-        if !fm.fileExists(atPath: documentsUrl.appendingPathComponent("dl", isDirectory: true).path) {
-            try! fm.copyItem(atPath: resUrl!.path, toPath: documentsUrl.appendingPathComponent("dl", isDirectory: true).path)
+        // temporary clean up before launch
+        try! fm.removeItem(atPath: downloadUrl.path)
+        if !fm.fileExists(atPath: downloadUrl.path) {
+            try! fm.copyItem(atPath: resUrl!.path, toPath: downloadUrl.path)
         }
     }
 
@@ -214,10 +225,25 @@ public class EmbeddedServer {
     }
 
     private func deleteMap(request: HTTPRequest) -> HTTPResponse {
-        guard let mapName = request.params["mapName"], mapName.isEmpty else {
-            return HTTPResponse(.notFound, content: "Cannot find this map")
+        let mapName = request.params["mapName"]
+        let response: HTTPResponse
+
+        if mapName != nil {
+            do {
+                try mcm.deleteRes(resName: mapName!)
+                response = HTTPResponse(content: "Deleted package " + mapName! + ".\n")
+            }
+            catch {
+                response = HTTPResponse(.notFound, content: "Map not found.\n")
+            }
         }
-        return HTTPResponse(content: "plop \(mapName)")
+        else {
+           return HTTPResponse(.notFound, content: "No resource name given")
+        }
+        response.headers.accessControlAllowOrigin = "*"
+        response.headers.cacheControl = "no-store"
+        return response
+        // return HTTPResponse(content: "plop \(mapName)")
     }
 
     private func buildHttpJsonResponse(json: Data) -> HTTPResponse {
