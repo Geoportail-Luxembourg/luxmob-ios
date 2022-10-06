@@ -34,14 +34,20 @@ public class EmbeddedServer {
         server.route(.GET, "/check", checkUpdate)
         server.route(.PUT, "/map/:mapName", updateMap)
         server.route(.DELETE, "/map/:mapName", deleteMap)
+        server.route(.OPTIONS, "/map/*", checkPreflight)
         let offline = Bundle.main.url(forResource: "offline", withExtension: nil)!
         server.serveDirectory(offline, "/")
-
-        copyFromBundle()
 
         try! server.start(port: port)
     }
     
+    private func checkPreflight(request: HTTPRequest) -> HTTPResponse {
+        let response = HTTPResponse(.accepted, content: "")
+        response.headers.accessControlAllowOrigin = "*"
+        response.headers[HTTPHeaderName("Access-Control-Allow-Methods")] = "PUT, DELETE"
+        return response
+    }
+
     private func testApi(request: HTTPRequest) -> HTTPResponse {
         let response = HTTPResponse()
         //response.headers.contentType = "text/html"
@@ -129,13 +135,16 @@ public class EmbeddedServer {
 
     public func getStaticFile(request: HTTPRequest) -> HTTPResponse {
         let resourcePathRaw = request.uri.relativePath(from: "/static")
-        let resourcePath = resourcePathRaw!.replacingOccurrences(of: "/static", with: "")
-            .replacingOccurrences(of: "/style.json", with: ".json")
+        let relativePath = resourcePathRaw!.replacingOccurrences(of: "/static", with: "")
+        let resourcePath = relativePath.replacingOccurrences(of: "/style.json", with: ".json")
         let response = HTTPResponse()
         response.headers.accessControlAllowOrigin = "*"
         let fm = FileManager()
         // debug info
         let exists = fm.fileExists(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path)
+        if resourcePath.contains("data/") || resourcePath.contains("styles/") {
+            response.headers.cacheControl = "no-store"
+        }
         do {
             let data = fm.contents(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path)
             guard (data != nil) else { throw RessourceError.runtimeError("")}
@@ -143,13 +152,40 @@ public class EmbeddedServer {
             if resourcePath.contains(".json") {
                 resourceBytes = try replaceUrls(data: data, resourcePath: resourcePath)
             }
-            if resourcePath.contains("data/") || resourcePath.contains("styles/") {
-                response.headers.cacheControl = "no-store"
-            }
             response.headers.contentLength = resourceBytes.count
             response.body = resourceBytes
         }
         catch {
+            if relativePath.contains("style.json") {
+                do {
+                    let onlineUrl = URL(string: "https://vectortiles.geoportail.lu")?.appendingPathComponent(relativePath)
+                    var styleData: Foundation.Data?
+                    var styleResponse: URLResponse?
+                    var error: Error?
+                    //var (data, response, error) = session.syncRequest(with: resourcesUrl)
+                    let sem = DispatchSemaphore.init(value: 0)
+                    let session = URLSession(configuration: .ephemeral)
+                    let dataTask = session.dataTask(with: onlineUrl!, completionHandler: { d, u, e in
+                        styleData = d
+                        styleResponse = u
+                        error = e
+                        sem.signal()
+                    })
+
+                    dataTask.resume()
+                    sem.wait()
+                    if let error = error {
+                        let statusCode = (styleResponse as? HTTPURLResponse)?.statusCode ?? 0
+                        print("[CLIENT]", "Request failed - status:", statusCode, "- error: \(error)")
+                    } else {
+                        do {
+                            response.headers.contentLength = styleData?.count
+                            response.body = styleData ?? Data("".utf8)
+                            return response
+                        }
+                    }
+                }
+            }
             response.status = HTTPStatus(code: 404, phrase: "Resource not found")
             response.body = Data("".utf8)
         }
@@ -200,7 +236,7 @@ public class EmbeddedServer {
                 let re = try! NSRegularExpression(pattern: "https://vectortiles.geoportail.lu/data/" + mapName + "/\\{z\\}/\\{x\\}/\\{y\\}.(pbf|png)")
                 let rr = NSRange(resString.startIndex..<resString.endIndex, in: resString)
                 while case let res = re.firstMatch(in: resString, range: rr), res != nil {
-                    resString.replaceSubrange(Range(res!.range, in: resString)!, with: "https://localhost:8765/mbtiles?layer=" + mapName + "&z={z}&x={x}&y={y}&format=" + (resString as NSString).substring(with: res!.range(at: 1)))
+                    resString.replaceSubrange(Range(res!.range, in: resString)!, with: "https://127.0.0.1:8765/mbtiles?layer=" + mapName + "&z={z}&x={x}&y={y}&format=" + (resString as NSString).substring(with: res!.range(at: 1)))
                 }
             }
         }
