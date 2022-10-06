@@ -35,8 +35,6 @@ public class EmbeddedServer {
         server.route(.PUT, "/map/:mapName", updateMap)
         server.route(.DELETE, "/map/:mapName", deleteMap)
         server.route(.OPTIONS, "/map/*", checkPreflight)
-        let offline = Bundle.main.url(forResource: "offline", withExtension: nil)!
-        server.serveDirectory(offline, "/")
 
         try! server.start(port: port)
     }
@@ -241,16 +239,6 @@ public class EmbeddedServer {
             }
         }
         return Data(resString.utf8)
-    }
-
-    public func copyFromBundle() -> Void {
-        let resUrl = Bundle.main.resourceURL?.appendingPathComponent("offline", isDirectory: true)
-        let fm = FileManager()
-        // temporary clean up before launch
-        try! fm.removeItem(atPath: downloadUrl.path)
-        if !fm.fileExists(atPath: downloadUrl.path) {
-            try! fm.copyItem(atPath: resUrl!.path, toPath: downloadUrl.path)
-        }
     }
 
     private func checkUpdate(request: HTTPRequest) -> HTTPResponse {
