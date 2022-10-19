@@ -12,12 +12,9 @@ import Telegraph
 public class HTTPCORSHandler: HTTPRequestHandler {
     public func respond(to request: HTTPRequest, nextHandler: HTTPRequest.Handler) throws -> HTTPResponse? {
         let response = try nextHandler(request)
-        
-        // Add access control header for GET requests
-        if request.method == .GET {
+        if (request.headers.origin != nil) {
             response?.headers.accessControlAllowOrigin = "*"
         }
-        
         return response
     }
 }

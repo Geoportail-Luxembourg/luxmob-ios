@@ -37,6 +37,16 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "89072EA1274E9164007E37C2"
+               BuildableName = "geoportail.luTests.xctest"
+               BlueprintName = "geoportail.luTests"
+               ReferencedContainer = "container:geoportail.lu.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
