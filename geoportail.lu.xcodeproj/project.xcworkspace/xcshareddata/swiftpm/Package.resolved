@@ -1,43 +1,41 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "CocoaAsyncSocket",
-        "repositoryURL": "https://github.com/robbiehanson/CocoaAsyncSocket.git",
-        "state": {
-          "branch": null,
-          "revision": "0e00c967a010fc43ce528bd633d032f17158d393",
-          "version": "7.6.4"
-        }
-      },
-      {
-        "package": "GRDB",
-        "repositoryURL": "https://github.com/groue/GRDB.swift.git",
-        "state": {
-          "branch": null,
-          "revision": "1acf8e4b1ea90ed314c7c477051efc7933946b22",
-          "version": "5.11.0"
-        }
-      },
-      {
-        "package": "HTTPParserC",
-        "repositoryURL": "https://github.com/Building42/HTTPParserC.git",
-        "state": {
-          "branch": null,
-          "revision": "6fa23997359a65eccfc06808ab85f2e121a84290",
-          "version": "2.9.2"
-        }
-      },
-      {
-        "package": "Telegraph",
-        "repositoryURL": "https://github.com/Building42/Telegraph.git",
-        "state": {
-          "branch": null,
-          "revision": "9c3d479a46624e4a8d5267898324b4716a42ba3e",
-          "version": "0.28.0"
-        }
+  "pins" : [
+    {
+      "identity" : "cocoaasyncsocket",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/robbiehanson/CocoaAsyncSocket.git",
+      "state" : {
+        "revision" : "dbdc00669c1ced63b27c3c5f052ee4d28f10150c",
+        "version" : "7.6.5"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "grdb.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/groue/GRDB.swift.git",
+      "state" : {
+        "revision" : "1acf8e4b1ea90ed314c7c477051efc7933946b22",
+        "version" : "5.11.0"
+      }
+    },
+    {
+      "identity" : "httpparserc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Building42/HTTPParserC.git",
+      "state" : {
+        "revision" : "75f12587ccf3296827d3f97e2a69a5865acc4d98",
+        "version" : "2.9.4"
+      }
+    },
+    {
+      "identity" : "telegraph",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Building42/Telegraph.git",
+      "state" : {
+        "revision" : "e763612868ffd0b1be190b2ff40276e4ab883e18",
+        "version" : "0.29.0"
+      }
+    }
+  ],
+  "version" : 2
 }

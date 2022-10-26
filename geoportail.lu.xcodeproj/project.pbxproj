@@ -16,7 +16,6 @@
 		DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DADF97362334B34A0062ABFF /* Assets.xcassets */; };
 		F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D14B24893F3400286902 /* MbtilesSource.swift */; };
 		F508D14D248940C200286902 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F5346E11221EB95100BF8E29 /* libsqlite3.tbd */; };
-		F508D15B24928AB200286902 /* offline in Resources */ = {isa = PBXBuildFile; fileRef = F508D15A24928AB200286902 /* offline */; };
 		F508D15E24A6394200286902 /* Telegraph in Frameworks */ = {isa = PBXBuildFile; productRef = F508D15D24A6394200286902 /* Telegraph */; };
 		F508D16124A6453E00286902 /* localhost.p12 in Resources */ = {isa = PBXBuildFile; fileRef = F508D15F24A6453D00286902 /* localhost.p12 */; };
 		F508D16224A6453E00286902 /* ca.der in Resources */ = {isa = PBXBuildFile; fileRef = F508D16024A6453D00286902 /* ca.der */; };
@@ -42,69 +41,6 @@
 			remoteGlobalIDString = F5E0B7602215C8EA00D28D25;
 			remoteInfo = geoportail.lu;
 		};
-		F59EE7AC2232566C005642A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DC3773F319C8CBB3004FCF85;
-			remoteInfo = GRDBOSX;
-		};
-		F59EE7AE2232566C005642A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 56E5D7F91B4D422D00430942;
-			remoteInfo = GRDBOSXTests;
-		};
-		F59EE7B02232566C005642A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 560C981A1C0E22D300BF8471;
-			remoteInfo = GRDBOSXPerformanceTests;
-		};
-		F59EE7B22232566C005642A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 56439B501F4CA1DC0066043F;
-			remoteInfo = GRDBOSXPerformanceComparisonTests;
-		};
-		F59EE7B42232566C005642A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 56553C181C3E906C00522B5C;
-			remoteInfo = GRDBOSXCrashTests;
-		};
-		F59EE7B62232566C005642A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 56E5D7CA1B4D3FED00430942;
-			remoteInfo = GRDBiOS;
-		};
-		F59EE7B82232566C005642A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 56E5D7D31B4D3FEE00430942;
-			remoteInfo = GRDBiOSTests;
-		};
-		F59EE7BA2232566C005642A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 565490A01D5A4798005622CB;
-			remoteInfo = GRDBWatchOS;
-		};
-		F59EE7C0223256C5005642A2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 56E5D7C91B4D3FED00430942;
-			remoteInfo = GRDBiOS;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -118,7 +54,6 @@
 		DA8F36C123A7EFFD000C5B36 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADF97362334B34A0062ABFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F508D14B24893F3400286902 /* MbtilesSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtilesSource.swift; sourceTree = "<group>"; };
-		F508D15A24928AB200286902 /* offline */ = {isa = PBXFileReference; lastKnownFileType = folder; path = offline; sourceTree = "<group>"; };
 		F508D15F24A6453D00286902 /* localhost.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = localhost.p12; sourceTree = "<group>"; };
 		F508D16024A6453D00286902 /* ca.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = ca.der; sourceTree = "<group>"; };
 		F508D16424ACCCE800286902 /* HTTPCORSHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPCORSHandler.swift; sourceTree = "<group>"; };
@@ -129,8 +64,6 @@
 		F5346E0A221AF18200BF8E29 /* LocalforageMemoryBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalforageMemoryBackend.swift; sourceTree = "<group>"; };
 		F5346E0C221EB88F00BF8E29 /* LocalforageSQliteBackend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalforageSQliteBackend.swift; sourceTree = "<group>"; };
 		F5346E11221EB95100BF8E29 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		F59EE79E2232564F005642A2 /* GRDB */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GRDB; path = grdb/GRDB; sourceTree = "<group>"; };
-		F59EE7A02232566B005642A2 /* GRDB.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GRDB.xcodeproj; path = grdb/GRDB.xcodeproj; sourceTree = "<group>"; };
 		F5E0B7612215C8EA00D28D25 /* geoportail.lu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = geoportail.lu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5E0B7662215C8EA00D28D25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -195,32 +128,14 @@
 			isa = PBXGroup;
 			children = (
 				897C977826F4CF2300611B41 /* NetworkExtension.framework */,
-				F59EE7A02232566B005642A2 /* GRDB.xcodeproj */,
-				F59EE79E2232564F005642A2 /* GRDB */,
 				F5346E11221EB95100BF8E29 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F59EE7A12232566B005642A2 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F59EE7AD2232566C005642A2 /* GRDB.framework */,
-				F59EE7AF2232566C005642A2 /* GRDBOSXTests.xctest */,
-				F59EE7B12232566C005642A2 /* GRDBOSXPerformanceTests.xctest */,
-				F59EE7B32232566C005642A2 /* GRDBOSXPerformanceComparisonTests.xctest */,
-				F59EE7B52232566C005642A2 /* GRDBOSXCrashTests.xctest */,
-				F59EE7B72232566C005642A2 /* GRDB.framework */,
-				F59EE7B92232566C005642A2 /* GRDBiOSTests.xctest */,
-				F59EE7BB2232566C005642A2 /* GRDB.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F5E0B7582215C8EA00D28D25 = {
 			isa = PBXGroup;
 			children = (
-				F508D15A24928AB200286902 /* offline */,
 				F5E0B7632215C8EA00D28D25 /* geoportail.lu */,
 				89072EA3274E9164007E37C2 /* geoportail.luTests */,
 				F5E0B7622215C8EA00D28D25 /* Products */,
@@ -291,7 +206,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F59EE7C1223256C5005642A2 /* PBXTargetDependency */,
 			);
 			name = geoportail.lu;
 			packageProductDependencies = (
@@ -338,12 +252,6 @@
 			);
 			productRefGroup = F5E0B7622215C8EA00D28D25 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = F59EE7A12232566B005642A2 /* Products */;
-					ProjectRef = F59EE7A02232566B005642A2 /* GRDB.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				F5E0B7602215C8EA00D28D25 /* geoportail.lu */,
@@ -351,65 +259,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		F59EE7AD2232566C005642A2 /* GRDB.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GRDB.framework;
-			remoteRef = F59EE7AC2232566C005642A2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F59EE7AF2232566C005642A2 /* GRDBOSXTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GRDBOSXTests.xctest;
-			remoteRef = F59EE7AE2232566C005642A2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F59EE7B12232566C005642A2 /* GRDBOSXPerformanceTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GRDBOSXPerformanceTests.xctest;
-			remoteRef = F59EE7B02232566C005642A2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F59EE7B32232566C005642A2 /* GRDBOSXPerformanceComparisonTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GRDBOSXPerformanceComparisonTests.xctest;
-			remoteRef = F59EE7B22232566C005642A2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F59EE7B52232566C005642A2 /* GRDBOSXCrashTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GRDBOSXCrashTests.xctest;
-			remoteRef = F59EE7B42232566C005642A2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F59EE7B72232566C005642A2 /* GRDB.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GRDB.framework;
-			remoteRef = F59EE7B62232566C005642A2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F59EE7B92232566C005642A2 /* GRDBiOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GRDBiOSTests.xctest;
-			remoteRef = F59EE7B82232566C005642A2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		F59EE7BB2232566C005642A2 /* GRDB.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GRDB.framework;
-			remoteRef = F59EE7BA2232566C005642A2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		89072EA0274E9164007E37C2 /* Resources */ = {
@@ -423,7 +272,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F508D15B24928AB200286902 /* offline in Resources */,
 				F508D16224A6453E00286902 /* ca.der in Resources */,
 				F5E0B76F2215C8EC00D28D25 /* LaunchScreen.storyboard in Resources */,
 				F508D16124A6453E00286902 /* localhost.p12 in Resources */,
@@ -471,11 +319,6 @@
 			isa = PBXTargetDependency;
 			target = F5E0B7602215C8EA00D28D25 /* geoportail.lu */;
 			targetProxy = 89072EA6274E9164007E37C2 /* PBXContainerItemProxy */;
-		};
-		F59EE7C1223256C5005642A2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = GRDBiOS;
-			targetProxy = F59EE7C0223256C5005642A2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

@@ -35,7 +35,7 @@ enum RessourceError: Error {
 }
 
 extension Encodable {
-  func asDictionary() throws -> [String: [String: Any]] {
+  func asDictionary() throws -> [String: [String: Any?]] {
     let data = try JSONEncoder().encode(self)
       guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: [String: Any]] else {
         throw RessourceError.runtimeError("Cannot transform to dictionary.")
@@ -243,7 +243,7 @@ class MbTilesCacheManager {
         return totalBytes
     }
 
-    public func getLayersStatus() throws -> [String: [String: Any]]{
+    public func getLayersStatus() throws -> [String: [String: Any?]]{
         do {
             var dictResourceMeta = try resourceMeta.asDictionary()
             for (key, val) in dictResourceMeta {
@@ -251,8 +251,8 @@ class MbTilesCacheManager {
                 dictResourceMeta[key] =
                 ["status": status.rawValue,
                  "filesize": getSize(status: status, resName:key),
-                 "current": getLocalMeta(resName: key)?["version"] as? String ?? "null",
-                 "available": val["version"] ?? "null"
+                 "current": getLocalMeta(resName: key)?["version"] as? String as Any?,
+                 "available": val["version"] as? String as Any?
                 ]
             }
             return dictResourceMeta
