@@ -142,25 +142,30 @@ class MbTilesCacheManager {
                 }
             })
         }
+        var prevJob: URLSessionTask? = nil
         var jobs: [String: URLSessionTask] = [:]
         var status: [String: DlState] = [:]
         for raw_res in resSources {
             // percent encode string so that spaces are handled correctly
             let res = raw_res.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-            let job = session.downloadTask(with: URL(string: res)!, completionHandler:dlHandlerGenerator(resName: resName, dlSource: res))
+            let job = session.downloadTask(with: URL(string: res)!, completionHandler:dlHandlerGenerator(resName: resName, dlSource: res, prevJob: prevJob))
             status[res] = .IN_PROGRESS
             jobs[res] = job
+            prevJob = job
         }
         self.dlJobs[resName] = jobs
         self.dlStatus[resName] = status
         self.copyQueue[resName] = [:]
-        jobs.values.forEach { (task: URLSessionTask) in
-            task.resume()
+        if prevJob != nil {
+            prevJob!.resume()
         }
+//        jobs.values.forEach { (task: URLSessionTask) in
+//            task.resume()
+//        }
         return true
     }
 
-    private func dlHandlerGenerator(resName: String, dlSource: String) -> ((URL?,  URLResponse?, Error?) -> Void) {
+    private func dlHandlerGenerator(resName: String, dlSource: String, prevJob: URLSessionTask?) -> ((URL?,  URLResponse?, Error?) -> Void) {
         return { (url: URL?, resp: URLResponse?, err: Error?) -> Void in
             if err != nil {
                 self.dlStatus[resName]![dlSource] = .FAILED
@@ -175,9 +180,13 @@ class MbTilesCacheManager {
                 self.copyQueue[resName]![dlSource] = url!
                 // if all download jobs for this resource package are done:
                 // copy resources to destination folder
-                if self.dlStatus[resName]?.values.allSatisfy({ (status: DlState) in
-                    status == .DONE
-                }) ?? false {
+                if (prevJob != nil) {
+                    prevJob!.resume()
+                }
+//                if self.dlStatus[resName]?.values.allSatisfy({ (status: DlState) in
+//                    status == .DONE
+//                }) ?? false {
+                else {
                     self.saveMeta(resName: resName, version: self.dlVersions[resName]!, sources: Array(self.copyQueue[resName]!.keys))
                     self.copyQueue[resName]?.forEach({ (key: String, url: URL) in
                         let fromUrl = URL(string: key)
