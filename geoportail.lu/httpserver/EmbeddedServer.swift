@@ -250,16 +250,21 @@ public class EmbeddedServer {
             let resData = try JSONSerialization.data(withJSONObject: resourcesMeta, options: [])
             return buildHttpJsonResponse(json: resData)
         } catch {
-            return buildHttpJsonErrorResponse(message: "Cannot generate check based on resource meta.")
+            let resourcesMeta = try! mcm.getLayersStatus()
+            let resData = try! JSONSerialization.data(withJSONObject: resourcesMeta, options: [])
+            return HTTPResponse(.notFound, data: resData)
+//            return buildHttpJsonErrorResponse(message: "Cannot retrieve resource metadata.")
         }
     }
 
     private func updateMap(request: HTTPRequest) -> HTTPResponse {
         let mapName = request.params["mapName"] ?? ""
         do {
-            try mcm.downloadMeta()
+            if mcm.resourceMeta == nil && !mcm.metaFailed {
+                try mcm.downloadMeta()
+            }
             guard mcm.hasData(resName: mapName) else {
-                return HTTPResponse(.notFound, content: "Cannot find this map")
+                return HTTPResponse(.notFound, content: "cannot find map \(mapName)")
             }
             let launchedSuccessfully = mcm.updateRes(resName: request.params["mapName"]!)
             if (launchedSuccessfully) {
@@ -271,7 +276,6 @@ public class EmbeddedServer {
         } catch {
             return HTTPResponse(.notFound, content: "Cannot find update - is the network connection running?")
         }
-        return HTTPResponse(.notFound, content: "cannot find map \(mapName)")
     }
 
     private func deleteMap(request: HTTPRequest) -> HTTPResponse {

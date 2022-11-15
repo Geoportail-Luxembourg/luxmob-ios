@@ -75,6 +75,7 @@ enum DlState: String { case UNKNOWN, IN_PROGRESS, DONE, FAILED }
 class MbTilesCacheManager {
     let session = URLSession(configuration: .ephemeral)
     var resourceMeta: ResourceMeta?
+    var metaFailed: Bool = false
     let downloadUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("dl", isDirectory: true)
     var dlStatus: [String: [String: DlState]] = [:]
     var dlJobs: [String: [String: URLSessionTask]] = [:]
@@ -100,10 +101,14 @@ class MbTilesCacheManager {
         if let error = error {
             let statusCode = (response as? HTTPURLResponse)?.statusCode ?? 0
             print("[CLIENT]", "Request failed - status:", statusCode, "- error: \(error)")
+            metaFailed = true
+            throw RessourceError.runtimeError("Cannot download resource")
         } else {
             do {
                 self.resourceMeta = try JSONDecoder().decode(ResourceMeta.self, from: data!)
+                metaFailed = false
             } catch {
+                metaFailed = true
                 throw RessourceError.runtimeError("Cannot download resource")
             }
         }
@@ -169,7 +174,7 @@ class MbTilesCacheManager {
         return { (url: URL?, resp: URLResponse?, err: Error?) -> Void in
             if err != nil {
                 self.dlStatus[resName]![dlSource] = .FAILED
-                self.dlJobs[resName]?.forEach({ (key: String, task: URLSessionTask) in
+                (self.dlJobs[resName] ?? [:]).forEach({ (key: String, task: URLSessionTask) in
                     if self.dlStatus[resName]![key] == .IN_PROGRESS {
                         task.cancel()
                     }
@@ -261,7 +266,10 @@ class MbTilesCacheManager {
                 ["status": status.rawValue,
                  "filesize": getSize(status: status, resName:key),
                  "current": getLocalMeta(resName: key)?["version"] as? String as Any?,
-                 "available": val["version"] as? String as Any?
+                 "available": (
+                    metaFailed ?
+                    nil : val["version"]
+                 ) as? String as Any?
                 ]
             }
             return dictResourceMeta
