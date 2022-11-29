@@ -252,7 +252,7 @@ public class EmbeddedServer {
         } catch {
             let resourcesMeta = try! mcm.getLayersStatus()
             let resData = try! JSONSerialization.data(withJSONObject: resourcesMeta, options: [])
-            return HTTPResponse(.notFound, data: resData)
+            return HTTPResponse(.gatewayTimeout, data: resData)
 //            return buildHttpJsonErrorResponse(message: "Cannot retrieve resource metadata.")
         }
     }
