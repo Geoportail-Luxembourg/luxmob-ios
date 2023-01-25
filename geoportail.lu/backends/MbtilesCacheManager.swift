@@ -147,6 +147,7 @@ class MbTilesCacheManager {
                 }
             })
         }
+        self.copyQueue[resName] = [:]
         var prevJob: URLSessionTask? = nil
         var jobs: [String: URLSessionTask] = [:]
         var status: [String: DlState] = [:]
@@ -160,7 +161,6 @@ class MbTilesCacheManager {
         }
         self.dlJobs[resName] = jobs
         self.dlStatus[resName] = status
-        self.copyQueue[resName] = [:]
         if prevJob != nil {
             prevJob!.resume()
         }
@@ -179,6 +179,7 @@ class MbTilesCacheManager {
                         task.cancel()
                     }
                 })
+                self.dlJobs[resName] = [:]
             }
             else {
                 self.dlStatus[resName]![dlSource] = .DONE
@@ -202,6 +203,7 @@ class MbTilesCacheManager {
                         if fm.fileExists(atPath: toUrl.path) { try! fm.removeItem(at: toUrl)}
                         try! fm.moveItem(at: url, to: toUrl)
                     })
+                    self.dlJobs[resName] = [:]
                 }
             }
         }
@@ -210,17 +212,17 @@ class MbTilesCacheManager {
     public func getStatus(resName:String) -> DlState {
         // use status dictionary to check for running jobs
         if self.dlStatus[resName]?.contains(where: { (key: String, value: DlState) in
-            value == .IN_PROGRESS
+            if case .IN_PROGRESS = value {return true} else {return false}
         }) ?? false {
             return .IN_PROGRESS
         }
         else if self.dlStatus[resName]?.contains(where: { (key: String, value: DlState) in
-            value == .FAILED
+            if case .FAILED = value {return true} else {return false}
         }) ?? false {
             return .FAILED
         }
         else if self.dlStatus[resName]?.allSatisfy({ (key: String, value: DlState) in
-            value == .DONE
+            if case .DONE = value {return true} else {return false}
         }) ?? false {
             return .DONE
         }
