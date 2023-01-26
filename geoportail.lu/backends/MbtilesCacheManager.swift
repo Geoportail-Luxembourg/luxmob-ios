@@ -211,19 +211,13 @@ class MbTilesCacheManager {
 
     public func getStatus(resName:String) -> DlState {
         // use status dictionary to check for running jobs
-        if self.dlStatus[resName]?.contains(where: { (key: String, value: DlState) in
-            if case .IN_PROGRESS = value {return true} else {return false}
-        }) ?? false {
-            return .IN_PROGRESS
-        }
-        else if self.dlStatus[resName]?.contains(where: { (key: String, value: DlState) in
-            if case .FAILED = value {return true} else {return false}
-        }) ?? false {
+        if self.dlStatus[resName]?.contains(where: { $1 == .FAILED }) ?? false {
             return .FAILED
         }
-        else if self.dlStatus[resName]?.allSatisfy({ (key: String, value: DlState) in
-            if case .DONE = value {return true} else {return false}
-        }) ?? false {
+        else if self.dlStatus[resName]?.contains(where: { $1 == .IN_PROGRESS }) ?? false {
+            return .IN_PROGRESS
+        }
+        else if self.dlStatus[resName]?.allSatisfy({ $1 == .DONE }) ?? false {
             return .DONE
         }
         return .UNKNOWN
