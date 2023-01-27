@@ -72,15 +72,61 @@ struct ResourceMeta: Codable {
 
 enum DlState: String { case UNKNOWN, IN_PROGRESS, DONE, FAILED }
 
+class SafeStatusDict<T> {
+    var statusDict: [String: [String: T]] = [:]
+    private let lockQueue = DispatchQueue(label: "name.lock.queue")
+
+    public func set(mainKey: String, subKey: String, value: T?) {
+        self.lockQueue.async {
+            if self.statusDict[mainKey] == nil {
+                self.statusDict[mainKey] = [:]
+            }
+            self.statusDict[mainKey]![subKey] = value
+        }
+    }
+
+    public func get(mainKey: String, subKey: String) -> T? {
+        var val: T?
+        self.lockQueue.sync {
+            val = self.statusDict[mainKey]?[subKey]
+        }
+        return val
+    }
+
+    public func getDict(mainKey: String) -> [String: T]? {
+        var val: [String: T]?
+        self.lockQueue.sync {
+            val = self.statusDict[mainKey]
+        }
+        return val
+    }
+
+    public func reset(mainKey: String) {
+        DispatchQueue.global().async {
+            self.lockQueue.async {
+                self.statusDict[mainKey] = [:]
+            }
+        }
+    }
+
+    public func resetAll() {
+        DispatchQueue.global().async {
+            self.lockQueue.async {
+                self.statusDict = [:]
+            }
+        }
+    }
+}
+
 class MbTilesCacheManager {
     let session = URLSession(configuration: .ephemeral)
     var resourceMeta: ResourceMeta?
     var metaFailed: Bool = false
     let downloadUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("dl", isDirectory: true)
-    var dlStatus: [String: [String: DlState]] = [:]
-    var dlJobs: [String: [String: URLSessionTask]] = [:]
-    var dlVersions: [String: String] = [:]
-    var copyQueue: [String: [String: URL]] = [:]
+    var dlStatus: SafeStatusDict = SafeStatusDict<DlState>() //[String: [String: DlState]] = [:]
+    var dlJobs: SafeStatusDict = SafeStatusDict<URLSessionTask>() //[String: [String: URLSessionTask]] = [:]
+    var dlVersions: SafeStatusDict = SafeStatusDict<String>() //[[String: String] = [:]
+    var copyQueue: SafeStatusDict = SafeStatusDict<URL>() //[String: [String: URL]] = [:]
 
     public func downloadMeta() throws -> Void {
         let url = URL(string: "https://vectortiles-sync.geoportail.lu/metadata/resources.meta")
@@ -132,35 +178,33 @@ class MbTilesCacheManager {
     }
 
     public func updateRes(resName:String) -> Bool {
-        if dlStatus[resName]?.values.contains(.IN_PROGRESS) ?? false {
-            return false
+        if dlStatus.getDict(mainKey: resName)?.values.contains(.IN_PROGRESS) ?? false {
+            if !(dlStatus.getDict(mainKey: resName)?.values.contains(.FAILED) ?? true) {
+                return false
+            }
         }
         let meta = try! resourceMeta?.asDictionary()[resName]
         let resSources = meta?["sources"] as? [String] ?? []
-        dlVersions[resName] = meta?["version"] as? String
+        dlVersions.set(mainKey: resName, subKey: "ver", value: meta?["version"] as? String ?? "")
 
         // cancel old jobs
-        if self.dlJobs[resName] != nil {
-            self.dlJobs[resName]!.values.forEach({ (task: URLSessionTask) in
-                guard task.state != .running else {
-                    return task.cancel()
-                }
-            })
-        }
-        self.copyQueue[resName] = [:]
+        self.dlJobs.getDict(mainKey: resName)?.values.forEach({ (task: URLSessionTask) in
+            guard task.state != .running else {
+                return task.cancel()
+            }
+        })
+        self.dlJobs.reset(mainKey: resName)
+        self.dlStatus.reset(mainKey: resName)
+        self.copyQueue.reset(mainKey: resName)
         var prevJob: URLSessionTask? = nil
-        var jobs: [String: URLSessionTask] = [:]
-        var status: [String: DlState] = [:]
         for raw_res in resSources {
             // percent encode string so that spaces are handled correctly
             let res = raw_res.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
             let job = session.downloadTask(with: URL(string: res)!, completionHandler:dlHandlerGenerator(resName: resName, dlSource: res, prevJob: prevJob))
-            status[res] = .IN_PROGRESS
-            jobs[res] = job
+            self.dlJobs.set(mainKey: resName, subKey: res, value: job)
+            self.dlStatus.set(mainKey: resName, subKey: res, value: .IN_PROGRESS)
             prevJob = job
         }
-        self.dlJobs[resName] = jobs
-        self.dlStatus[resName] = status
         if prevJob != nil {
             prevJob!.resume()
         }
@@ -173,17 +217,18 @@ class MbTilesCacheManager {
     private func dlHandlerGenerator(resName: String, dlSource: String, prevJob: URLSessionTask?) -> ((URL?,  URLResponse?, Error?) -> Void) {
         return { (url: URL?, resp: URLResponse?, err: Error?) -> Void in
             if err != nil {
-                self.dlStatus[resName]![dlSource] = .FAILED
-                (self.dlJobs[resName] ?? [:]).forEach({ (key: String, task: URLSessionTask) in
-                    if self.dlStatus[resName]![key] == .IN_PROGRESS {
+                self.dlStatus.set(mainKey: resName, subKey: dlSource, value: .FAILED)
+                self.dlJobs.getDict(mainKey: resName)?.forEach({ (key: String, task: URLSessionTask) in
+                    if self.dlStatus.get(mainKey: resName, subKey: key) == .IN_PROGRESS {
                         task.cancel()
+                        self.dlStatus.set(mainKey: resName, subKey: key, value: .UNKNOWN)
                     }
                 })
-                self.dlJobs[resName] = [:]
+                self.dlJobs.reset(mainKey: resName)
             }
             else {
-                self.dlStatus[resName]![dlSource] = .DONE
-                self.copyQueue[resName]![dlSource] = url!
+                self.dlStatus.set(mainKey: resName, subKey: dlSource, value: .DONE)
+                self.copyQueue.set(mainKey: resName, subKey: dlSource, value: url)
                 // if all download jobs for this resource package are done:
                 // copy resources to destination folder
                 if (prevJob != nil) {
@@ -193,17 +238,17 @@ class MbTilesCacheManager {
 //                    status == .DONE
 //                }) ?? false {
                 else {
-                    self.saveMeta(resName: resName, version: self.dlVersions[resName]!, sources: Array(self.copyQueue[resName]!.keys))
-                    self.copyQueue[resName]?.forEach({ (key: String, url: URL) in
+                    self.saveMeta(resName: resName, version: self.dlVersions.get(mainKey: resName, subKey: "ver")!, sources: Array(self.copyQueue.getDict(mainKey: resName)!.keys))
+                    self.copyQueue.getDict(mainKey: resName)?.forEach({ (key: String, url: URL) in
                         let fromUrl = URL(string: key)
                         let file = fromUrl!.path
                         let toUrl = self.downloadUrl.appendingPathComponent(file, isDirectory: false)
                         let fm = FileManager()
                         try! fm.createDirectory(at: toUrl.deletingLastPathComponent(), withIntermediateDirectories: true)
                         if fm.fileExists(atPath: toUrl.path) { try! fm.removeItem(at: toUrl)}
-                        try! fm.moveItem(at: url, to: toUrl)
+                        if fm.fileExists(atPath: url.path) { try! fm.moveItem(at: url, to: toUrl) }
                     })
-                    self.dlJobs[resName] = [:]
+                    self.dlJobs.reset(mainKey: resName)
                 }
             }
         }
@@ -211,13 +256,13 @@ class MbTilesCacheManager {
 
     public func getStatus(resName:String) -> DlState {
         // use status dictionary to check for running jobs
-        if self.dlStatus[resName]?.contains(where: { $1 == .FAILED }) ?? false {
+        if self.dlStatus.getDict(mainKey: resName)?.contains(where: { $1 == .FAILED }) ?? false {
             return .FAILED
         }
-        else if self.dlStatus[resName]?.contains(where: { $1 == .IN_PROGRESS }) ?? false {
+        else if self.dlStatus.getDict(mainKey: resName)?.contains(where: { $1 == .IN_PROGRESS }) ?? false {
             return .IN_PROGRESS
         }
-        else if self.dlStatus[resName]?.allSatisfy({ $1 == .DONE }) ?? false {
+        else if self.dlStatus.getDict(mainKey: resName)?.allSatisfy({ $1 == .DONE }) ?? false {
             return .DONE
         }
         return .UNKNOWN
@@ -245,9 +290,8 @@ class MbTilesCacheManager {
             return computeSizeFromPaths(paths: paths)
         }
         // for running jobs use progress meter of jobs
-        let jobs = self.dlJobs[resName]
         var totalBytes: Int64 = 0
-        jobs?.forEach({ (key: String, value: URLSessionTask) in
+        self.dlJobs.getDict(mainKey: resName)?.forEach({ (key: String, value: URLSessionTask) in
             totalBytes += value.countOfBytesReceived
         })
         return totalBytes
