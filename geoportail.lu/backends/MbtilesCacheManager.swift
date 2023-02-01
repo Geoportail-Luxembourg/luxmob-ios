@@ -122,6 +122,7 @@ class MbTilesCacheManager {
     let session = URLSession(configuration: .ephemeral)
     var resourceMeta: ResourceMeta?
     var metaFailed: Bool = false
+    let fm = FileManager()
     let downloadUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("dl", isDirectory: true)
     var dlStatus: SafeStatusDict = SafeStatusDict<DlState>() //[String: [String: DlState]] = [:]
     var dlJobs: SafeStatusDict = SafeStatusDict<URLSessionTask>() //[String: [String: URLSessionTask]] = [:]
@@ -170,7 +171,9 @@ class MbTilesCacheManager {
     }
 
     public func saveMeta(resName: String, version: String, sources: [String]) {
-        let versionStream = OutputStream(url: downloadUrl.appendingPathComponent("versions/" + resName + ".meta", isDirectory: false), append: false)!
+        let metaUrl = downloadUrl.appendingPathComponent("versions/" + resName + ".meta", isDirectory: false)
+        try! fm.createDirectory(at: metaUrl.deletingLastPathComponent(), withIntermediateDirectories: true)
+        let versionStream = OutputStream(url: metaUrl, append: false)!
         versionStream.open()
         var err: NSError?
         let meta : [String: Any] = ["version": version, "sources": sources]
@@ -243,10 +246,9 @@ class MbTilesCacheManager {
                         let fromUrl = URL(string: key)
                         let file = fromUrl!.path
                         let toUrl = self.downloadUrl.appendingPathComponent(file, isDirectory: false)
-                        let fm = FileManager()
-                        try! fm.createDirectory(at: toUrl.deletingLastPathComponent(), withIntermediateDirectories: true)
-                        if fm.fileExists(atPath: toUrl.path) { try! fm.removeItem(at: toUrl)}
-                        if fm.fileExists(atPath: url.path) { try! fm.moveItem(at: url, to: toUrl) }
+                        try! self.fm.createDirectory(at: toUrl.deletingLastPathComponent(), withIntermediateDirectories: true)
+                        if self.fm.fileExists(atPath: toUrl.path) { try! self.fm.removeItem(at: toUrl)}
+                        if self.fm.fileExists(atPath: url.path) { try! self.fm.moveItem(at: url, to: toUrl) }
                     })
                     self.dlJobs.reset(mainKey: resName)
                 }
@@ -269,7 +271,6 @@ class MbTilesCacheManager {
     }
 
     public func computeSizeFromPaths(paths: [URL]) -> Int64 {
-        let fm = FileManager()
         var totalSize: Int64 = 0
         paths.forEach { url in
             do {
@@ -325,7 +326,6 @@ class MbTilesCacheManager {
         var errorsFound = false
         let meta = getLocalMeta(resName: resName)
         guard meta != nil else {throw ResourceError.metaNotFound("")}
-        let fm = FileManager()
         for res in ((meta!["sources"] ?? []) as! [String]) {
             let fromUrl = URL(string: res)
             let file = fromUrl!.path
