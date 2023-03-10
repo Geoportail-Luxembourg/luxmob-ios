@@ -138,8 +138,6 @@ public class EmbeddedServer {
         let response = HTTPResponse()
         response.headers.accessControlAllowOrigin = "*"
         let fm = FileManager()
-        // debug info
-        let exists = fm.fileExists(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path)
         if resourcePath.contains("data/") || resourcePath.contains("styles/") {
             response.headers.cacheControl = "no-store"
         }

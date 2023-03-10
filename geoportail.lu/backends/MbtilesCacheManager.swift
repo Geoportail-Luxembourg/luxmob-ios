@@ -70,7 +70,7 @@ struct ResourceMeta: Codable {
     }
 }
 
-enum DlState: String { case UNKNOWN, IN_PROGRESS, DONE, FAILED }
+public enum DlState: String { case UNKNOWN, IN_PROGRESS, DONE, FAILED }
 
 class SafeStatusDict<T> {
     var statusDict: [String: [String: T]] = [:]
@@ -118,7 +118,8 @@ class SafeStatusDict<T> {
     }
 }
 
-class MbTilesCacheManager {
+public class MbTilesCacheManager {
+    var metaUrl: String = "https://vectortiles-sync.geoportail.lu/metadata/resources.meta"
     let session = URLSession(configuration: .ephemeral)
     var resourceMeta: ResourceMeta?
     var metaFailed: Bool = false
@@ -129,8 +130,15 @@ class MbTilesCacheManager {
     var dlVersions: SafeStatusDict = SafeStatusDict<String>() //[[String: String] = [:]
     var copyQueue: SafeStatusDict = SafeStatusDict<URL>() //[String: [String: URL]] = [:]
 
+    init() {
+    }
+
+    public init(metaUrl: String) {
+        self.metaUrl = metaUrl
+    }
+
     public func downloadMeta() throws -> Void {
-        let url = URL(string: "https://vectortiles-sync.geoportail.lu/metadata/resources.meta")
+        let url = URL(string: self.metaUrl)
         var data: Foundation.Data?
         var response: URLResponse?
         var error: Error?
@@ -178,6 +186,7 @@ class MbTilesCacheManager {
         var err: NSError?
         let meta : [String: Any] = ["version": version, "sources": sources]
         JSONSerialization.writeJSONObject(meta, to: versionStream, error: &err)
+        versionStream.close()
     }
 
     public func updateRes(resName:String) -> Bool {
@@ -232,24 +241,31 @@ class MbTilesCacheManager {
             else {
                 self.dlStatus.set(mainKey: resName, subKey: dlSource, value: .DONE)
                 self.copyQueue.set(mainKey: resName, subKey: dlSource, value: url)
+                let fromUrl = URL(string: dlSource)
+                let file = fromUrl!.path
+                let toUrl = self.downloadUrl.appendingPathComponent(file, isDirectory: false)
+                if ((url) != nil) {
+                    try! self.fm.createDirectory(at: toUrl.deletingLastPathComponent(), withIntermediateDirectories: true)
+                    if self.fm.fileExists(atPath: toUrl.path) { try! self.fm.removeItem(at: toUrl)}
+                    if self.fm.fileExists(atPath: url!.path) { try! self.fm.moveItem(at: url!, to: toUrl) }
+                }
                 // if all download jobs for this resource package are done:
-                // copy resources to destination folder
+                // set version metadata
                 if (prevJob != nil) {
                     prevJob!.resume()
                 }
-//                if self.dlStatus[resName]?.values.allSatisfy({ (status: DlState) in
-//                    status == .DONE
-//                }) ?? false {
                 else {
-                    self.saveMeta(resName: resName, version: self.dlVersions.get(mainKey: resName, subKey: "ver")!, sources: Array(self.copyQueue.getDict(mainKey: resName)!.keys))
-                    self.copyQueue.getDict(mainKey: resName)?.forEach({ (key: String, url: URL) in
+                    // check if all files are downloaded
+                    if self.copyQueue.getDict(mainKey: resName)?.allSatisfy({ (key: String, value: URL) in
                         let fromUrl = URL(string: key)
                         let file = fromUrl!.path
                         let toUrl = self.downloadUrl.appendingPathComponent(file, isDirectory: false)
-                        try! self.fm.createDirectory(at: toUrl.deletingLastPathComponent(), withIntermediateDirectories: true)
-                        if self.fm.fileExists(atPath: toUrl.path) { try! self.fm.removeItem(at: toUrl)}
-                        if self.fm.fileExists(atPath: url.path) { try! self.fm.moveItem(at: url, to: toUrl) }
-                    })
+                        return self.fm.fileExists(atPath: toUrl.path)
+                    }) ?? false {
+                        // save version metadata
+                        self.saveMeta(resName: resName, version: self.dlVersions.get(mainKey: resName, subKey: "ver")!, sources: Array(self.copyQueue.getDict(mainKey: resName)!.keys))
+                        self.copyQueue.reset(mainKey: resName)
+                    }
                     self.dlJobs.reset(mainKey: resName)
                 }
             }
