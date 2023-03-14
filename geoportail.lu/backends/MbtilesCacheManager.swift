@@ -297,6 +297,36 @@ public class MbTilesCacheManager {
         return totalSize
     }
 
+    struct ResDetail: Codable {
+        let path: String
+        let finished: Bool
+        let size: Int64
+    }
+    func getResDetails(status: DlState, resName: String) -> [String: ResDetail] {
+        var response: [String: ResDetail] = [:]
+        if status != .IN_PROGRESS {
+            let urls: [String] = getLocalMeta(resName: resName)?["sources"] as? [String] ?? []
+            urls.forEach { url in
+                do {
+                    let path = downloadUrl.appendingPathComponent(URL(string: url)!.path, isDirectory: false).path
+                    let fileAtt = try fm.attributesOfItem(atPath: path)
+                    if !fm.fileExists(atPath: path) {
+                        fileAtt[NSMutableString(string: "fileSize") as FileAttributeKey]
+                    }
+                    response[url] = ResDetail(path: path, finished: true, size: Int64(NSDictionary(dictionary: fileAtt).fileSize()))
+                } catch {
+                    response[url] = ResDetail(path: "", finished: false, size: -1)
+                }
+            }
+        } else {
+            self.dlJobs.getDict(mainKey: resName)?.forEach({ (key: String, value: URLSessionTask) in
+                response[key] = ResDetail(path: "", finished: value.state == .completed, size: value.countOfBytesReceived)
+
+            })
+        }
+        return response
+    }
+
     public func getSize(status: DlState, resName: String) -> Int64 {
         // for not running downloads, check resource size in filesysystem
         if status != .IN_PROGRESS {
@@ -326,7 +356,8 @@ public class MbTilesCacheManager {
                  "available": (
                     metaFailed ?
                     nil : val["version"]
-                 ) as? String as Any?
+                 ) as? String as Any?,
+                 "details": try! getResDetails(status: status, resName: key).asDictionary()
                 ]
             }
             return dictResourceMeta
