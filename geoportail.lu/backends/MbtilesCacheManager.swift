@@ -305,14 +305,13 @@ public class MbTilesCacheManager {
     func getResDetails(status: DlState, resName: String) -> [String: ResDetail] {
         var response: [String: ResDetail] = [:]
         if status != .IN_PROGRESS {
-            let urls: [String] = getLocalMeta(resName: resName)?["sources"] as? [String] ?? []
-            urls.forEach { url in
+            let res: [String: Any?] = try! resourceMeta?.asDictionary()[resName] ?? [:]
+            let urls: [String] = res["sources"] as? [String] ?? []
+            urls.forEach { iter_url in
+                var url = iter_url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
                 do {
                     let path = downloadUrl.appendingPathComponent(URL(string: url)!.path, isDirectory: false).path
                     let fileAtt = try fm.attributesOfItem(atPath: path)
-                    if !fm.fileExists(atPath: path) {
-                        fileAtt[NSMutableString(string: "fileSize") as FileAttributeKey]
-                    }
                     response[url] = ResDetail(path: path, finished: true, size: Int64(NSDictionary(dictionary: fileAtt).fileSize()))
                 } catch {
                     response[url] = ResDetail(path: "", finished: false, size: -1)
