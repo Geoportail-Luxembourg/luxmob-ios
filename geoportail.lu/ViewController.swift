@@ -17,15 +17,19 @@ class ViewController: UIViewController, WKNavigationDelegate {
     var webView : WKWebView!
     // For testing with a server on a local machine
     // var websiteURL : String = "http://192.168.0.10:8080/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&version=3"
-    #if DEBUG
+    //#if DEBUG
     // For testing the migration branch
-    var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
+    //var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
+    
     // let websiteURL : String = "http://10.26.44.174:8080/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
     // let websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765/static&embeddedserverprotocol=https&version=3"
-    #else
+    //#else
     // For production
     let websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
-    #endif
+    
+    //#endif
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +40,27 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+    
+    @objc func applicationDidBecomeActive(notification: NSNotification) {
+        // Application is back in the foreground
+        print("App did become active!")
+        if !server.server.isRunning {
+            server.restartServer()
+            print("Server status: "+String(server.server.isRunning))
+        }
+    }
+    
+    @objc func applicationDidEnterBackground(notification: NSNotification) {
+        // Application is in the background
+        print("Entered background!")
+        if server.server.isRunning {
+            server.stopServer()
+            print("Server status: "+String(server.server.isRunning))
         }
     }
     

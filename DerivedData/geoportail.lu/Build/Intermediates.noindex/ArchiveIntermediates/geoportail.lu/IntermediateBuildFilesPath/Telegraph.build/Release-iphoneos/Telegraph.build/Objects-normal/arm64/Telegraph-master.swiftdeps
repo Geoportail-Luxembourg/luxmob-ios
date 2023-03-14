@@ -1,0 +1,137 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "4e6461052ef9ce54dd3a0fe8682108c9f01cdd30f3320d0bdc4dde10b32a93fd"
+build_start_time: [1676471464, 482077121]
+build_end_time: [1676471470, 358262062]
+inputs:
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Clients/Client+Config.swift"
+  : [1666787172, 305924177]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Clients/WebSocketClient.swift"
+  : [1666787172, 306077480]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Clients/WebSocketClientError.swift"
+  : [1666787172, 306194305]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/Deprecations.swift"
+  : [1666787172, 306363582]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/DispatchTimer.swift"
+  : [1666787172, 306646347]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/Extensions/Array+Ext.swift"
+  : [1666787172, 306821346]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/Extensions/Data+Ext.swift"
+  : [1666787172, 306947231]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/Extensions/FileManager+Ext.swift"
+  : [1666787172, 307067394]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/Extensions/NSRegularExpression+Ext.swift"
+  : [1666787172, 307180881]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/Extensions/String+Ext.swift"
+  : [1666787172, 307306289]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/Extensions/UInt+Ext.swift"
+  : [1666787172, 307429790]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/Extensions/URL+Ext.swift"
+  : [1666787172, 307527542]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/RFC1123.swift"
+  : [1666787172, 307632684]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Helpers/SynchronizedSet.swift"
+  : [1666787172, 307734489]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Handlers/HTTPErrorDefaultHandler.swift"
+  : [1666787172, 308075189]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Handlers/HTTPErrorHandler.swift"
+  : [1666787172, 308181285]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Handlers/HTTPFileHandler.swift"
+  : [1666787172, 308299541]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Handlers/HTTPRequestHandler.swift"
+  : [1666787172, 308406829]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPConfig.swift"
+  : [1666787172, 308556556]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPConnection.swift"
+  : [1666787172, 308692932]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPError.swift"
+  : [1666787172, 308799266]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPHeader+Common.swift"
+  : [1666787172, 308928966]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPHeader.swift"
+  : [1666787172, 309062242]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPMessage.swift"
+  : [1666787172, 309197425]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPMethod.swift"
+  : [1666787172, 309314727]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPParser+Raw.swift"
+  : [1666787172, 309428215]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPParser.swift"
+  : [1666787172, 309584617]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPRequest+Host.swift"
+  : [1666787172, 309703826]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPRequest.swift"
+  : [1666787172, 309818744]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPResponse.swift"
+  : [1666787172, 309945583]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPStatus.swift"
+  : [1666787172, 310100078]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Models/HTTPVersion.swift"
+  : [1666787172, 310201883]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Routing/HTTPRoute.swift"
+  : [1666787172, 310379505]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Routing/HTTPRouteHandler.swift"
+  : [1666787172, 310498476]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/HTTP/Routing/Server+Routing.swift"
+  : [1666787172, 310633182]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Handlers/HTTPWebSocketHandler.swift"
+  : [1666787172, 310863018]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Handlers/WebSocketErrorDefaultHandler.swift"
+  : [1666787172, 310965061]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Handlers/WebSocketErrorHandler.swift"
+  : [1666787172, 311057806]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Handlers/WebSocketMessageDefaultHandler.swift"
+  : [1666787172, 311151504]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Handlers/WebSocketMessageHandler.swift"
+  : [1666787172, 311245441]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Models/HTTPHeader+WebSocket.swift"
+  : [1666787172, 311392307]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Models/HTTPMessage+WebSocket.swift"
+  : [1666787172, 311511516]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Models/WebSocket.swift"
+  : [1666787172, 311616420]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Models/WebSocketConfig.swift"
+  : [1666787172, 311717987]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Models/WebSocketConnection.swift"
+  : [1666787172, 311840057]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Models/WebSocketError.swift"
+  : [1666787172, 311991691]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Models/WebSocketMessage+Write.swift"
+  : [1666787172, 312128543]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Models/WebSocketMessage.swift"
+  : [1666787172, 312240123]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Protocols/WebSockets/Models/WebSocketParser.swift"
+  : [1666787172, 312380790]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Security/Certificate.swift"
+  : [1666787172, 312548160]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Security/CertificateIdentity.swift"
+  : [1666787172, 312664508]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Security/KeychainError.swift"
+  : [1666787172, 312763690]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Security/KeychainManager.swift"
+  : [1666787172, 312871932]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Security/SHA1.swift"
+  : [1666787172, 312976837]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Security/TLSConfig.swift"
+  : [1666787172, 313086509]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Security/TLSPolicy.swift"
+  : [1666787172, 313258171]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Server/Server+Config.swift"
+  : [1666787172, 313421010]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Server/Server.swift"
+  : [1666787172, 313704013]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Server/ServerDelegates.swift"
+  : [1666787172, 313844442]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Transport/DataStream.swift"
+  : [1666787172, 314125061]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Transport/Endpoint.swift"
+  : [1666787172, 314392805]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Transport/Streams.swift"
+  : [1666787172, 314505100]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Transport/TCPConnection.swift"
+  : [1666787172, 314655065]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Transport/TCPListener.swift"
+  : [1666787172, 314844846]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Transport/TCPSocket.swift"
+  : [1666787172, 314987659]
+  ? "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/Telegraph/Sources/Transport/URI.swift"
+  : [1666787172, 315118789]

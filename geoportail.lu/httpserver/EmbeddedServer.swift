@@ -39,6 +39,14 @@ public class EmbeddedServer {
         try! server.start(port: port)
     }
     
+    public func restartServer() {
+        try! server.start(port: 8765)
+    }
+    
+    public func stopServer() {
+        server.stop()
+    }
+    
     private func checkPreflight(request: HTTPRequest) -> HTTPResponse {
         let response = HTTPResponse(.accepted, content: "")
         response.headers.accessControlAllowOrigin = "*"

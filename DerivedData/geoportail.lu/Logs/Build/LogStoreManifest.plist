@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>1CA80B8C-1DF0-4349-BC7E-F6E60A3A8A2B</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>1CA80B8C-1DF0-4349-BC7E-F6E60A3A8A2B.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>geoportail.lu project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>geoportail.lu</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Archive geoportail.lu</string>
+			<key>timeStartedRecording</key>
+			<real>698164261.14381897</real>
+			<key>timeStoppedRecording</key>
+			<real>698164293.25455594</real>
+			<key>title</key>
+			<string>Archive geoportail.lu</string>
+			<key>uniqueIdentifier</key>
+			<string>1CA80B8C-1DF0-4349-BC7E-F6E60A3A8A2B</string>
+		</dict>
+		<key>2069CB27-4709-4754-AB4C-AF63E6682A18</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>2069CB27-4709-4754-AB4C-AF63E6682A18.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>geoportail.lu project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>geoportail.lu</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Clean geoportail.lu</string>
+			<key>timeStartedRecording</key>
+			<real>698164255.63287795</real>
+			<key>timeStoppedRecording</key>
+			<real>698164255.69601905</real>
+			<key>title</key>
+			<string>Clean geoportail.lu</string>
+			<key>uniqueIdentifier</key>
+			<string>2069CB27-4709-4754-AB4C-AF63E6682A18</string>
+		</dict>
+		<key>2C6898F5-6380-4B49-BDB3-6D36118AEF3B</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>2C6898F5-6380-4B49-BDB3-6D36118AEF3B.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>geoportail.lu project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>geoportail.lu</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build geoportail.lu</string>
+			<key>timeStartedRecording</key>
+			<real>698163862.84344196</real>
+			<key>timeStoppedRecording</key>
+			<real>698163899.03809094</real>
+			<key>title</key>
+			<string>Build geoportail.lu</string>
+			<key>uniqueIdentifier</key>
+			<string>2C6898F5-6380-4B49-BDB3-6D36118AEF3B</string>
+		</dict>
+		<key>672A6F11-A623-4101-A19F-BF5D44E352AE</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>672A6F11-A623-4101-A19F-BF5D44E352AE.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>geoportail.lu project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>geoportail.lu</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Build geoportail.lu</string>
+			<key>timeStartedRecording</key>
+			<real>696958356.89801204</real>
+			<key>timeStoppedRecording</key>
+			<real>696958357.01629102</real>
+			<key>title</key>
+			<string>Build geoportail.lu</string>
+			<key>uniqueIdentifier</key>
+			<string>672A6F11-A623-4101-A19F-BF5D44E352AE</string>
+		</dict>
+		<key>EBD48B4D-A043-4C78-A0E3-94F83F5BA0CD</key>
+		<dict>
+			<key>className</key>
+			<string>IDEActivityLogSection</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>EBD48B4D-A043-4C78-A0E3-94F83F5BA0CD.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>E</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>geoportail.lu project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>geoportail.lu</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Archive geoportail.lu</string>
+			<key>timeStartedRecording</key>
+			<real>698164067.92924094</real>
+			<key>timeStoppedRecording</key>
+			<real>698164104.23878205</real>
+			<key>title</key>
+			<string>Archive geoportail.lu</string>
+			<key>uniqueIdentifier</key>
+			<string>EBD48B4D-A043-4C78-A0E3-94F83F5BA0CD</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
