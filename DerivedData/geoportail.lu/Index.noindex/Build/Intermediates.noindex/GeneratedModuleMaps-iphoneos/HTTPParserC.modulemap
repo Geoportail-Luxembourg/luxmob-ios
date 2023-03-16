@@ -1,4 +1,0 @@
-module HTTPParserC {
-umbrella header "/Users/lsb257/Library/Developer/Xcode/DerivedData/geoportail.lu-dtguafgmenjxkrcyslilyaapwifw/SourcePackages/checkouts/HTTPParserC/Sources/HTTPParserC.h"
-export *
-}

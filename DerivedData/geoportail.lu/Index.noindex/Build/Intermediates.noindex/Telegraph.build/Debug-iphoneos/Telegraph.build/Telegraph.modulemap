@@ -1,4 +1,0 @@
-module Telegraph {
-header "Telegraph-Swift.h"
-export *
-}
