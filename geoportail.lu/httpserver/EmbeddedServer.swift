@@ -11,10 +11,12 @@ import Telegraph
 
 public class EmbeddedServer {
     let server: Server
+    let port: Int
     let mcm = MbTilesCacheManager()
     let downloadUrl = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("dl", isDirectory: true)
 
     public init(port: Int) {
+        self.port = port
         let caCertificateURL = Bundle.main.url(forResource: "ca", withExtension: "der")!
         let caCertificate = Certificate(derURL: caCertificateURL)!
         
@@ -38,7 +40,15 @@ public class EmbeddedServer {
 
         try! server.start(port: port)
     }
-    
+
+    public func restartServer() {
+        try! server.start(port: self.port)
+    }
+
+    public func stopServer() {
+        server.stop()
+    }
+
     private func checkPreflight(request: HTTPRequest) -> HTTPResponse {
         let response = HTTPResponse(.accepted, content: "")
         response.headers.accessControlAllowOrigin = "*"
