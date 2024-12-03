@@ -23,7 +23,9 @@ public class HTTPContentTypeHandler: HTTPRequestHandler {
                 contentType = "application/json"
                 // This will rewrite style.json and other json files with the IP address of this server.
                 var str = String(data: response!.body, encoding: .utf8)!
+                print("HTTPContentTypeHandler string", str.data)
                 str = str.replacingOccurrences(of: "https://vectortiles.geoportail.lu:", with: "http://localhost:8765")
+                print(str)
                 let listening = "https://127.0.0.1:8765/" // change here to test from outside (and enable listening on 0.0.0.0):
                 str = str.replacingOccurrences(of: "http://localhost:8765/", with: listening)
                 let content = str.data(using: .utf8)!

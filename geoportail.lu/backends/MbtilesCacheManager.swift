@@ -335,6 +335,7 @@ public class MbTilesCacheManager {
         }
     }
 
+    @discardableResult
     public func deleteRes(resName: String) throws -> Bool {
         enum ResourceError: Error {
             case metaNotFound(String)

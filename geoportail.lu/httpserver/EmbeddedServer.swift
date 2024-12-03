@@ -32,11 +32,11 @@ public class EmbeddedServer {
             (.ok, "pong")
         }
         server.route(.GET, "/test_api.html", testApi)
-        server.route(.GET, "/static/*", getStaticFile)
         server.route(.GET, "/check", checkUpdate)
         server.route(.PUT, "/map/:mapName", updateMap)
         server.route(.DELETE, "/map/:mapName", deleteMap)
         server.route(.OPTIONS, "/map/*", checkPreflight)
+        server.route(.GET, "/static/*", getStaticFile)
 
         try! server.start(port: port)
     }
@@ -57,6 +57,7 @@ public class EmbeddedServer {
     }
 
     private func testApi(request: HTTPRequest) -> HTTPResponse {
+        print("testApi")
         let response = HTTPResponse()
         //response.headers.contentType = "text/html"
         response.body = Data("""
@@ -142,8 +143,10 @@ public class EmbeddedServer {
     }
 
     public func getStaticFile(request: HTTPRequest) -> HTTPResponse {
+        print("getStaticFile", request.uri)
         let resourcePathRaw = request.uri.relativePath(from: "/static")
         let relativePath = resourcePathRaw!.replacingOccurrences(of: "/static", with: "")
+        print("relativePath", relativePath)
         let resourcePath = relativePath.replacingOccurrences(of: "/style.json", with: ".json")
         let response = HTTPResponse()
         response.headers.accessControlAllowOrigin = "*"
@@ -199,6 +202,7 @@ public class EmbeddedServer {
     }
 
     private func replaceUrls(data:Data?, resourcePath: String) throws -> Data {
+        print("replaceUrls")
         var resString: String = String(data: data!, encoding: .utf8)!
         let fm = FileManager()
         
@@ -266,6 +270,7 @@ public class EmbeddedServer {
     }
 
     private func updateMap(request: HTTPRequest) -> HTTPResponse {
+        print("updateMap")
         let mapName = request.params["mapName"] ?? ""
         do {
             if mcm.resourceMeta == nil && !mcm.metaFailed {
@@ -287,6 +292,7 @@ public class EmbeddedServer {
     }
 
     private func deleteMap(request: HTTPRequest) -> HTTPResponse {
+        print("delete map")
         let mapName = request.params["mapName"]
         let response: HTTPResponse
 
