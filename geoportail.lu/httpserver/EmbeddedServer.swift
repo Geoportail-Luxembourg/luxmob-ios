@@ -26,8 +26,8 @@ public class EmbeddedServer {
         server = Server(identity: identity, caCertificates: [caCertificate])
         
         server.httpConfig.requestHandlers.insert(HTTPCORSHandler(), at: 0)
-        server.httpConfig.requestHandlers.insert(HTTPContentTypeHandler(), at: 0)
-        server.httpConfig.requestHandlers.insert(HTTPMbtileHandler(), at: 0)
+        server.httpConfig.requestHandlers.insert(HTTPContentTypeHandler(), at: 1)
+        server.httpConfig.requestHandlers.insert(HTTPMbtileHandler(), at: 2)
         server.route(.GET, "ping") {
             (.ok, "pong")
         }
@@ -37,6 +37,7 @@ public class EmbeddedServer {
         server.route(.DELETE, "/map/:mapName", deleteMap)
         server.route(.OPTIONS, "/map/*", checkPreflight)
         server.route(.GET, "/static/*", getStaticFile)
+        server.route(.GET, "/*", getStaticFile)
 
         try! server.start(port: port)
     }
@@ -57,7 +58,6 @@ public class EmbeddedServer {
     }
 
     private func testApi(request: HTTPRequest) -> HTTPResponse {
-        print("testApi")
         let response = HTTPResponse()
         //response.headers.contentType = "text/html"
         response.body = Data("""
@@ -143,10 +143,7 @@ public class EmbeddedServer {
     }
 
     public func getStaticFile(request: HTTPRequest) -> HTTPResponse {
-        print("getStaticFile", request.uri)
-        let resourcePathRaw = request.uri.relativePath(from: "/static")
-        let relativePath = resourcePathRaw!.replacingOccurrences(of: "/static", with: "")
-        print("relativePath", relativePath)
+        let relativePath = request.uri.string.replacingOccurrences(of: "/static", with: "")
         let resourcePath = relativePath.replacingOccurrences(of: "/style.json", with: ".json")
         let response = HTTPResponse()
         response.headers.accessControlAllowOrigin = "*"
@@ -155,7 +152,7 @@ public class EmbeddedServer {
             response.headers.cacheControl = "no-store"
         }
         do {
-            let data = fm.contents(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path)
+            let data = fm.contents(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path.removingPercentEncoding!)
             guard (data != nil) else { throw RessourceError.runtimeError("")}
             var resourceBytes: Data = data ?? Data("".utf8)
             if resourcePath.contains(".json") {
@@ -165,7 +162,7 @@ public class EmbeddedServer {
             response.body = resourceBytes
         }
         catch {
-            if relativePath.contains("style.json") {
+            if relativePath.contains("style.json") { /*}|| relativePath.contains(".pbf") {*/
                 do {
                     let onlineUrl = URL(string: "https://vectortiles.geoportail.lu")?.appendingPathComponent(relativePath)
                     var styleData: Foundation.Data?
@@ -202,7 +199,6 @@ public class EmbeddedServer {
     }
 
     private func replaceUrls(data:Data?, resourcePath: String) throws -> Data {
-        print("replaceUrls")
         var resString: String = String(data: data!, encoding: .utf8)!
         let fm = FileManager()
         
@@ -265,12 +261,10 @@ public class EmbeddedServer {
             let resourcesMeta = try! mcm.getLayersStatus()
             let resData = try! JSONSerialization.data(withJSONObject: resourcesMeta, options: [])
             return HTTPResponse(.gatewayTimeout, data: resData)
-//            return buildHttpJsonErrorResponse(message: "Cannot retrieve resource metadata.")
         }
     }
 
     private func updateMap(request: HTTPRequest) -> HTTPResponse {
-        print("updateMap")
         let mapName = request.params["mapName"] ?? ""
         do {
             if mcm.resourceMeta == nil && !mcm.metaFailed {
@@ -292,7 +286,6 @@ public class EmbeddedServer {
     }
 
     private func deleteMap(request: HTTPRequest) -> HTTPResponse {
-        print("delete map")
         let mapName = request.params["mapName"]
         let response: HTTPResponse
 
@@ -311,7 +304,6 @@ public class EmbeddedServer {
         response.headers.accessControlAllowOrigin = "*"
         response.headers.cacheControl = "no-store"
         return response
-        // return HTTPResponse(content: "plop \(mapName)")
     }
 
     private func buildHttpJsonResponse(json: Data) -> HTTPResponse {

@@ -15,15 +15,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     let server = EmbeddedServer(port:8765)
     var webView : WKWebView!
-    // For testing with a server on a local machine
-    // var websiteURL : String = "http://192.168.0.10:8080/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&version=3"
     #if DEBUG
     // For testing the migration branch
     var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
-
-  //    let websiteURL : String = "http://10.42.0.1:8080/dev/main.html?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
-    // let websiteURL : String = "http://10.26.44.174:8080/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
-    // let websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765/static&embeddedserverprotocol=https&version=3"
+    //let websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765/static&embeddedserverprotocol=https&version=3"
     #else
     // For production
     let websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
@@ -49,9 +44,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
         config.userContentController = controller
         
         webView = WebKit.WKWebView(frame: .zero, configuration: config)
-        controller.add(ScriptMessageHandler(webview: webView!	
-), name: "ios")
+        controller.add(ScriptMessageHandler(webview: webView!), name: "ios")
         webView.navigationDelegate = self
+        //webView.isInspectable = true // Enable to use safari inspector
         view = webView
     }
     
@@ -63,7 +58,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
         let ps = challenge.protectionSpace
         if (ps.authenticationMethod == NSURLAuthenticationMethodServerTrust &&
             (ps.host == "192.168.0.10" || ps.host == "127.0.0.1" || ps.host == "localhost")) {
-            print("Accepting the server certificate for", ps.host, ps.protocol!)
             let cred = URLCredential.init(trust: ps.serverTrust!)
             completionHandler(.useCredential, cred)
         } else {
@@ -75,7 +69,6 @@ class ViewController: UIViewController, WKNavigationDelegate {
         if navigationAction.navigationType == .linkActivated || (navigationAction.request.url?.absoluteString.contains("printproxy"))! {
             redirectToBrowser(navigationAction: navigationAction, decisionHandler: decisionHandler)
         } else {
-            print("not a user click")
             decisionHandler(.allow)
         }
     }
@@ -84,12 +77,9 @@ class ViewController: UIViewController, WKNavigationDelegate {
         if let newURL = navigationAction.request.url,
             let host = newURL.host , !host.hasPrefix(websiteURL) &&
             UIApplication.shared.canOpenURL(newURL) {
-            print(newURL)
-            print("Redirected to browser. No need to open it locally")
             decisionHandler(.cancel)
             UIApplication.shared.open(newURL, options: [:], completionHandler: nil)
         } else {
-            print("Open it locally")
             decisionHandler(.allow)
         }
     }

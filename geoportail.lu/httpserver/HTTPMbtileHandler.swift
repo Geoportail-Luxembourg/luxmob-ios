@@ -12,7 +12,6 @@ import Telegraph
 
 public class HTTPMbtileHandler: HTTPRequestHandler {
     public func respond(to request: HTTPRequest, nextHandler: HTTPRequest.Handler) throws -> HTTPResponse? {
-        
         var queryParams: [String: String] = [:]
         for qItem in request.uri.queryItems ?? [] {
             queryParams[qItem.name] = qItem.value

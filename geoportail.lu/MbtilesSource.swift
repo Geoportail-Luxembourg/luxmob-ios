@@ -25,7 +25,6 @@ class MbtilesSource {
         return false
     }
     func getTile(x: Int, y: Int, z: Int) -> Data? {
-        print("SELECT tile_data FROM tiles WHERE zoom_level = ? AND tile_column = ? AND tile_row = ?", x, y, z)
         var value: Data?
         ((try? dbQueue.read { db in
             value = try Data.fetchOne(db,
