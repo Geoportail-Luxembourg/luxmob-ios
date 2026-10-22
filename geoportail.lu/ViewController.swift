@@ -17,8 +17,8 @@ class ViewController: UIViewController, WKNavigationDelegate {
     var webView : WKWebView!
     #if DEBUG
     // For testing the migration branch
-    var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
-    //let websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765/static&embeddedserverprotocol=https&version=3"
+    // var websiteURL : String = "https://migration.geoportail.lu/?localforage=ios&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
+    let websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765/static&embeddedserverprotocol=https&version=3"
     #else
     // For production
     let websiteURL : String = "https://map.geoportail.lu/?localforage=ios&ipv6=true&applogin=yes&embeddedserver=127.0.0.1:8765&embeddedserverprotocol=https&version=3"
@@ -66,7 +66,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if navigationAction.navigationType == .linkActivated || (navigationAction.request.url?.absoluteString.contains("printproxy"))! {
+        if navigationAction.navigationType == .linkActivated || navigationAction.request.url?.absoluteString.contains("printproxy") == true {
             redirectToBrowser(navigationAction: navigationAction, decisionHandler: decisionHandler)
         } else {
             decisionHandler(.allow)

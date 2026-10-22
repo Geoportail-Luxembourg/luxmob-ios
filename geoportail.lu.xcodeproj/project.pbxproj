@@ -14,6 +14,7 @@
 		DA6035562588E88200516CA2 /* appicon_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6035552588E88100516CA2 /* appicon_transparent.png */; };
 		DA6035582588EA5F00516CA2 /* geoportail.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6035572588EA5F00516CA2 /* geoportail.png */; };
 		DADF97372334B34A0062ABFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DADF97362334B34A0062ABFF /* Assets.xcassets */; };
+		E28C7B2C3089FC0D00FE7DCA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28C7B2B3089FBF300FE7DCA /* SceneDelegate.swift */; };
 		F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F508D14B24893F3400286902 /* MbtilesSource.swift */; };
 		F508D14D248940C200286902 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F5346E11221EB95100BF8E29 /* libsqlite3.tbd */; };
 		F508D15E24A6394200286902 /* Telegraph in Frameworks */ = {isa = PBXBuildFile; productRef = F508D15D24A6394200286902 /* Telegraph */; };
@@ -53,6 +54,7 @@
 		DA6035572588EA5F00516CA2 /* geoportail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = geoportail.png; sourceTree = "<group>"; };
 		DA8F36C123A7EFFD000C5B36 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DADF97362334B34A0062ABFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E28C7B2B3089FBF300FE7DCA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F508D14B24893F3400286902 /* MbtilesSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MbtilesSource.swift; sourceTree = "<group>"; };
 		F508D15F24A6453D00286902 /* localhost.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = localhost.p12; sourceTree = "<group>"; };
 		F508D16024A6453D00286902 /* ca.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = ca.der; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				F508D16324ACCCAD00286902 /* httpserver */,
 				F5346E07221AF02E00BF8E29 /* backends */,
 				F5E0B7642215C8EA00D28D25 /* AppDelegate.swift */,
+				E28C7B2B3089FBF300FE7DCA /* SceneDelegate.swift */,
 				F5E0B7662215C8EA00D28D25 /* ViewController.swift */,
 				F508D16024A6453D00286902 /* ca.der */,
 				F508D15F24A6453D00286902 /* localhost.p12 */,
@@ -225,7 +228,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				DefaultBuildSystemTypeForWorkspace = Latest;
 				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1610;
+				LastUpgradeCheck = 2710;
 				ORGANIZATIONNAME = Camptocamp;
 				TargetAttributes = {
 					89072EA1274E9164007E37C2 = {
@@ -306,6 +309,7 @@
 				F508D16724ACCD2000286902 /* HTTPContentTypeHandler.swift in Sources */,
 				F508D16B24ACCE2100286902 /* EmbeddedServer.swift in Sources */,
 				F508D16524ACCCE800286902 /* HTTPCORSHandler.swift in Sources */,
+				E28C7B2C3089FC0D00FE7DCA /* SceneDelegate.swift in Sources */,
 				F5346E0B221AF18200BF8E29 /* LocalforageMemoryBackend.swift in Sources */,
 				F508D14C24893F3400286902 /* MbtilesSource.swift in Sources */,
 				F5E0B7652215C8EA00D28D25 /* AppDelegate.swift in Sources */,
@@ -351,7 +355,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -375,7 +379,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -445,12 +449,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				NEW_SETTING = "";
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -504,11 +509,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				NEW_SETTING = "";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -528,12 +534,12 @@
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.0;
+				MARKETING_VERSION = 3.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -556,12 +562,12 @@
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = geoportail.lu/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.3.0;
+				MARKETING_VERSION = 3.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lu.geoportail.mobile;
 				PRODUCT_NAME = geoportail.lu;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
