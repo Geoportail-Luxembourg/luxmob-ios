@@ -26,17 +26,18 @@ public class EmbeddedServer {
         server = Server(identity: identity, caCertificates: [caCertificate])
         
         server.httpConfig.requestHandlers.insert(HTTPCORSHandler(), at: 0)
-        server.httpConfig.requestHandlers.insert(HTTPContentTypeHandler(), at: 0)
-        server.httpConfig.requestHandlers.insert(HTTPMbtileHandler(), at: 0)
+        server.httpConfig.requestHandlers.insert(HTTPContentTypeHandler(), at: 1)
+        server.httpConfig.requestHandlers.insert(HTTPMbtileHandler(), at: 2)
         server.route(.GET, "ping") {
             (.ok, "pong")
         }
         server.route(.GET, "/test_api.html", testApi)
-        server.route(.GET, "/static/*", getStaticFile)
         server.route(.GET, "/check", checkUpdate)
         server.route(.PUT, "/map/:mapName", updateMap)
         server.route(.DELETE, "/map/:mapName", deleteMap)
         server.route(.OPTIONS, "/map/*", checkPreflight)
+        server.route(.GET, "/static/*", getStaticFile)
+        server.route(.GET, "/*", getStaticFile)
 
         try! server.start(port: port)
     }
@@ -142,8 +143,7 @@ public class EmbeddedServer {
     }
 
     public func getStaticFile(request: HTTPRequest) -> HTTPResponse {
-        let resourcePathRaw = request.uri.relativePath(from: "/static")
-        let relativePath = resourcePathRaw!.replacingOccurrences(of: "/static", with: "")
+        let relativePath = request.uri.string.replacingOccurrences(of: "/static", with: "")
         let resourcePath = relativePath.replacingOccurrences(of: "/style.json", with: ".json")
         let response = HTTPResponse()
         response.headers.accessControlAllowOrigin = "*"
@@ -152,7 +152,7 @@ public class EmbeddedServer {
             response.headers.cacheControl = "no-store"
         }
         do {
-            let data = fm.contents(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path)
+            let data = fm.contents(atPath: downloadUrl.appendingPathComponent(resourcePath, isDirectory: false).path.removingPercentEncoding!)
             guard (data != nil) else { throw RessourceError.runtimeError("")}
             var resourceBytes: Data = data ?? Data("".utf8)
             if resourcePath.contains(".json") {
@@ -162,7 +162,7 @@ public class EmbeddedServer {
             response.body = resourceBytes
         }
         catch {
-            if relativePath.contains("style.json") {
+            if relativePath.contains("style.json") { /*}|| relativePath.contains(".pbf") {*/
                 do {
                     let onlineUrl = URL(string: "https://vectortiles.geoportail.lu")?.appendingPathComponent(relativePath)
                     var styleData: Foundation.Data?
@@ -261,7 +261,6 @@ public class EmbeddedServer {
             let resourcesMeta = try! mcm.getLayersStatus()
             let resData = try! JSONSerialization.data(withJSONObject: resourcesMeta, options: [])
             return HTTPResponse(.gatewayTimeout, data: resData)
-//            return buildHttpJsonErrorResponse(message: "Cannot retrieve resource metadata.")
         }
     }
 
@@ -305,7 +304,6 @@ public class EmbeddedServer {
         response.headers.accessControlAllowOrigin = "*"
         response.headers.cacheControl = "no-store"
         return response
-        // return HTTPResponse(content: "plop \(mapName)")
     }
 
     private func buildHttpJsonResponse(json: Data) -> HTTPResponse {

@@ -1,4 +1,5 @@
 {
+  "originHash" : "60ad4a11384281b8f7ad36c653bba575ec038723342d20e0f019ca39b00f723d",
   "pins" : [
     {
       "identity" : "cocoaasyncsocket",
@@ -14,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/groue/GRDB.swift.git",
       "state" : {
-        "revision" : "1acf8e4b1ea90ed314c7c477051efc7933946b22",
-        "version" : "5.11.0"
+        "revision" : "2cf6c756e1e5ef6901ebae16576a7e4e4b834622",
+        "version" : "6.29.3"
       }
     },
     {
@@ -23,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Building42/HTTPParserC.git",
       "state" : {
-        "revision" : "75f12587ccf3296827d3f97e2a69a5865acc4d98",
-        "version" : "2.9.4"
+        "revision" : "a32b391977a17c30fceec0f38933a359dfdaf112",
+        "version" : "9.2.0"
       }
     },
     {
@@ -32,10 +33,10 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Building42/Telegraph.git",
       "state" : {
-        "revision" : "e763612868ffd0b1be190b2ff40276e4ab883e18",
-        "version" : "0.29.0"
+        "revision" : "f56b6726195e271fea397b7dd11c4adc36d5a32d",
+        "version" : "0.40.0"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

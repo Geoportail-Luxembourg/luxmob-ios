@@ -16,28 +16,29 @@ class LocalForageSqliteBackend: IBackend {
     func getItem(key: String, action: Action42) -> String? {
         var value: String?
         ((try? dbQueue?.read { db in
-            value = try String.fetchOne(db, sql: "SELECT value FROM Offline WHERE key = ?", arguments: [key])
+            value = try String.fetchOne(db, sql: "SELECT value FROM offline WHERE key = ?", arguments: [key])
         }) as ()??)
         return value
     }
     
     func setItem(key: String, base64: String, action: Action42) {
         ((try? dbQueue?.write { db in
+            
             try db.execute(
-                sql: "INSERT INTO Offline (key, value) VALUES (?, ?)",
+                sql: "INSERT INTO offline (key, value) VALUES (?, ?)",
                 arguments: [key, base64])
         }) as ()??)
     }
     
     func removeItem(key: String, action: Action42) {
         ((try? dbQueue?.write { db in
-            try db.execute(sql: "DELETE FROM Offline WHERE key = ?", arguments: [key])
+            try db.execute(sql: "DELETE FROM offline WHERE key = ?", arguments: [key])
         }) as ()??)
     }
     
     func clear(action: Action42) {
         ((try? dbQueue?.write { db in
-            try db.execute(sql: "DELETE FROM Offline")
+            try db.execute(sql: "DELETE FROM offline")
         }) as ()??)
     }
     
