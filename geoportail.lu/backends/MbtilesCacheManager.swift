@@ -59,7 +59,7 @@ struct ResourceMeta: Codable {
     let fonts: AbstractResources
     let sprites: AbstractResources
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey, CaseIterable {
         case omt_topo_geoportail_lu = "omt-topo-geoportail-lu"
         case omt_geoportail_lu = "omt-geoportail-lu"
         case hillshade_lu = "hillshade-lu"
@@ -173,9 +173,9 @@ public class MbTilesCacheManager {
         return (try? resourceMeta?.asDictionary().keys.contains(resName)) ?? false
     }
     public func getLocalMeta(resName: String) -> NSDictionary? {
-        let versionStream = InputStream(url: downloadUrl.appendingPathComponent("versions/" + resName + ".meta", isDirectory: false))!
-        versionStream.open()
-        return try? JSONSerialization.jsonObject(with: versionStream) as? NSDictionary
+        let url = downloadUrl.appendingPathComponent("versions/" + resName + ".meta")
+        guard let data = try? Data(contentsOf: url) else { return nil }
+        return (try? JSONSerialization.jsonObject(with: data)) as? NSDictionary
     }
 
     public func saveMeta(resName: String, version: String, sources: [String]) {
@@ -301,9 +301,10 @@ public class MbTilesCacheManager {
         // for not running downloads, check resource size in filesysystem
         if status != .IN_PROGRESS {
             let urls: [String] = getLocalMeta(resName: resName)?["sources"] as? [String] ?? []
-            let paths = urls.map({ (url: String) in
-                return downloadUrl.appendingPathComponent(URL(string: url)!.path, isDirectory: false)
-            })
+            let paths = urls.compactMap { source -> URL? in
+                guard let url = URL(string: source) else { return nil }
+                return downloadUrl.appendingPathComponent(url.path, isDirectory: false)
+            }
             return computeSizeFromPaths(paths: paths)
         }
         // for running jobs use progress meter of jobs
@@ -316,7 +317,15 @@ public class MbTilesCacheManager {
 
     public func getLayersStatus() throws -> [String: [String: Any?]]{
         do {
-            var dictResourceMeta = try resourceMeta.asDictionary()
+            // On a cold launch offline, enumerate known packages without a remote manifest.
+            var dictResourceMeta: [String: [String: Any?]]
+            if let resourceMeta = resourceMeta {
+                dictResourceMeta = try resourceMeta.asDictionary()
+            } else {
+                dictResourceMeta = Dictionary(uniqueKeysWithValues:
+                    ResourceMeta.CodingKeys.allCases.map { ($0.rawValue, [:]) }
+                )
+            }
             for (key, val) in dictResourceMeta {
                 let status = getStatus(resName: key)
                 dictResourceMeta[key] =
