@@ -75,7 +75,8 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     func redirectToBrowser(navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let newURL = navigationAction.request.url,
-            let host = newURL.host , !host.hasPrefix(websiteURL) &&
+            let host = newURL.host,
+            (host.lowercased() != URL(string: websiteURL)?.host?.lowercased() || newURL.absoluteString.contains("printproxy")) &&
             UIApplication.shared.canOpenURL(newURL) {
             decisionHandler(.cancel)
             UIApplication.shared.open(newURL, options: [:], completionHandler: nil)

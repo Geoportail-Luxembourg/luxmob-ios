@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        guard wasInBackground,
+        guard !wasInBackground,
               let controller = window?.rootViewController as? ViewController else { return }
         
         controller.server.stopServer()
